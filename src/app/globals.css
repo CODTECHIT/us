@@ -1,26 +1,260 @@
 @import "tailwindcss";
 
+@theme {
+  --color-maxera-red: #C6093C;
+  --color-maxera-light: #fdf2f5;
+  --color-maxera-dark: #111111;
+  --color-maxera-gray: #fbfbfc;
+  --color-maxera-text: #333333;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+  --shadow-hover: 0 30px 60px -15px rgba(0,0,0,0.15);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 51, 51, 51;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Mobile-first base resets */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Minimum touch target sizes */
+button, a, [role="button"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+/* Custom Geometric Utilities */
+@utility red-nav-bg {
+  background-color: #C6093C;
+  clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@utility logo-bg {
+  background-color: #C6093C;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+
+@utility skew-btn {
+  transform: skewX(-12deg);
+}
+
+@utility skew-content {
+  transform: skewX(12deg);
+}
+
+@utility shadow-soft {
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+@utility shadow-hover {
+  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15);
+}
+
+.service-card:hover .service-icon {
+  background-color: #C6093C;
+  color: white;
+  transform: translateY(-5px);
+}
+
+.service-icon {
+  transition: all 0.3s ease;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* React Bits Animations */
+.shiny-text {
+  color: #b5b5b5a4;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shiny 5s linear infinite;
+}
+
+.shiny-text.disabled {
+  animation: none;
+}
+
+@keyframes shiny {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.true-focus-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.true-focus-word {
+  color: #555;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.true-focus-word.active {
+  color: var(--active-color);
+}
+
+.focus-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 0 15px var(--glow-color);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--border-color);
+}
+
+.top-left {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.top-right {
+  top: -2px;
+  right: -2px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottom-left {
+  bottom: -2px;
+  left: -2px;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-right {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* SpotlightCard */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    var(--spotlight-color, rgba(198, 9, 60, 0.15)),
+    transparent 40%
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Page transition wrapper */
+.page-transition {
+  animation: pageIn 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Text gradient animation */
+.text-gradient-animated {
+  background: linear-gradient(135deg, #C6093C 0%, #ff4d6d 50%, #C6093C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 4s linear infinite;
+}
+
+@keyframes textGradient {
+  to { background-position: 200% center; }
+}
+
+/* Magnetic button hover effect */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+}
+.magnetic-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 20px 40px rgba(198, 9, 60, 0.35);
+}
+
+/* Counter glow */
+.count-glow {
+  text-shadow: 0 0 30px rgba(198, 9, 60, 0.4);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #C6093C; border-radius: 2px; }
