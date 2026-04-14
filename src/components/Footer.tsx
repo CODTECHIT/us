@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="flex items-center mb-6 sm:mb-8 md:mb-12 group">
               <Image 
-                src="/MaxEra Logo.png" 
+                src="/maxera-logo.png" 
                 alt="MaxEra Logo" 
                 width={200} 
                 height={133} 

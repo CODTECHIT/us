@@ -133,7 +133,7 @@ const Header = () => {
         >
           <div className="flex items-center text-white">
             <Image
-              src="/MaxEra Logo.png"
+              src="/maxera-logo.png"
               alt="MaxEra Logo"
               width={150}
               height={100}

@@ -42,7 +42,7 @@ export default function CulturalAlignment() {
           <div className="bg-maxera-gray p-12 lg:p-24 relative overflow-hidden">
              <Heart className="absolute top-8 left-8 text-maxera-red/5 w-64 h-64 -translate-x-1/2 -translate-y-1/2" />
              <div className="relative z-10">
-                <h3 className="text-3xl font-black text-maxera-dark uppercase tracking-tight mb-8">Culture > Skills</h3>
+                <h3 className="text-3xl font-black text-maxera-dark uppercase tracking-tight mb-8">Culture &gt; Skills</h3>
                 <p className="text-xl text-maxera-text/70 leading-relaxed italic mb-12">
                    "Skills can be taught. Alignment is innate. We focus on the intangible traits that turn a good hire into a cornerstone of your organization."
                 </p>

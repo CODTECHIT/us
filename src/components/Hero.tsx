@@ -24,16 +24,6 @@ const Hero = () => {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
 
-      {/* Abstract Background Graphic — desktop only */}
-      <div className="hidden lg:block absolute top-[45%] left-1/2 -translate-x-[-10%] -translate-y-1/2 w-[65%] h-full opacity-30 pointer-events-none z-0">
-        <motion.img
-          src="C:\Users\MAHAJAN ASHOK\.gemini\antigravity\brain\07e2c87b-5b6c-4c0b-838a-76cb07f6e822\abstract_wireframe_background_1775923440808.png"
-          alt=""
-          className="w-full h-full object-contain"
-          animate={{ rotate: [0, 1, -1, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center">
 

@@ -56,30 +56,30 @@ const stats = [
 
 export default function Home() {
   const services = [
-    {
-      title: "Contingent Search",
-      description: "Our performance-based search model ensures zero upfront risk for your institution.",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-      href: "/services/contingent-search",
-    },
-    {
-      title: "Contract Staffing",
-      description: "Agile talent solutions for technical projects, seasonal surges, and specialized sprints.",
-      image: "https://images.unsplash.com/photo-1600880212340-02d95638edb8?auto=format&fit=crop&q=80&w=800",
-      href: "/services/contract-staffing",
-    },
-    {
-      title: "Direct Hire Search",
-      description: "Strategic headhunting for permanent, foundational roles that drive long-term growth.",
-      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
-      href: "/services/direct-hire-search",
-    },
-    {
-      title: "Market Mapping",
-      description: "Discreet assessment and placement of competitive intelligence and strategic visionaries.",
-      image: "https://images.unsplash.com/photo-1519389403163-b2ad962c0427?auto=format&fit=crop&q=80&w=800",
-      href: "/services/market-mapping",
-    },
+      {
+        title: "Contingent Search",
+        description: "Our performance-based search model ensures zero upfront risk for your institution.",
+        image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=800",
+        href: "/services/contingent-search",
+      },
+      {
+        title: "Contract Staffing",
+        description: "Agile talent solutions for technical projects, seasonal surges, and specialized sprints.",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
+        href: "/services/contract-staffing",
+      },
+      {
+        title: "Direct Hire Search",
+        description: "Strategic headhunting for permanent, foundational roles that drive long-term growth.",
+        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800",
+        href: "/services/direct-hire-search",
+      },
+      {
+        title: "Market Mapping",
+        description: "Discreet assessment and placement of competitive intelligence and strategic visionaries.",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+        href: "/services/market-mapping",
+      },
   ];
 
   const steps = [
