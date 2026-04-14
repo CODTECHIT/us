@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { Users, FileSignature as FileContract, Handshake, ChevronRight, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const ServiceDetail = ({ icon: Icon, title, description, benefits, reverse }: any) => (
+const ServiceDetail = ({ icon: Icon, title, description, benefits, reverse, link }: any) => (
   <div className={`flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-24 py-32 border-b border-gray-100 last:border-0 items-center`}>
-    <div className="lg:w-1/2">
+    <Link href={link || "#"} className="lg:w-1/2 cursor-pointer group">
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
-        className="relative group"
+        className="relative"
       >
         <div className="absolute top-4 left-4 w-full h-full border-2 border-maxera-red -z-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
         <div className="w-full aspect-[16/10] bg-maxera-gray overflow-hidden flex items-center justify-center relative p-16 shadow-soft">
@@ -19,10 +19,14 @@ const ServiceDetail = ({ icon: Icon, title, description, benefits, reverse }: an
           <Icon size={80} className="text-maxera-red group-hover:scale-110 transition-transform duration-500" />
         </div>
       </motion.div>
-    </div>
+    </Link>
     <div className="lg:w-1/2">
       <div className="w-16 h-1 bg-maxera-red mb-8"></div>
-      <h2 className="text-4xl md:text-5xl font-heading font-black text-maxera-dark mb-8 tracking-tighter uppercase">{title}</h2>
+      <Link href={link || "#"}>
+        <h2 className="text-4xl md:text-5xl font-heading font-black text-maxera-dark mb-8 tracking-tighter uppercase hover:text-maxera-red transition-colors inline-block cursor-pointer">
+          {title}
+        </h2>
+      </Link>
       <p className="text-xl text-gray-500 mb-10 leading-relaxed font-medium">
         {description}
       </p>
@@ -36,11 +40,18 @@ const ServiceDetail = ({ icon: Icon, title, description, benefits, reverse }: an
           </li>
         ))}
       </ul>
-      <Link href="/contact" className="skew-btn bg-maxera-dark px-12 py-5 inline-block text-white font-black uppercase tracking-widest text-[13px] hover:bg-maxera-red transition-all shadow-xl">
-         <span className="skew-content flex items-center">
-            Enquire Now <ArrowRight className="ml-3 w-4 h-4" />
-         </span>
-      </Link>
+      <div className="flex flex-wrap gap-4">
+        <Link href={link || "/contact"} className="skew-btn bg-maxera-dark px-12 py-5 inline-block text-white font-black uppercase tracking-widest text-[13px] hover:bg-maxera-red transition-all shadow-xl">
+           <span className="skew-content flex items-center">
+              Explore Detail <ArrowRight className="ml-3 w-4 h-4" />
+           </span>
+        </Link>
+        <Link href="/contact" className="skew-btn border-2 border-maxera-dark px-12 py-5 inline-block text-maxera-dark font-black uppercase tracking-widest text-[13px] hover:bg-maxera-dark hover:text-white transition-all">
+           <span className="skew-content flex items-center">
+              Enquire Now
+           </span>
+        </Link>
+      </div>
     </div>
   </div>
 );
@@ -77,6 +88,7 @@ export default function Services() {
             "Speed-to-hire optimization",
             "Sector-specific headhunting expertise"
           ]}
+          link="/services/contingent-search"
         />
         <ServiceDetail 
           icon={FileContract}
@@ -89,6 +101,7 @@ export default function Services() {
             "Scalable workforce flexibility"
           ]}
           reverse
+          link="/services/contract-staffing"
         />
         <ServiceDetail 
           icon={Handshake}
@@ -100,6 +113,7 @@ export default function Services() {
             "Exclusive access to passive leaders",
             "Extensive post-placement support"
           ]}
+          link="/services/direct-hire-search"
         />
       </section>
 

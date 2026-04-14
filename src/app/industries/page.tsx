@@ -5,29 +5,31 @@ import { motion } from "framer-motion";
 import { Code2 as LaptopCode, HeartPulse, BarChart, Settings, Briefcase, Network, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const IndustryCard = ({ icon: Icon, title, description, skills }: any) => (
-  <motion.div 
-    whileHover={{ y: -10 }}
-    className="bg-white p-12 shadow-soft hover:shadow-hover transition-all duration-500 flex flex-col group border-b-8 border-transparent hover:border-maxera-red"
-  >
-    <div className="w-20 h-20 bg-maxera-gray group-hover:bg-maxera-red text-maxera-red group-hover:text-white rounded-2xl flex items-center justify-center transition-all duration-500 mb-10 shadow-sm">
-      <Icon size={36} />
-    </div>
-    <h3 className="text-3xl font-heading font-black text-maxera-dark mb-6 tracking-tighter uppercase">{title}</h3>
-    <p className="text-gray-500 font-medium mb-10 leading-relaxed text-lg">
-      {description}
-    </p>
-    <div className="flex flex-wrap gap-2 mb-10">
-      {skills.map((skill: string) => (
-        <span key={skill} className="bg-maxera-light text-maxera-red text-[11px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter">
-          {skill}
-        </span>
-      ))}
-    </div>
-    <Link href="/contact" className="mt-auto text-maxera-red font-black uppercase tracking-widest text-[12px] flex items-center group/link">
-       Request Specialists <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/link:translate-x-2" />
-    </Link>
-  </motion.div>
+const IndustryCard = ({ icon: Icon, title, description, skills, href }: any) => (
+  <Link href={href || "/contact"} className="block group h-full">
+    <motion.div 
+      whileHover={{ y: -10 }}
+      className="bg-white p-12 shadow-soft hover:shadow-hover transition-all duration-500 flex flex-col h-full border-b-8 border-transparent group-hover:border-maxera-red h-full"
+    >
+      <div className="w-20 h-20 bg-maxera-gray group-hover:bg-maxera-red text-maxera-red group-hover:text-white rounded-2xl flex items-center justify-center transition-all duration-500 mb-10 shadow-sm">
+        <Icon size={36} />
+      </div>
+      <h3 className="text-3xl font-heading font-black text-maxera-dark mb-6 tracking-tighter uppercase">{title}</h3>
+      <p className="text-gray-500 font-medium mb-10 leading-relaxed text-lg">
+        {description}
+      </p>
+      <div className="flex flex-wrap gap-2 mb-10">
+        {skills.map((skill: string) => (
+          <span key={skill} className="bg-maxera-light text-maxera-red text-[11px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter">
+            {skill}
+          </span>
+        ))}
+      </div>
+      <div className="mt-auto text-maxera-red font-black uppercase tracking-widest text-[12px] flex items-center">
+         Explore Sector <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-2" />
+      </div>
+    </motion.div>
+  </Link>
 );
 
 export default function Industries() {
@@ -36,37 +38,43 @@ export default function Industries() {
       icon: LaptopCode,
       title: "Technology",
       description: "From cloud architecture to cybersecurity, we place talent that drives digital transformation.",
-      skills: ["Software", "Data Science", "Cybersecurity", "Product"]
+      skills: ["Software", "Data Science", "Cybersecurity", "Product"],
+      href: "/industries/technology"
     },
     {
       icon: HeartPulse,
       title: "Healthcare",
       description: "Clinical staff and healthcare administration professionals ensuring high-quality patient care.",
-      skills: ["Clinical", "Admin", "Medical Billing", "Health IT"]
+      skills: ["Clinical", "Admin", "Medical Billing", "Health IT"],
+      href: "/industries/healthcare"
     },
     {
       icon: BarChart,
       title: "Finance",
       description: "Precision recruiting for accounting, risk management, and financial analysis.",
-      skills: ["Accounting", "Analysis", "Compliance", "Audit"]
+      skills: ["Accounting", "Analysis", "Compliance", "Audit"],
+      href: "/industries/finance"
     },
     {
       icon: Settings,
       title: "Engineering",
       description: "Placing technically sound professionals who design, build, and innovate the industrial future.",
-      skills: ["Mechanical", "Electrical", "Civil", "CAD"]
+      skills: ["Mechanical", "Electrical", "Civil", "CAD"],
+      href: "/industries/engineering"
     },
     {
       icon: Briefcase,
       title: "Business Ops",
       description: "The core personnel required to keep your business running smoothly, from HR to Supply Chain.",
-      skills: ["HR", "Marketing", "Sales", "Logistics"]
+      skills: ["HR", "Marketing", "Sales", "Logistics"],
+      href: "/industries/business-ops"
     },
     {
       icon: Network,
       title: "Executive",
       description: "Identifying visionary leaders who can scale organizations and navigate complex markets.",
-      skills: ["C-Suite", "Director", "Board", "Strategy"]
+      skills: ["C-Suite", "Director", "Board", "Strategy"],
+      href: "/industries/executive-search"
     }
   ];
 

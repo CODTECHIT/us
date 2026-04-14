@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu, X, ChevronDown, Building2, UserCircle, PhoneCall, Mail,
@@ -54,17 +55,17 @@ const Header = () => {
         {
           title: "Recruitment Types",
           items: [
-            { name: "Contingent Search", href: "/services", icon: Users },
-            { name: "Contract Staffing", href: "/services", icon: FileSignature },
-            { name: "Direct Hire Search", href: "/services", icon: Handshake },
+            { name: "Contingent Search", href: "/services/contingent-search", icon: Users },
+            { name: "Contract Staffing", href: "/services/contract-staffing", icon: FileSignature },
+            { name: "Direct Hire Search", href: "/services/direct-hire-search", icon: Handshake },
           ],
         },
         {
           title: "Strategic Support",
           items: [
-            { name: "Market Mapping", href: "#", icon: BarChart },
-            { name: "Talent Benchmarking", href: "#", icon: Zap },
-            { name: "Cultural Alignment", href: "#", icon: ShieldCheck },
+            { name: "Market Mapping", href: "/services/market-mapping", icon: BarChart },
+            { name: "Talent Benchmarking", href: "/services/talent-benchmarking", icon: Zap },
+            { name: "Cultural Alignment", href: "/services/cultural-alignment", icon: ShieldCheck },
           ],
         },
       ],
@@ -77,17 +78,17 @@ const Header = () => {
         {
           title: "Core Sectors",
           items: [
-            { name: "Technology", href: "/industries", icon: Code2 },
-            { name: "Healthcare & Life Sciences", href: "/industries", icon: HeartPulse },
-            { name: "Finance & Accounting", href: "/industries", icon: BarChart },
+            { name: "Technology", href: "/industries/technology", icon: Code2 },
+            { name: "Healthcare & Life Sciences", href: "/industries/healthcare", icon: HeartPulse },
+            { name: "Finance & Accounting", href: "/industries/finance", icon: BarChart },
           ],
         },
         {
           title: "Industrial & Ops",
           items: [
-            { name: "Engineering", href: "/industries", icon: Settings },
-            { name: "Business Operations", href: "/industries", icon: Briefcase },
-            { name: "Executive Search", href: "/industries", icon: Network },
+            { name: "Engineering", href: "/industries/engineering", icon: Settings },
+            { name: "Business Operations", href: "/industries/business-ops", icon: Briefcase },
+            { name: "Executive Search", href: "/industries/executive-search", icon: Network },
           ],
         },
       ],
@@ -131,15 +132,14 @@ const Header = () => {
           style={{ clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)' }}
         >
           <div className="flex items-center text-white">
-            <svg className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2 sm:mr-3 lg:mr-4" viewBox="0 0 110 100" fill="currentColor">
-              <path d="M 0,30 L 20,50 L 20,100 L 0,100 Z" />
-              <path d="M 30,0 L 50,20 L 50,100 L 30,100 Z" />
-              <path d="M 60,20 L 80,0 L 80,100 L 60,100 Z" />
-              <path d="M 90,50 L 110,30 L 110,100 L 90,100 Z" />
-            </svg>
-            <span className="text-xl sm:text-2xl lg:text-3xl font-heading font-black tracking-widest uppercase text-white">
-              MAXERA
-            </span>
+            <Image
+              src="/MaxEra Logo.png"
+              alt="MaxEra Logo"
+              width={150}
+              height={100}
+              className="w-auto h-8 sm:h-10 lg:h-12 object-contain"
+              priority
+            />
           </div>
         </Link>
 

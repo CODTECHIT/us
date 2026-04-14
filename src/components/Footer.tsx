@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
@@ -17,16 +18,14 @@ const Footer = () => {
           {/* Brand Identity */}
           <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="flex items-center mb-6 sm:mb-8 md:mb-12 group">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 mr-3 sm:mr-4 md:mr-6 text-maxera-red" viewBox="0 0 110 100" fill="currentColor">
-                <path d="M 0,30 L 20,50 L 20,100 L 0,100 Z" />
-                <path d="M 30,0 L 50,20 L 50,100 L 30,100 Z" />
-                <path d="M 60,20 L 80,0 L 80,100 L 60,100 Z" />
-                <path d="M 90,50 L 110,30 L 110,100 L 90,100 Z" />
-              </svg>
+              <Image 
+                src="/MaxEra Logo.png" 
+                alt="MaxEra Logo" 
+                width={200} 
+                height={133} 
+                className="w-auto h-12 sm:h-14 md:h-20 object-contain mr-3 sm:mr-4 md:mr-6"
+              />
               <div className="flex flex-col justify-center">
-                <span className="text-2xl sm:text-3xl md:text-[32px] font-heading font-black tracking-widest uppercase leading-none text-white">
-                  Maxera
-                </span>
                 <span className="text-[9px] sm:text-[10px] font-sans font-extrabold tracking-[0.4em] uppercase mt-1.5 sm:mt-2 text-maxera-red">
                   Talent Partner
                 </span>
