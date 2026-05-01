@@ -65,7 +65,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   return (
     <motion.span
       ref={ref}
-      className={`inline-block overflow-hidden ${className}`}
+      className={`inline-block overflow-hidden pb-[0.2em] -mb-[0.2em] ${className}`}
       variants={container}
       initial="hidden"
       animate={inView ? 'visible' : 'hidden'}

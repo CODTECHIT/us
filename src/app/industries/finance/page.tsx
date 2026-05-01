@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { BarChart, Landmark, ShieldCheck, PieChart, ArrowRight, CheckSquare } from "lucide-react";
+// No icons used in this file
 import Link from "next/link";
 
 export default function FinanceSector() {
@@ -16,7 +16,7 @@ export default function FinanceSector() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-maxera-dark py-32 lg:py-48 text-left relative overflow-hidden">
+      <section className="bg-maxera-dark py-32 lg:py-32 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-maxera-red skew-x-[-15deg] translate-x-1/2 opacity-20"></div>
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
           <motion.div
@@ -27,7 +27,7 @@ export default function FinanceSector() {
             <span className="inline-block bg-maxera-red text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] mb-6">
               Core Sector
             </span>
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
               FINANCE & <br className="hidden md:block" /> ACCOUNTING
             </h1>
             <p className="text-gray-400 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed">
@@ -38,7 +38,7 @@ export default function FinanceSector() {
       </section>
 
       {/* Grid Content */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
         <div className="grid lg:grid-cols-3 gap-8">
            <div className="lg:col-span-1">
               <div className="w-16 h-1 bg-maxera-red mb-8"></div>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FileSignature, Clock, ShieldCheck, Briefcase, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Clock, ShieldCheck, Briefcase, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function ContractStaffing() {
@@ -32,7 +32,7 @@ export default function ContractStaffing() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-maxera-red py-32 lg:py-48 text-left relative overflow-hidden">
+      <section className="bg-maxera-red py-32 lg:py-32 text-left relative overflow-hidden">
         <div className="absolute inset-0 bg-black/5 opacity-50">
            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent"></div>
         </div>
@@ -43,20 +43,20 @@ export default function ContractStaffing() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block bg-white/10 backdrop-blur-md text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">
-              Workforce Solutions
+              Agile Workforce
             </span>
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
               CONTRACT <br className="hidden md:block" /> STAFFING
             </h1>
             <p className="text-white/80 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed">
-              Agile specialized talent on-demand. Solve critical skill gaps and manage project surges with precision.
+              Flexible staffing solutions for short-term projects and immediate workforce requirements, with pre-vetted candidates ready for quick deployment.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Value Prop */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div className="order-2 lg:order-1">
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -75,7 +75,7 @@ export default function ContractStaffing() {
               The Modern Solution for Dynamic Projects
             </h2>
             <p className="text-xl text-maxera-text/80 mb-8 leading-relaxed">
-              Traditional hiring cycles are often too slow for modern project timelines. MaxEra's Contract Staffing provides the speed and flexibility you need to execute complex initiatives without the permanent headcount pressure.
+              Traditional hiring cycles are often too slow for modern project timelines. MaxEra&apos;s Contract Staffing provides the speed and flexibility you need to execute complex initiatives without the permanent headcount pressure.
             </p>
             <div className="space-y-4 mb-10">
                {[

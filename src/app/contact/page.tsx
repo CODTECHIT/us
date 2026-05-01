@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
+import { Mail, Phone, Send, MessageSquare } from "lucide-react";
 import AnimatedContent from "@/components/animations/AnimatedContent";
 import Aurora from "@/components/animations/Aurora";
 import SplitText from "@/components/animations/SplitText";
@@ -57,9 +57,9 @@ export default function Contact() {
 
               <div className="space-y-8 sm:space-y-10 md:space-y-16">
                 {[
-                  { icon: Mail, label: "Official Communications", value: "contact@maxeratalent.com" },
-                  { icon: Phone, label: "Direct Hotline", value: "+1 (800) 555-0199" },
-                  { icon: MapPin, label: "Institutional HQ", value: "100 Business Parkway, NY 10001" },
+                  { icon: Mail, label: "Direct Dialogue", value: "MEvans@maxeratalent.com" },
+                  { icon: Phone, label: "Strategic Lead", value: "+1 (612)-515-7159" },
+                  { icon: MessageSquare, label: "Mark Evans", value: "Director - Workforce Solutions" },
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-start group">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/5 flex items-center justify-center mr-5 md:mr-8 group-hover:bg-maxera-red transition-all duration-500 flex-shrink-0">
@@ -77,9 +77,7 @@ export default function Contact() {
                 <p className="font-black uppercase tracking-[0.3em] text-xs text-maxera-red mb-5 md:mb-10">Strategic Networks</p>
                 <div className="flex gap-4 sm:gap-6 md:gap-8">
                   {[
-                    { Icon: "fa-linkedin-in", href: "#" },
-                    { Icon: "fa-twitter", href: "#" },
-                    { Icon: "fa-instagram", href: "#" },
+                    { Icon: "fa-linkedin-in", href: "https://www.linkedin.com/company/116164276/" },
                   ].map((social, idx) => (
                     <a key={idx} href={social.href} className="w-10 h-10 sm:w-12 sm:h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                       <i className={`fab ${social.Icon}`} />

@@ -15,7 +15,7 @@ export default function Read() {
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
+            className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
           >
             READ
           </motion.h1>
@@ -26,7 +26,7 @@ export default function Read() {
       </section>
 
       {/* Blog Posts Section */}
-      <section className="py-24">
+      <section className="py-32">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((item) => (
@@ -57,7 +57,7 @@ export default function Read() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 bg-maxera-dark">
+      <section className="py-32 bg-maxera-dark">
         <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <BookOpen className="text-maxera-red mx-auto mb-8" size={48} />
           <h2 className="text-4xl font-heading font-extrabold text-white mb-6">Stay Informed</h2>

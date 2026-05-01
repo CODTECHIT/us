@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, Heart, UserCheck, Zap, ArrowRight, ChevronRight } from "lucide-react";
+import { ShieldCheck, Heart, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default function CulturalAlignment() {
@@ -15,7 +15,7 @@ export default function CulturalAlignment() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-maxera-red py-32 lg:py-48 text-left relative overflow-hidden">
+      <section className="bg-maxera-red py-32 lg:py-32 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-black/20 to-transparent"></div>
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
           <motion.div
@@ -26,7 +26,7 @@ export default function CulturalAlignment() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">
               Strategic Support
             </span>
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
               CULTURAL <br className="hidden md:block" /> ALIGNMENT
             </h1>
             <p className="text-white/80 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed">
@@ -37,14 +37,14 @@ export default function CulturalAlignment() {
       </section>
 
       {/* Philosophy */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div className="bg-maxera-gray p-12 lg:p-24 relative overflow-hidden">
              <Heart className="absolute top-8 left-8 text-maxera-red/5 w-64 h-64 -translate-x-1/2 -translate-y-1/2" />
              <div className="relative z-10">
                 <h3 className="text-3xl font-black text-maxera-dark uppercase tracking-tight mb-8">Culture &gt; Skills</h3>
                 <p className="text-xl text-maxera-text/70 leading-relaxed italic mb-12">
-                   "Skills can be taught. Alignment is innate. We focus on the intangible traits that turn a good hire into a cornerstone of your organization."
+                   &quot;Skills can be taught. Alignment is innate. We focus on the intangible traits that turn a good hire into a cornerstone of your organization.&quot;
                 </p>
                 <div className="space-y-8">
                    {values.map((v, i) => (
@@ -68,7 +68,7 @@ export default function CulturalAlignment() {
               Science-Backed <br /> Value Matching
             </h2>
             <p className="text-xl text-maxera-text/80 mb-8 leading-relaxed">
-              We use advanced behavioral profiling and cultural audits to build a "DNA Profile" of your successful teams. This allows us to predict candidate success with unprecedented accuracy, looking past the CV to the human being underneath.
+              We use advanced behavioral profiling and cultural audits to build a &quot;DNA Profile&quot; of your successful teams. This allows us to predict candidate success with unprecedented accuracy, looking past the CV to the human being underneath.
             </p>
             <div className="bg-maxera-dark p-8 text-white mb-10">
                <h4 className="text-sm font-black uppercase tracking-widest text-maxera-red mb-4">Implementation Pillars:</h4>
@@ -90,7 +90,7 @@ export default function CulturalAlignment() {
       </section>
 
       {/* Impact */}
-      <section className="py-24 bg-maxera-gray">
+      <section className="py-32 bg-maxera-gray">
          <div className="max-w-[1400px] mx-auto px-4 md:px-12 text-center">
             <h2 className="text-3xl font-black uppercase tracking-widest text-maxera-dark/20 mb-16">The Impact of Alignment</h2>
             <div className="grid md:grid-cols-3 gap-12">

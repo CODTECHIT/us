@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, PhoneCall } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -36,9 +36,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3 sm:space-x-4 md:space-x-5">
               {[
-                { Icon: "fa-linkedin-in", href: "#" },
-                { Icon: "fa-twitter", href: "#" },
-                { Icon: "fa-instagram", href: "#" },
+                { Icon: "fa-linkedin-in", href: "https://www.linkedin.com/company/116164276/" },
               ].map((social, idx) => (
                 <a
                   key={idx}
@@ -55,14 +53,30 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-white font-black mb-5 md:mb-10 text-[13px] md:text-[14px] uppercase tracking-[0.2em] border-l-4 border-maxera-red pl-4">Company</h4>
             <ul className="space-y-3 md:space-y-4 text-sm md:text-[15px] font-bold">
-              {["About Us", "Our Team", "Partnerships", "Careers"].map((item) => (
-                <li key={item}>
-                  <Link href="/about" className="hover:text-maxera-red transition-all flex items-center group">
-                    <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/about" className="hover:text-maxera-red transition-all flex items-center group">
+                  <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-maxera-red transition-all flex items-center group">
+                  <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
+                  Our Team
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-maxera-red transition-all flex items-center group">
+                  <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
+                  Partnerships
+                </Link>
+              </li>
+              <li>
+                <Link href="/jobs" className="hover:text-maxera-red transition-all flex items-center group">
+                  <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
+                  Careers
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -70,11 +84,19 @@ const Footer = () => {
           <div className="lg:col-span-3">
             <h4 className="text-white font-black mb-5 md:mb-10 text-[13px] md:text-[14px] uppercase tracking-[0.2em] border-l-4 border-maxera-red pl-4">Expertise</h4>
             <ul className="space-y-3 md:space-y-4 text-sm md:text-[15px] font-bold">
-              {["Technology Recruitment", "Healthcare Solutions", "Finance & Compliance", "Engineering Search", "Executive Leadership"].map((item) => (
-                <li key={item}>
-                  <Link href="/industries" className="hover:text-maxera-red transition-all flex items-center group">
+              {[
+                { name: "Information Technology (IT)", href: "/industries/technology" },
+                { name: "Logistics & Warehousing", href: "/industries/logistics" },
+                { name: "Manufacturing & Industrial", href: "/industries/manufacturing" },
+                { name: "Construction & Engineering", href: "/industries/construction" },
+                { name: "Healthcare Operations", href: "/industries/healthcare" },
+                { name: "Retail & Hospitality", href: "/industries/retail" },
+                { name: "Transportation & Drivers", href: "/industries/transportation" }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="hover:text-maxera-red transition-all flex items-center group">
                     <span className="w-0 group-hover:w-3 h-[2px] bg-maxera-red transition-all mr-0 group-hover:mr-3" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -89,13 +111,24 @@ const Footer = () => {
                 <MapPin className="text-maxera-red mr-3 md:mr-5 mt-1 flex-shrink-0" size={18} />
                 <span className="text-gray-400">100 Business Parkway, <br /> Suite 200, NY 10001</span>
               </div>
-              <div className="flex items-center">
-                <Phone className="text-maxera-red mr-3 md:mr-5 flex-shrink-0" size={18} />
-                <span className="text-white">+1 (800) 555-0199</span>
+              <div className="flex items-center group">
+                <div className="w-10 h-10 bg-white/5 flex items-center justify-center mr-4 group-hover:bg-maxera-red transition-all duration-300">
+                  <Mail className="text-white" size={18} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-gray-500 font-black text-[9px] uppercase tracking-widest mb-0.5">Direct Inquiry</span>
+                  <span className="text-white text-xs sm:text-sm md:text-[15px] font-bold">MEvans@maxeratalent.com</span>
+                </div>
               </div>
-              <div className="flex items-center break-all">
-                <Mail className="text-maxera-red mr-3 md:mr-5 flex-shrink-0" size={18} />
-                <span className="text-white text-xs sm:text-sm md:text-[15px]">contact@maxeratalent.com</span>
+
+              <div className="flex items-center group">
+                <div className="w-10 h-10 bg-white/5 flex items-center justify-center mr-4 group-hover:bg-maxera-red transition-all duration-300">
+                  <PhoneCall className="text-white" size={18} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-gray-500 font-black text-[9px] uppercase tracking-widest mb-0.5">Workforce Solutions</span>
+                  <span className="text-white text-xs sm:text-sm md:text-[15px] font-bold">+1 (612)-515-7159</span>
+                </div>
               </div>
             </div>
           </div>
@@ -104,7 +137,14 @@ const Footer = () => {
         {/* Legal Bar */}
         <div className="border-t border-white/5 pt-8 md:pt-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 text-[10px] sm:text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-gray-500">
           <p className="text-center sm:text-left">
-            &copy; {new Date().getFullYear()} MAXERA TALENT — MADE BY ANTIGRAVITY
+            &copy; {new Date().getFullYear()} MAXERA TALENT — DESIGNED BY{" "}
+            <Link 
+              href="https://codtechitsolutions.com/" 
+              target="_blank" 
+              className="text-maxera-red hover:text-white transition-colors underline underline-offset-4"
+            >
+              CODTECH IT SOLUTIONS
+            </Link>
           </p>
           <div className="flex items-center flex-wrap justify-center gap-4 sm:gap-6 md:gap-12">
             <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Settings, PenTool, Factory, HardHat, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function EngineeringSector() {
@@ -16,7 +16,7 @@ export default function EngineeringSector() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-maxera-red py-32 lg:py-48 text-left relative overflow-hidden">
+      <section className="bg-maxera-red py-32 lg:py-32 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full text-[25vw] font-black text-black/5 whitespace-nowrap -translate-y-1/2 select-none pointer-events-none uppercase italic">
            BUILD BUILD BUILD
         </div>
@@ -29,7 +29,7 @@ export default function EngineeringSector() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">
               Industrial Expertise
             </span>
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
               ENGINEERING & <br className="hidden md:block" /> OPERATIONS
             </h1>
             <p className="text-white/80 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed">
@@ -40,7 +40,7 @@ export default function EngineeringSector() {
       </section>
 
       {/* Grid */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {sectors.map((s, i) => (

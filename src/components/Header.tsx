@@ -6,8 +6,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu, X, ChevronDown, Building2, UserCircle, PhoneCall, Mail,
-  ArrowRight, Users, FileSignature, Handshake, Zap, ShieldCheck,
-  BarChart, Code2, HeartPulse, Settings, Briefcase, Network,
+  ArrowRight, FileSignature, ShieldCheck,
+  Code2, HeartPulse, Settings, Briefcase, Layers, HardHat, ShoppingBag, Truck,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -27,11 +27,11 @@ const TopBar = () => (
         <div className="h-4 w-[1px] bg-gray-200" />
         <div className="flex items-center text-gray-400">
           <PhoneCall className="w-3 h-3 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest">+1 (800) MAXERA-1</span>
+          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">+1 (612)-515-7159</span>
         </div>
         <div className="flex items-center text-gray-400">
           <Mail className="w-3 h-3 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest">contact@maxeratalent.com</span>
+          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">MEvans@maxeratalent.com</span>
         </div>
       </div>
     </div>
@@ -53,19 +53,19 @@ const Header = () => {
       isMega: true,
       columns: [
         {
-          title: "Recruitment Types",
+          title: "Core Staffing",
           items: [
-            { name: "Contingent Search", href: "/services/contingent-search", icon: Users },
+            { name: "Bulk / Volume Hiring", href: "/services/bulk-hiring", icon: Layers },
+            { name: "IT Staffing", href: "/services/it-staffing", icon: Code2 },
             { name: "Contract Staffing", href: "/services/contract-staffing", icon: FileSignature },
-            { name: "Direct Hire Search", href: "/services/direct-hire-search", icon: Handshake },
           ],
         },
         {
-          title: "Strategic Support",
+          title: "Specialized Search",
           items: [
-            { name: "Market Mapping", href: "/services/market-mapping", icon: BarChart },
-            { name: "Talent Benchmarking", href: "/services/talent-benchmarking", icon: Zap },
-            { name: "Cultural Alignment", href: "/services/cultural-alignment", icon: ShieldCheck },
+            { name: "Permanent Staffing", href: "/services/permanent-hiring", icon: ShieldCheck },
+            { name: "Industrial Staffing", href: "/services/industrial-staffing", icon: Settings },
+            { name: "RPO Services", href: "/services/rpo", icon: Briefcase },
           ],
         },
       ],
@@ -76,19 +76,20 @@ const Header = () => {
       isMega: true,
       columns: [
         {
-          title: "Core Sectors",
+          title: "Industrial & Logistics",
           items: [
-            { name: "Technology", href: "/industries/technology", icon: Code2 },
-            { name: "Healthcare & Life Sciences", href: "/industries/healthcare", icon: HeartPulse },
-            { name: "Finance & Accounting", href: "/industries/finance", icon: BarChart },
+            { name: "Logistics & Warehousing", href: "/industries/logistics", icon: Building2 },
+            { name: "Manufacturing & Industrial", href: "/industries/manufacturing", icon: Settings },
+            { name: "Construction & Engineering", href: "/industries/construction", icon: HardHat },
+            { name: "Transportation & Drivers", href: "/industries/transportation", icon: Truck },
           ],
         },
         {
-          title: "Industrial & Ops",
+          title: "Service & Tech",
           items: [
-            { name: "Engineering", href: "/industries/engineering", icon: Settings },
-            { name: "Business Operations", href: "/industries/business-ops", icon: Briefcase },
-            { name: "Executive Search", href: "/industries/executive-search", icon: Network },
+            { name: "Information Technology (IT)", href: "/industries/technology", icon: Code2 },
+            { name: "Healthcare Operations", href: "/industries/healthcare", icon: HeartPulse },
+            { name: "Retail & Hospitality", href: "/industries/retail", icon: ShoppingBag },
           ],
         },
       ],
@@ -98,10 +99,13 @@ const Header = () => {
     { name: "Contact", href: "/contact" },
   ];
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setIsMenuOpen(false);
     setActiveDropdown(null);
-  }, [pathname]);
+  }
 
   // Prevent body scroll when mobile menu open
   useEffect(() => {
@@ -123,21 +127,21 @@ const Header = () => {
     <header className={`fixed top-0 w-full z-[9999] transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
       <TopBar />
 
-      <nav className="h-[64px] sm:h-[72px] lg:h-[80px] bg-white max-w-[1920px] mx-auto flex items-center relative">
+      <nav className="h-[80px] sm:h-[90px] lg:h-[110px] bg-white max-w-[1920px] mx-auto flex items-center relative">
 
         {/* Logo */}
         <Link
           href="/"
-          className="h-full bg-maxera-red flex items-center px-5 sm:px-8 lg:px-16 z-[110] relative flex-shrink-0"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)' }}
+          className="h-full bg-white flex items-center px-4 sm:px-6 lg:px-12 z-[110] relative flex-shrink-0"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)' }}
         >
-          <div className="flex items-center text-white">
+          <div className="flex items-center">
             <Image
               src="/maxera-logo.png"
               alt="MaxEra Logo"
-              width={150}
-              height={100}
-              className="w-auto h-8 sm:h-10 lg:h-12 object-contain"
+              width={320}
+              height={180}
+              className="w-auto h-16 sm:h-24 lg:h-32 object-contain"
               priority
             />
           </div>
@@ -151,7 +155,7 @@ const Header = () => {
           />
 
           {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 h-full">
+          <div className="hidden lg:flex flex-1 justify-center items-center space-x-6 xl:space-x-10 h-full mx-4 xl:mx-8">
             {navLinks.map((link) => (
               <div
                 key={link.name}
@@ -161,7 +165,7 @@ const Header = () => {
               >
                 <Link
                   href={link.href}
-                  className={`text-white text-[10px] xl:text-[11px] font-black uppercase tracking-[0.1em] hover:text-white/70 transition-colors flex items-center group/link ${pathname === link.href ? "opacity-100" : "opacity-90"}`}
+                  className={`text-white text-[11px] xl:text-[13px] font-black uppercase tracking-[0.15em] hover:text-white/70 transition-colors flex items-center group/link ${pathname === link.href ? "opacity-100" : "opacity-90"}`}
                 >
                   {link.name}
                   {link.isMega && <ChevronDown className="ml-1 w-3 h-3 opacity-50 transition-transform group-hover/link:rotate-180" />}
@@ -173,7 +177,7 @@ const Header = () => {
                       initial={{ opacity: 0, scale: 0.95, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                      className="absolute top-[80px] left-[-60px] xl:left-[-100px] bg-white shadow-[0_40px_80px_rgba(0,0,0,0.15)] p-8 xl:p-12 min-w-[480px] xl:min-w-[640px] border-t-8 border-maxera-red"
+                      className="absolute top-[110px] left-1/2 -translate-x-1/2 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.15)] p-8 xl:p-12 min-w-[480px] xl:min-w-[640px] border-t-8 border-maxera-red"
                       style={{ zIndex: 99999 }}
                     >
                       <div className="grid grid-cols-2 gap-8 xl:gap-12">
@@ -215,7 +219,7 @@ const Header = () => {
           <div className="flex items-center space-x-3 lg:space-x-6">
             <Link
               href="/employers"
-              className="hidden lg:block bg-white text-maxera-red font-black uppercase text-[9px] xl:text-[11px] tracking-widest px-5 xl:px-8 py-3 xl:py-4 transition-all hover:bg-black hover:text-white shadow-lg relative z-50"
+              className="hidden lg:block bg-white text-maxera-red font-black uppercase text-[11px] xl:text-[13px] tracking-widest px-8 xl:px-12 py-4 xl:py-5 transition-all hover:bg-black hover:text-white shadow-lg relative z-50"
               style={{ clipPath: 'polygon(10% 0, 100% 0, 90% 100%, 0 100%)' }}
             >
               Hire Talent
@@ -242,7 +246,7 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="lg:hidden fixed inset-0 top-[64px] sm:top-[72px] bg-maxera-red z-[200] overflow-y-auto"
+            className="lg:hidden fixed inset-0 top-[80px] sm:top-[90px] bg-maxera-red z-[200] overflow-y-auto"
           >
             <div className="flex flex-col px-6 py-8 space-y-1 min-h-full">
               {navLinks.map((link) => (
@@ -283,11 +287,11 @@ const Header = () => {
               <div className="pt-8 mt-auto space-y-3">
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <PhoneCall size={14} />
-                  <span className="font-bold">+1 (800) MAXERA-1</span>
+                  <span className="font-bold">+1 (612)-515-7159</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <Mail size={14} />
-                  <span className="font-bold">contact@maxeratalent.com</span>
+                  <span className="font-bold">MEvans@maxeratalent.com</span>
                 </div>
               </div>
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Zap, BarChart3, Target, Search, ArrowRight, CheckCircle2 } from "lucide-react";
+import { BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function TalentBenchmarking() {
@@ -24,7 +24,7 @@ export default function TalentBenchmarking() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-maxera-red py-32 lg:py-48 text-left relative overflow-hidden">
+      <section className="bg-maxera-red py-32 lg:py-32 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full bg-[url('/noise.png')] opacity-20 pointer-events-none"></div>
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
           <motion.div
@@ -35,7 +35,7 @@ export default function TalentBenchmarking() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">
               Strategic Support
             </span>
-            <h1 className="text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+            <h1 className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
               TALENT <br className="hidden md:block" /> BENCHMARKING
             </h1>
             <p className="text-white/80 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed">
@@ -46,7 +46,7 @@ export default function TalentBenchmarking() {
       </section>
 
       {/* Main Body */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
         <div className="grid lg:grid-cols-2 gap-20 items-center mb-32">
           <div>
             <div className="w-16 h-1 bg-maxera-red mb-8"></div>
@@ -105,7 +105,7 @@ export default function TalentBenchmarking() {
       <section className="bg-maxera-dark py-32 text-center text-white relative overflow-hidden">
          <div className="absolute inset-0 bg-maxera-red/10 scale-150 rotate-45 blur-[120px]"></div>
          <div className="relative z-10 max-w-4xl mx-auto px-4">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-10 italic">Audit your team's potential.</h2>
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-10 italic">Audit your team&apos;s potential.</h2>
             <Link href="/contact" className="skew-btn bg-maxera-red px-16 py-6 inline-block font-black uppercase tracking-widest hover:bg-white hover:text-maxera-red transition-all">
                <span className="skew-content flex items-center">
                   Start Benchmarking Project <ArrowRight className="ml-3 w-5 h-5" />

@@ -80,7 +80,7 @@ export default function Jobs() {
            <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
+            className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
            >
              STRATEGIC <br /> <span className="text-maxera-red">SEARCHES</span>
            </motion.h1>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import SplitText from "@/components/animations/SplitText";
@@ -8,7 +9,7 @@ import BlurText from "@/components/animations/BlurText";
 
 const Hero = () => {
   return (
-    <div className="relative bg-white pt-32 md:pt-48 lg:pt-60 pb-16 md:pb-24 overflow-hidden min-h-[100svh] flex flex-col items-center justify-center text-center">
+    <div className="relative bg-white pt-12 md:pt-20 lg:pt-24 pb-24 md:pb-32 overflow-hidden min-h-[calc(100svh-142px)] flex flex-col items-center justify-center text-center">
 
       {/* Animated gradient orbs — hidden on small screens for perf */}
       <motion.div
@@ -41,8 +42,8 @@ const Hero = () => {
         </motion.div>
 
         {/* Headline */}
-        <div className="mb-6 md:mb-8 overflow-hidden px-2">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-black text-maxera-dark leading-[1.05] tracking-tight">
+        <div className="mb-6 md:mb-10 px-2 pb-4">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-maxera-dark leading-[1.15] tracking-tight">
             <SplitText
               text="Strategic talent partner"
               animationType="letter"
@@ -77,7 +78,7 @@ const Hero = () => {
           transition={{ delay: 0.9, duration: 0.5 }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full sm:w-auto"
         >
-          <button className="magnetic-btn relative group w-full sm:w-auto">
+          <Link href="/employers" className="magnetic-btn relative group w-full sm:w-auto">
             <div
               className="bg-maxera-red px-8 sm:px-14 py-4 transition-all group-hover:bg-maxera-dark shadow-xl shadow-maxera-red/20"
               style={{ clipPath: 'polygon(8% 0, 100% 0, 92% 100%, 0 100%)' }}
@@ -86,15 +87,17 @@ const Hero = () => {
                 Hire Top Talent
               </span>
             </div>
-          </button>
+          </Link>
 
-          <motion.button
-            className="text-maxera-dark text-xs sm:text-sm font-black tracking-widest uppercase flex items-center gap-2 hover:text-maxera-red transition-colors group"
-            whileHover={{ x: 4 }}
-          >
-            View Our Services
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
-          </motion.button>
+          <Link href="/services">
+            <motion.button
+              className="text-maxera-dark text-xs sm:text-sm font-black tracking-widest uppercase flex items-center gap-2 hover:text-maxera-red transition-colors group"
+              whileHover={{ x: 4 }}
+            >
+              View Our Services
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </motion.button>
+          </Link>
         </motion.div>
 
         {/* Stats row */}

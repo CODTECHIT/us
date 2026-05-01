@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -31,7 +31,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased text-maxera-text`}>
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow pt-[80px] sm:pt-[90px] lg:pt-[142px]">
           {children}
         </main>
         <Footer />

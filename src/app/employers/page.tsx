@@ -45,7 +45,7 @@ export default function Employers() {
           <motion.h1 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
+            className="text-3xl sm:text-5xl md:text-8xl font-heading font-black text-white mb-6 uppercase tracking-tighter"
           >
              SCALE YOUR <br /> <span className="text-maxera-red">ORGANIZATION</span>
           </motion.h1>
@@ -54,7 +54,7 @@ export default function Employers() {
       </section>
 
       {/* Hiring Process Explanation */}
-      <section className="py-24 max-w-[1400px] mx-auto px-4 md:px-12">
+      <section className="py-32 max-w-[1400px] mx-auto px-4 md:px-12">
          <div className="mb-20">
             <span className="text-maxera-red font-black text-xs tracking-[0.4em] uppercase mb-4 block">Institutional Framework</span>
             <h2 className="text-4xl md:text-5xl font-heading font-black text-maxera-dark uppercase tracking-tighter leading-none">

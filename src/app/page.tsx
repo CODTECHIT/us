@@ -2,10 +2,11 @@
 
 import React from "react";
 import {
-  Users, FileSignature, Handshake, ArrowRight,
+  ArrowRight,
   Search, Users2, UserCheck, Calendar, Award,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import SpotlightCard from "@/components/animations/SpotlightCard";
 import Aurora from "@/components/animations/Aurora";
@@ -14,16 +15,26 @@ import CountUp from "@/components/animations/CountUp";
 import SplitText from "@/components/animations/SplitText";
 
 /* ---- Service Card ---- */
-const ServiceCard = ({ title, description, href, image, idx }: any) => (
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  idx: number;
+}
+
+const ServiceCard = ({ title, description, href, image, idx }: ServiceCardProps) => (
   <AnimatedContent delay={idx * 0.1} direction="up" distance={30}>
     <Link href={href} className="block group h-full">
       <SpotlightCard className="bg-white border border-gray-100 flex flex-col items-start text-left group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full">
         <div className="w-full h-40 sm:h-48 bg-gray-100 overflow-hidden relative">
           <div className="absolute inset-0 bg-maxera-red opacity-0 group-hover:opacity-10 transition-opacity z-10" />
-          <img
+          <Image
             src={image}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
         </div>
         <div className="p-5 sm:p-6 flex flex-col flex-grow w-full">
@@ -57,28 +68,40 @@ const stats = [
 export default function Home() {
   const services = [
       {
-        title: "Contingent Search",
-        description: "Our performance-based search model ensures zero upfront risk for your institution.",
-        image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=800",
-        href: "/services/contingent-search",
+        title: "Bulk / Volume Hiring",
+        description: "Rapid workforce deployment for large-scale hiring needs across logistics, operations, and industrial roles.",
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
+        href: "/services/bulk-hiring",
+      },
+      {
+        title: "IT Staffing",
+        description: "Specialized hiring for technology professionals using targeted sourcing and technical screening.",
+        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
+        href: "/services/it-staffing",
       },
       {
         title: "Contract Staffing",
-        description: "Agile talent solutions for technical projects, seasonal surges, and specialized sprints.",
-        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
+        description: "Flexible solutions for short-term projects and immediate workforce requirements.",
+        image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
         href: "/services/contract-staffing",
       },
       {
-        title: "Direct Hire Search",
-        description: "Strategic headhunting for permanent, foundational roles that drive long-term growth.",
-        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800",
-        href: "/services/direct-hire-search",
+        title: "Permanent Staffing",
+        description: "End-to-end hiring support for full-time roles, ensuring long-term fit and skill alignment.",
+        image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800",
+        href: "/services/permanent-hiring",
       },
       {
-        title: "Market Mapping",
-        description: "Discreet assessment and placement of competitive intelligence and strategic visionaries.",
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-        href: "/services/market-mapping",
+        title: "Industrial Staffing",
+        description: "Reliable workforce solutions for manufacturing and logistics sectors.",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+        href: "/services/industrial-staffing",
+      },
+      {
+        title: "RPO Services",
+        description: "Dedicated recruitment support acting as an extension of your team.",
+        image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800",
+        href: "/services/rpo",
       },
   ];
 
@@ -95,7 +118,7 @@ export default function Home() {
       <Hero />
 
       {/* Stats Bar */}
-      <section className="bg-maxera-dark py-10 md:py-14 border-y border-white/5">
+      <section className="bg-maxera-dark py-8 md:py-10 border-y border-white/5">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
             {stats.map((stat, i) => (
@@ -115,7 +138,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 sm:py-20 md:py-28 bg-white relative overflow-hidden">
+      <section className="py-12 sm:py-32 md:py-20 bg-white relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="mb-10 sm:mb-16 md:mb-20 text-center">
             <AnimatedContent direction="up">
@@ -143,7 +166,7 @@ export default function Home() {
       </section>
 
       {/* Hiring Process Section */}
-      <section className="bg-maxera-dark py-16 sm:py-24 md:py-32 text-white relative overflow-hidden">
+      <section className="bg-maxera-dark py-12 sm:py-20 md:py-32 text-white relative overflow-hidden">
         <Aurora colorStops={['#C6093C', '#1a1a2e', '#C6093C44']} amplitude={0.8} blend={0.4} speed={0.4} />
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
@@ -187,7 +210,7 @@ export default function Home() {
       </section>
 
       {/* Why Maxera Band */}
-      <section className="bg-maxera-red py-12 sm:py-16 overflow-hidden relative">
+      <section className="bg-maxera-red py-8 sm:py-12 overflow-hidden relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 text-center md:text-left">
             <AnimatedContent direction="up" className="w-full md:w-auto">
@@ -197,8 +220,8 @@ export default function Home() {
             </AnimatedContent>
             <AnimatedContent direction="up" delay={0.1} className="w-full md:w-auto">
               <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 md:gap-6 text-white/80">
-                {["Industry Expertise", "Zero Risk", "Speed", "Quality Guarantee", "Diverse Network"].map((item) => (
-                  <span key={item} className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+                {["Speed & Precision", "Reliability", "Zero Upfront Risk", "Industry Expertise", "Custom Solutions"].map((item) => (
+                  <span key={item} className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest">
                     <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
                     {item}
                   </span>
@@ -219,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-white py-20 sm:py-28 md:py-40 relative overflow-hidden">
+      <section className="bg-white py-32 sm:py-32 md:py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[900px] h-[300px] sm:h-[400px] md:h-[600px] rounded-full opacity-5"
@@ -238,7 +261,7 @@ export default function Home() {
           </AnimatedContent>
           <AnimatedContent direction="up" delay={0.15}>
             <p className="text-gray-400 text-base sm:text-lg md:text-xl font-medium mb-8 md:mb-16 max-w-2xl mx-auto leading-relaxed px-4">
-              Let's discuss your talent gaps and identify the specialists who will drive your company forward.
+              Let&apos;s discuss your talent gaps and identify the specialists who will drive your company forward.
             </p>
           </AnimatedContent>
           <AnimatedContent direction="scale" delay={0.25}>

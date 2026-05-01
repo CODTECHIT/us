@@ -37,7 +37,7 @@ export default function Candidates() {
           <motion.h1 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-5xl md:text-8xl font-heading font-black mb-6 uppercase tracking-tighter"
+            className="text-3xl sm:text-5xl md:text-8xl font-heading font-black mb-6 uppercase tracking-tighter"
           >
             UNLEASH YOUR <br /> <span className="opacity-50 italic">EXECUTION</span>
           </motion.h1>
