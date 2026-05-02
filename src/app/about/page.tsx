@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Shield, Zap, Heart, CheckCircle, Code2, Settings, Layers, FileSignature as FileContract, ShieldCheck, Briefcase } from "lucide-react";
+import { Shield, Zap, Heart, CheckCircle, Code2, Settings, Layers, FileSignature as FileContract, ShieldCheck, Briefcase, Search, Globe } from "lucide-react";
 import AnimatedContent from "@/components/animations/AnimatedContent";
 import SpotlightCard from "@/components/animations/SpotlightCard";
 import SplitText from "@/components/animations/SplitText";
