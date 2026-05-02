@@ -1,4 +1,5 @@
 import React from "react";
+export const dynamic = "force-dynamic";
 // @ts-ignore
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Tag, ArrowRight } from "lucide-react";

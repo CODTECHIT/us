@@ -1,4 +1,5 @@
 import React from "react";
+export const dynamic = "force-dynamic";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { MapPin, Briefcase, Tag, Clock, Calendar, ChevronLeft } from "lucide-react";
