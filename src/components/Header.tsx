@@ -5,9 +5,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
-  Menu, X, ChevronDown, Building2, UserCircle, PhoneCall, Mail,
-  ArrowRight, FileSignature, ShieldCheck,
-  Code2, HeartPulse, Settings, Briefcase, Layers, HardHat, ShoppingBag, Truck, Search, Globe,
+  Menu,
+  X,
+  ChevronDown,
+  Building2,
+  UserCircle,
+  PhoneCall,
+  Mail,
+  ArrowRight,
+  FileSignature,
+  ShieldCheck,
+  Code2,
+  HeartPulse,
+  Settings,
+  Briefcase,
+  Layers,
+  HardHat,
+  ShoppingBag,
+  Truck,
+  Search,
+  Globe,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -16,22 +33,36 @@ const TopBar = () => (
     <div className="max-w-[1920px] mx-auto px-6 xl:px-12 flex justify-between items-center h-8">
       <div />
       <div className="flex items-center space-x-4 xl:space-x-8">
-        <Link href="/employers" className="flex items-center text-maxera-red hover:text-maxera-dark transition-all">
+        <Link
+          href="/employers"
+          className="flex items-center text-maxera-red hover:text-maxera-dark transition-all"
+        >
           <Building2 className="w-3.5 h-3.5 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-black uppercase tracking-widest">Employers</span>
+          <span className="text-[9px] xl:text-[10px] font-black uppercase tracking-widest">
+            Employers
+          </span>
         </Link>
-        <Link href="/candidates" className="flex items-center text-maxera-red hover:text-maxera-dark transition-all">
+        <Link
+          href="/candidates"
+          className="flex items-center text-maxera-red hover:text-maxera-dark transition-all"
+        >
           <UserCircle className="w-3.5 h-3.5 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-black uppercase tracking-widest">Candidates</span>
+          <span className="text-[9px] xl:text-[10px] font-black uppercase tracking-widest">
+            Candidates
+          </span>
         </Link>
         <div className="h-4 w-[1px] bg-gray-200" />
         <div className="flex items-center text-gray-400">
           <PhoneCall className="w-3 h-3 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">+1 (612)-515-7159</span>
+          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">
+            +1 (612)-515-7159
+          </span>
         </div>
         <div className="flex items-center text-gray-400">
           <Mail className="w-3 h-3 mr-1.5" />
-          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">MEvans@maxeratalent.com</span>
+          <span className="text-[9px] xl:text-[10px] font-bold tracking-widest text-gray-600 uppercase">
+            MEvans@maxeratalent.com
+          </span>
         </div>
       </div>
     </div>
@@ -55,19 +86,43 @@ const Header = () => {
         {
           title: "Core Staffing",
           items: [
-            { name: "Bulk / Volume Hiring", href: "/services/bulk-hiring", icon: Layers },
+            {
+              name: "Bulk / Volume Hiring",
+              href: "/services/bulk-hiring",
+              icon: Layers,
+            },
             { name: "IT Staffing", href: "/services/it-staffing", icon: Code2 },
-            { name: "Contract Staffing", href: "/services/contract-staffing", icon: FileSignature },
+            {
+              name: "Contract Staffing",
+              href: "/services/contract-staffing",
+              icon: FileSignature,
+            },
           ],
         },
         {
           title: "Specialized Search",
           items: [
-            { name: "Permanent Staffing", href: "/services/permanent-hiring", icon: ShieldCheck },
-            { name: "Industrial Staffing", href: "/services/industrial-staffing", icon: Settings },
+            {
+              name: "Permanent Staffing",
+              href: "/services/permanent-hiring",
+              icon: ShieldCheck,
+            },
+            {
+              name: "Industrial Staffing",
+              href: "/services/industrial-staffing",
+              icon: Settings,
+            },
             { name: "RPO Services", href: "/services/rpo", icon: Briefcase },
-            { name: "Passive Sourcing", href: "/services/passive-sourcing", icon: Search },
-            { name: "Offshore Solutions", href: "/services/offshore-solutions", icon: Globe },
+            {
+              name: "Passive Sourcing",
+              href: "/services/passive-sourcing",
+              icon: Search,
+            },
+            {
+              name: "Offshore Solutions",
+              href: "/services/offshore-solutions",
+              icon: Globe,
+            },
           ],
         },
       ],
@@ -80,24 +135,52 @@ const Header = () => {
         {
           title: "Industrial & Logistics",
           items: [
-            { name: "Logistics & Warehousing", href: "/industries/logistics", icon: Building2 },
-            { name: "Manufacturing & Industrial", href: "/industries/manufacturing", icon: Settings },
-            { name: "Construction & Engineering", href: "/industries/construction", icon: HardHat },
-            { name: "Transportation & Drivers", href: "/industries/transportation", icon: Truck },
+            {
+              name: "Logistics & Warehousing",
+              href: "/industries/logistics",
+              icon: Building2,
+            },
+            {
+              name: "Manufacturing & Industrial",
+              href: "/industries/manufacturing",
+              icon: Settings,
+            },
+            {
+              name: "Construction & Engineering",
+              href: "/industries/construction",
+              icon: HardHat,
+            },
+            {
+              name: "Transportation & Drivers",
+              href: "/industries/transportation",
+              icon: Truck,
+            },
           ],
         },
         {
           title: "Service & Tech",
           items: [
-            { name: "Information Technology (IT)", href: "/industries/technology", icon: Code2 },
-            { name: "Healthcare Operations", href: "/industries/healthcare", icon: HeartPulse },
-            { name: "Retail & Hospitality", href: "/industries/retail", icon: ShoppingBag },
+            {
+              name: "Information Technology (IT)",
+              href: "/industries/technology",
+              icon: Code2,
+            },
+            {
+              name: "Healthcare Operations",
+              href: "/industries/healthcare",
+              icon: HeartPulse,
+            },
+            {
+              name: "Retail & Hospitality",
+              href: "/industries/retail",
+              icon: ShoppingBag,
+            },
           ],
         },
       ],
     },
     { name: "Jobs", href: "/jobs" },
-    { name: "Talent Insights", href: "/read" },
+    { name: "TalentIQ", href: "/read" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -116,7 +199,9 @@ const Header = () => {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -126,16 +211,17 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 w-full z-[9999] transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}>
+    <header
+      className={`fixed top-0 w-full z-[9999] transition-shadow duration-300 ${scrolled ? "shadow-lg" : ""}`}
+    >
       <TopBar />
 
       <nav className="h-[80px] sm:h-[90px] lg:h-[110px] bg-white max-w-[1920px] mx-auto flex items-center relative">
-
         {/* Logo */}
         <Link
           href="/"
           className="h-full bg-white flex items-center px-4 sm:px-6 lg:px-12 z-[110] relative flex-shrink-0"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)' }}
+          style={{ clipPath: "polygon(0 0, 100% 0, 92% 100%, 0 100%)" }}
         >
           <div className="flex items-center">
             <Image
@@ -153,7 +239,7 @@ const Header = () => {
         <div className="h-full flex-grow flex items-center justify-between pl-6 sm:pl-10 lg:pl-16 xl:pl-24 pr-4 sm:pr-6 lg:pr-12 z-20 relative">
           <div
             className="absolute inset-0 bg-maxera-red z-[-1]"
-            style={{ clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)' }}
+            style={{ clipPath: "polygon(8% 0, 100% 0, 100% 100%, 0 100%)" }}
           />
 
           {/* Desktop Nav Links */}
@@ -170,7 +256,9 @@ const Header = () => {
                   className={`text-white text-[11px] xl:text-[13px] font-black uppercase tracking-[0.15em] hover:text-white/70 transition-colors flex items-center group/link ${pathname === link.href ? "opacity-100" : "opacity-90"}`}
                 >
                   {link.name}
-                  {link.isMega && <ChevronDown className="ml-1 w-3 h-3 opacity-50 transition-transform group-hover/link:rotate-180" />}
+                  {link.isMega && (
+                    <ChevronDown className="ml-1 w-3 h-3 opacity-50 transition-transform group-hover/link:rotate-180" />
+                  )}
                 </Link>
 
                 <AnimatePresence>
@@ -196,13 +284,19 @@ const Header = () => {
                                   className="flex items-center group/navitem py-2.5 pl-4 hover:bg-maxera-gray transition-colors border-l-4 border-transparent hover:border-maxera-red"
                                 >
                                   <div className="w-7 h-7 flex items-center justify-center mr-3">
-                                    <item.icon size={15} className="text-maxera-dark" />
+                                    <item.icon
+                                      size={15}
+                                      className="text-maxera-dark"
+                                    />
                                   </div>
                                   <div className="flex-grow flex justify-between items-center pr-3">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover/navitem:text-maxera-dark transition-colors">
                                       {item.name}
                                     </span>
-                                    <ArrowRight size={12} className="text-gray-200 group-hover/navitem:text-maxera-red group-hover/navitem:translate-x-1 transition-all opacity-0 group-hover/navitem:opacity-100" />
+                                    <ArrowRight
+                                      size={12}
+                                      className="text-gray-200 group-hover/navitem:text-maxera-red group-hover/navitem:translate-x-1 transition-all opacity-0 group-hover/navitem:opacity-100"
+                                    />
                                   </div>
                                 </Link>
                               ))}
@@ -222,7 +316,7 @@ const Header = () => {
             <Link
               href="/employers"
               className="hidden lg:block bg-white text-maxera-red font-black uppercase text-[11px] xl:text-[13px] tracking-widest px-8 xl:px-12 py-4 xl:py-5 transition-all hover:bg-black hover:text-white shadow-lg relative z-50"
-              style={{ clipPath: 'polygon(10% 0, 100% 0, 90% 100%, 0 100%)' }}
+              style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0 100%)" }}
             >
               Hire Talent
             </Link>
@@ -252,7 +346,10 @@ const Header = () => {
           >
             <div className="flex flex-col px-6 py-8 space-y-1 min-h-full">
               {navLinks.map((link) => (
-                <div key={link.name} className="border-b border-white/10 last:border-0">
+                <div
+                  key={link.name}
+                  className="border-b border-white/10 last:border-0"
+                >
                   <Link
                     href={link.href}
                     className="text-white text-lg font-black uppercase tracking-wider block py-4"
@@ -264,7 +361,9 @@ const Header = () => {
                     <div className="pl-4 pb-4 space-y-4">
                       {link.columns?.map((col, idx) => (
                         <div key={idx}>
-                          <p className="text-[9px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">{col.title}</p>
+                          <p className="text-[9px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">
+                            {col.title}
+                          </p>
                           <div className="space-y-2">
                             {col.items.map((item) => (
                               <Link

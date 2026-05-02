@@ -1,19 +1,29 @@
 import React from "react";
-export const dynamic = "force-dynamic";
-import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { MapPin, Briefcase, Tag, Clock, Calendar, ChevronLeft } from "lucide-react";
+import {
+  MapPin,
+  Briefcase,
+  Tag,
+  Clock,
+  Calendar,
+  ChevronLeft,
+} from "lucide-react";
 import Link from "next/link";
 import JobApplicationForm from "@/components/JobApplicationForm";
+import { getPublishedJobBySlug } from "@/lib/public-data";
 
-export default async function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export const dynamic = "force-dynamic";
+
+export default async function JobDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  
-  const job = await prisma.job.findUnique({
-    where: { slug },
-  });
 
-  if (!job || job.status !== 'PUBLISHED') {
+  const job = await getPublishedJobBySlug(slug);
+
+  if (!job || job.status !== "PUBLISHED") {
     notFound();
   }
 
@@ -22,8 +32,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
       {/* Header / Breadcrumb */}
       <div className="bg-maxera-dark py-20 text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-12">
-          <Link 
-            href="/jobs" 
+          <Link
+            href="/jobs"
             className="flex items-center gap-2 text-gray-400 hover:text-maxera-red transition-colors mb-8 uppercase tracking-widest text-xs font-bold"
           >
             <ChevronLeft size={16} /> Back to Strategic Searches
@@ -37,9 +47,18 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
                 {job.title}
               </h1>
               <div className="flex flex-wrap gap-6 text-sm font-bold text-gray-400 uppercase tracking-widest pt-4">
-                <span className="flex items-center gap-2"><MapPin size={18} className="text-maxera-red" /> {job.location}</span>
-                <span className="flex items-center gap-2"><Briefcase size={18} className="text-maxera-red" /> {job.type.replace('_', ' ')}</span>
-                <span className="flex items-center gap-2"><Calendar size={18} className="text-maxera-red" /> Posted {new Date(job.createdAt).toLocaleDateString()}</span>
+                <span className="flex items-center gap-2">
+                  <MapPin size={18} className="text-maxera-red" />{" "}
+                  {job.location}
+                </span>
+                <span className="flex items-center gap-2">
+                  <Briefcase size={18} className="text-maxera-red" />{" "}
+                  {job.type.replace("_", " ")}
+                </span>
+                <span className="flex items-center gap-2">
+                  <Calendar size={18} className="text-maxera-red" /> Posted{" "}
+                  {new Date(job.createdAt).toLocaleDateString()}
+                </span>
               </div>
             </div>
           </div>
@@ -63,9 +82,13 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
           {/* Application Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-maxera-gray p-8 border-t-8 border-maxera-red shadow-2xl">
-              <h3 className="text-xl font-black uppercase tracking-tight text-maxera-dark mb-2">Intent to Apply</h3>
-              <p className="text-sm text-gray-500 font-medium mb-8">Synchronize your credentials for this specific mandate.</p>
-              
+              <h3 className="text-xl font-black uppercase tracking-tight text-maxera-dark mb-2">
+                Intent to Apply
+              </h3>
+              <p className="text-sm text-gray-500 font-medium mb-8">
+                Synchronize your credentials for this specific mandate.
+              </p>
+
               <JobApplicationForm jobId={job.id} jobTitle={job.title} />
             </div>
           </div>

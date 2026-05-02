@@ -1,6 +1,6 @@
-import { PrismaClient } from '../prisma/generated/client/client';
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import dotenv from 'dotenv';
+import { PrismaClient } from "../prisma/generated/client/client";
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -19,13 +19,15 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log('🏛️  Retrieving and Restoring ALL Original Talent Insights Articles...');
+  console.log("🏛️  Retrieving and Restoring ALL Original TalentIQ Articles...");
 
   const articles = [
     {
       slug: "blue-collar-hiring",
-      title: "Why Your Blue‑Collar Roles Stay Open Too Long (And How to Fix It)",
-      excerpt: "Many companies accept 45–60 days to fill blue‑collar roles as “normal,” but long vacancies quietly damage your operations.",
+      title:
+        "Why Your Blue‑Collar Roles Stay Open Too Long (And How to Fix It)",
+      excerpt:
+        "Many companies accept 45–60 days to fill blue‑collar roles as “normal,” but long vacancies quietly damage your operations.",
       content: `
         <div class="space-y-12">
           <p class="text-xl font-bold text-maxera-dark/80 leading-relaxed bg-maxera-gray p-8 border-l-8 border-maxera-red">
@@ -98,12 +100,14 @@ async function main() {
         </div>
       `,
       author: "Maxera Editorial",
-      status: 'PUBLISHED'
+      status: "PUBLISHED",
     },
     {
       slug: "talent-crunch",
-      title: "The 2026 Talent Crunch: AI, Skills, and Why Your Old Hiring Playbook Is Failing",
-      excerpt: "AI is reshaping job content in every sector, yet companies still struggle to find people with the right mix of technical and human skills.",
+      title:
+        "The 2026 Talent Crunch: AI, Skills, and Why Your Old Hiring Playbook Is Failing",
+      excerpt:
+        "AI is reshaping job content in every sector, yet companies still struggle to find people with the right mix of technical and human skills.",
       content: `
         <div class="space-y-12">
           <p class="text-xl font-bold text-maxera-dark/80 leading-relaxed bg-maxera-gray p-8 border-l-8 border-maxera-red">
@@ -130,12 +134,14 @@ async function main() {
         </div>
       `,
       author: "Maxera Editorial",
-      status: 'PUBLISHED'
+      status: "PUBLISHED",
     },
     {
       slug: "skills-shift",
-      title: "Skills Shift: The Human and Technical Skills Every Employer Is Competing For",
-      excerpt: "Across industries in 2026, it’s no longer enough to look for generic “experience” or a specific degree.",
+      title:
+        "Skills Shift: The Human and Technical Skills Every Employer Is Competing For",
+      excerpt:
+        "Across industries in 2026, it’s no longer enough to look for generic “experience” or a specific degree.",
       content: `
         <div class="space-y-12">
           <p class="text-xl font-bold text-maxera-dark/80 leading-relaxed bg-maxera-gray p-8 border-l-8 border-maxera-red">
@@ -162,8 +168,8 @@ async function main() {
         </div>
       `,
       author: "Maxera Editorial",
-      status: 'PUBLISHED'
-    }
+      status: "PUBLISHED",
+    },
   ];
 
   for (const article of articles) {
@@ -173,7 +179,7 @@ async function main() {
         title: article.title,
         excerpt: article.excerpt,
         content: article.content,
-        author: article.author
+        author: article.author,
       },
       create: {
         slug: article.slug,
@@ -181,13 +187,13 @@ async function main() {
         excerpt: article.excerpt,
         content: article.content,
         author: article.author,
-        status: 'PUBLISHED' as any,
+        status: "PUBLISHED" as any,
       },
     });
     console.log(`✅ Fully restored: ${article.title}`);
   }
 
-  console.log('✨ All Original Talent Insights Data Successfully Restored!');
+  console.log("✨ All Original TalentIQ Data Successfully Restored!");
 }
 
 main()
