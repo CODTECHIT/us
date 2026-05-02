@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Lock, FileText, Globe, Mail, ChevronRight } from "lucide-react";
+import { Lock, FileText, Globe, Mail, ChevronRight } from "lucide-react";
 
 export default function PrivacyPolicy() {
   const sections = [

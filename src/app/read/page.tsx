@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ArrowRight, Clock, User, Share2, ChevronRight, ArrowLeft, Target, Mail, Lock } from "lucide-react";
+import { ArrowRight, Clock, User, Share2, ArrowLeft, Target } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
