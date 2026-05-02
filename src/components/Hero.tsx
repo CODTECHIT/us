@@ -7,7 +7,9 @@ import { ArrowDown } from "lucide-react";
 import SplitText from "@/components/animations/SplitText";
 import BlurText from "@/components/animations/BlurText";
 
-const Hero = () => {
+const Hero = ({ cmsData }: { cmsData: any }) => {
+  const { heroTitle, heroSubtitle, ctaText, ctaLink } = cmsData;
+
   return (
     <div className="relative bg-white pt-12 md:pt-20 lg:pt-24 pb-24 md:pb-32 overflow-hidden min-h-[calc(100svh-142px)] flex flex-col items-center justify-center text-center">
 
@@ -42,20 +44,13 @@ const Hero = () => {
         </motion.div>
 
         {/* Headline */}
-        <div className="mb-6 md:mb-10 px-2 pb-4">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-maxera-dark leading-[1.15] tracking-tight">
+        <div className="mb-6 md:mb-10 px-4 pb-4 max-w-[1200px] mx-auto">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-maxera-dark leading-[1.1] tracking-tight whitespace-pre-line">
             <SplitText
-              text="Strategic talent partner"
-              animationType="letter"
-              staggerDelay={0.025}
+              text={heroTitle}
+              animationType="word"
+              staggerDelay={0.05}
               delay={0.1}
-            />
-            <br />
-            <SplitText
-              text="& digital solutions"
-              animationType="letter"
-              staggerDelay={0.025}
-              delay={0.5}
             />
           </h1>
         </div>
@@ -63,7 +58,7 @@ const Hero = () => {
         {/* Subtext */}
         <div className="mb-8 md:mb-14 max-w-xs sm:max-w-md md:max-w-xl mx-auto px-2">
           <BlurText
-            text="Experts in professional recruitment, talent management, and digital strategy. Over 15 years helping companies build world-class teams."
+            text={heroSubtitle}
             delay={60}
             direction="bottom"
             animateBy="words"
@@ -78,13 +73,13 @@ const Hero = () => {
           transition={{ delay: 0.9, duration: 0.5 }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full sm:w-auto"
         >
-          <Link href="/employers" className="magnetic-btn relative group w-full sm:w-auto">
+          <Link href={ctaLink || "/employers"} className="magnetic-btn relative group w-full sm:w-auto">
             <div
               className="bg-maxera-red px-8 sm:px-14 py-4 transition-all group-hover:bg-maxera-dark shadow-xl shadow-maxera-red/20"
               style={{ clipPath: 'polygon(8% 0, 100% 0, 92% 100%, 0 100%)' }}
             >
               <span className="text-white font-bold text-xs sm:text-[13px] tracking-wide block">
-                Hire Top Talent
+                {ctaText}
               </span>
             </div>
           </Link>

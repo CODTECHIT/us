@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Providers } from "@/components/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -30,11 +29,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased text-maxera-text`}>
-        <Header />
-        <main className="flex-grow pt-[80px] sm:pt-[90px] lg:pt-[142px]">
+        <Providers>
           {children}
-        </main>
-        <Footer />
+        </Providers>
       </body>
     </html>
   );

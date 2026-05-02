@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// User & Auth
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  role          Role      @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  SUPERADMIN
+  ADMIN
+  EDITOR
+}
+
+// Job Board
+model Job {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  description     String        @db.Text
+  location        String
+  type            JobType       @default(FULL_TIME)
+  industry        String
+  salaryRange     String?
+  tags            Tag[]
+  customFields    Json?         // To store custom application form structure
+  applications    Application[]
+  status          PostStatus    @default(DRAFT)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  jobs  Job[]
+}
+
+model Application {
+  id          String            @id @default(cuid())
+  jobId       String
+  job         Job               @relation(fields: [jobId], references: [id])
+  candidateName String
+  email       String
+  phone       String
+  resumeUrl   String?
+  formData    Json?             // To store answers to custom fields
+  status      ApplicationStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+}
+
+// CMS - Content Management
+model Page {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text
+  seoTitle    String?
+  seoDesc     String?
+  ogImage     String?
+  status      PostStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Blog {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text
+  excerpt     String?    @db.Text
+  coverImage  String?
+  author      String?
+  seoTitle    String?
+  seoDesc     String?
+  status      PostStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  position    String?
+  company     String?
+  content     String   @db.Text
+  avatar      String?
+  createdAt   DateTime @default(now())
+}
+
+// Leads & Enquiries
+model Enquiry {
+  id          String      @id @default(cuid())
+  type        String      @default("CONTACT")
+  name        String
+  email       String
+  subject     String?
+  message     String      @db.Text
+  resumeUrl   String?
+  status      LeadStatus  @default(NEW)
+  createdAt   DateTime    @default(now())
+}
+
+// Global Settings
+model Setting {
+  id          String @id @default(cuid())
+  key         String @unique
+  value       String @db.Text
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  REMOTE
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+
+enum LeadStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
