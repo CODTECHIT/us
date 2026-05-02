@@ -103,6 +103,18 @@ export default function Home() {
         image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800",
         href: "/services/rpo",
       },
+      {
+        title: "Passive Talent Sourcing",
+        description: "Proactive engagement of top-tier candidates who are not actively job-seeking.",
+        image: "/images/passive_sourcing.png",
+        href: "/services/passive-sourcing",
+      },
+      {
+        title: "Offshore Solutions",
+        description: "Access skilled global talent pools to build remote or offshore teams efficiently.",
+        image: "/images/offshore_solutions.png",
+        href: "/services/offshore-solutions",
+      },
   ];
 
   const steps = [

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, Settings, Layers, FileSignature as FileContract, ShieldCheck, Briefcase, ChevronRight, ArrowRight } from "lucide-react";
+import { Code2, Settings, Layers, FileSignature as FileContract, ShieldCheck, Briefcase, ChevronRight, ArrowRight, Search, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -150,6 +150,23 @@ export default function Services() {
           reverse
           link="/services/rpo"
           image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"
+        />
+        <ServiceDetail 
+          icon={Search}
+          title="Passive Talent Sourcing"
+          description="Proactive engagement of high-quality candidates who are not actively job-seeking — expanding access to top-tier talent beyond traditional job boards."
+          benefits={["Targeted Market Mapping", "Direct Confidential Outreach", "Access to Non-Active Talent", "Reduced Time-to-Hire"]}
+          link="/services/passive-sourcing"
+          image="/images/passive_sourcing.png"
+        />
+        <ServiceDetail 
+          icon={Globe}
+          title="Offshore Talent Solutions"
+          description="Access to skilled global talent pools to build remote or offshore teams — helping clients optimize costs while maintaining quality and scalability."
+          benefits={["Global Talent Access", "Cost Optimization", "Scalable Remote Teams", "24/7 Operational Support"]}
+          reverse
+          link="/services/offshore-solutions"
+          image="/images/offshore_solutions.png"
         />
       </section>
 

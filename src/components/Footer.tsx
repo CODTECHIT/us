@@ -107,9 +107,28 @@ const Footer = () => {
           <div className="lg:col-span-3">
             <h4 className="text-white font-black mb-5 md:mb-10 text-[13px] md:text-[14px] uppercase tracking-[0.2em] border-l-4 border-maxera-red pl-4">Contact Info</h4>
             <div className="space-y-5 md:space-y-8 text-sm md:text-[15px] font-bold">
-              <div className="flex items-start">
-                <MapPin className="text-maxera-red mr-3 md:mr-5 mt-1 flex-shrink-0" size={18} />
-                <span className="text-gray-400">100 Business Parkway, <br /> Suite 200, NY 10001</span>
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <MapPin className="text-maxera-red mr-3 md:mr-5 mt-1 flex-shrink-0" size={18} />
+                  <div className="flex flex-col">
+                    <span className="text-white font-black text-[9px] uppercase tracking-widest mb-1">USA (Client Engagement Office)</span>
+                    <span className="text-gray-400 text-xs sm:text-[13px] leading-relaxed">1710 Douglas Dr N #209a, <br /> Golden Valley, MN 55422, USA</span>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MapPin className="text-maxera-red mr-3 md:mr-5 mt-1 flex-shrink-0" size={18} />
+                  <div className="flex flex-col">
+                    <span className="text-white font-black text-[9px] uppercase tracking-widest mb-1">India (Delivery Center)</span>
+                    <span className="text-gray-400 text-xs sm:text-[13px] leading-relaxed">Rajapushpa House, Cyber Hills Colony, <br /> Madhapur, Hyderabad, TS 500081</span>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <MapPin className="text-maxera-red mr-3 md:mr-5 mt-1 flex-shrink-0" size={18} />
+                  <div className="flex flex-col">
+                    <span className="text-white font-black text-[9px] uppercase tracking-widest mb-1">Registered Office (India)</span>
+                    <span className="text-gray-400 text-xs sm:text-[13px] leading-relaxed">Kruthi Kastle, Nandihills, Meerpet, <br /> Hyderabad, TS 500097</span>
+                  </div>
+                </div>
               </div>
               <div className="flex items-center group">
                 <div className="w-10 h-10 bg-white/5 flex items-center justify-center mr-4 group-hover:bg-maxera-red transition-all duration-300">
@@ -147,8 +166,8 @@ const Footer = () => {
             </Link>
           </p>
           <div className="flex items-center flex-wrap justify-center gap-4 sm:gap-6 md:gap-12">
-            <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="#" className="hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>

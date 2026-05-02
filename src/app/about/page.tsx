@@ -193,11 +193,13 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {[
               { title: "Bulk / Volume Hiring", icon: Layers, desc: "Rapid workforce deployment for large-scale hiring needs across logistics, operations, and industrial roles." },
-              { title: "IT Staffing", icon: Code2, desc: "Specialized hiring for developers, cloud, and technology professionals using targeted sourcing and technical screening." },
-              { title: "Contract Staffing", icon: FileContract, desc: "Flexible staffing solutions for short-term projects and immediate workforce requirements." },
-              { title: "Permanent Staffing (IT & Non-IT)", icon: ShieldCheck, desc: "End-to-end hiring support for full-time roles, ensuring strong alignment between skills and long-term fit." },
-              { title: "Blue-Collar & Industrial Staffing", icon: Settings, desc: "Reliable workforce solutions for construction, manufacturing, and logistics sectors." },
-              { title: "Recruitment Process Outsourcing (RPO)", icon: Briefcase, desc: "Dedicated recruitment support acting as an extension of your team, managing ongoing hiring needs." },
+              { title: "IT Staffing", icon: Code2, desc: "Specialized hiring for technology professionals using targeted sourcing and technical screening." },
+              { title: "Contract Staffing", icon: FileContract, desc: "Flexible solutions for short-term projects and immediate workforce requirements." },
+              { title: "Permanent Staffing", icon: ShieldCheck, desc: "End-to-end hiring support for full-time roles, ensuring long-term fit and skill alignment." },
+              { title: "Industrial Staffing", icon: Settings, desc: "Reliable workforce solutions for manufacturing and logistics sectors." },
+              { title: "RPO Services", icon: Briefcase, desc: "Dedicated recruitment support acting as an extension of your team." },
+              { title: "Passive Talent Sourcing", icon: Search, desc: "Proactive engagement of high-quality candidates who are not actively job-seeking." },
+              { title: "Offshore Talent Solutions", icon: Globe, desc: "Access to skilled global talent pools to build remote or offshore teams efficiently." },
             ].map((service, idx) => (
               <AnimatedContent key={idx} delay={idx * 0.1} direction="up" distance={20}>
                 <div className="group p-8 sm:p-10 border border-gray-100 hover:border-maxera-red/20 hover:bg-maxera-gray/30 transition-all duration-500 h-full">

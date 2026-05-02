@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   Menu, X, ChevronDown, Building2, UserCircle, PhoneCall, Mail,
   ArrowRight, FileSignature, ShieldCheck,
-  Code2, HeartPulse, Settings, Briefcase, Layers, HardHat, ShoppingBag, Truck,
+  Code2, HeartPulse, Settings, Briefcase, Layers, HardHat, ShoppingBag, Truck, Search, Globe,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -66,6 +66,8 @@ const Header = () => {
             { name: "Permanent Staffing", href: "/services/permanent-hiring", icon: ShieldCheck },
             { name: "Industrial Staffing", href: "/services/industrial-staffing", icon: Settings },
             { name: "RPO Services", href: "/services/rpo", icon: Briefcase },
+            { name: "Passive Sourcing", href: "/services/passive-sourcing", icon: Search },
+            { name: "Offshore Solutions", href: "/services/offshore-solutions", icon: Globe },
           ],
         },
       ],
@@ -95,7 +97,7 @@ const Header = () => {
       ],
     },
     { name: "Jobs", href: "/jobs" },
-    { name: "Read", href: "/read" },
+    { name: "Talent Insights", href: "/read" },
     { name: "Contact", href: "/contact" },
   ];
 
