@@ -131,6 +131,14 @@ const Footer = () => {
                   name: "Transportation & Drivers",
                   href: "/industries/transportation",
                 },
+                {
+                  name: "Automotive Manufacturing",
+                  href: "/industries/automotive",
+                },
+                {
+                  name: "Plastics & Rubber",
+                  href: "/industries/plastics-rubber",
+                },
               ].map((item) => (
                 <li key={item.name}>
                   <Link

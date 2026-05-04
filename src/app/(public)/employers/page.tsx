@@ -114,7 +114,7 @@ export default function Employers() {
                <div className="absolute top-0 right-0 w-24 h-2 bg-maxera-dark"></div>
                <div className="flex items-center mb-6">
                   <ClipboardList className="mr-6 opacity-40 shrink-0" size={56} />
-                  <p className="text-xl font-bold italic leading-tight uppercase tracking-tight">Access pre-vetted specialists across technology, healthcare, and engineering sectors.</p>
+                  <p className="text-xl font-bold italic leading-tight uppercase tracking-tight">Access pre-vetted specialists across technology, healthcare, manufacturing, and automotive sectors.</p>
                </div>
             </div>
           </div>

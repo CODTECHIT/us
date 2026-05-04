@@ -21,10 +21,10 @@ import {
   Briefcase,
   Layers,
   HardHat,
-  ShoppingBag,
   Truck,
   Search,
   Globe,
+  Car,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -97,16 +97,16 @@ const Header = () => {
               href: "/services/contract-staffing",
               icon: FileSignature,
             },
-          ],
-        },
-        {
-          title: "Specialized Search",
-          items: [
             {
               name: "Permanent Staffing",
               href: "/services/permanent-hiring",
               icon: ShieldCheck,
             },
+          ],
+        },
+        {
+          title: "Specialized Search",
+          items: [
             {
               name: "Industrial Staffing",
               href: "/services/industrial-staffing",
@@ -158,8 +158,18 @@ const Header = () => {
           ],
         },
         {
-          title: "Service & Tech",
+          title: "Production & Tech",
           items: [
+            {
+              name: "Automotive Manufacturing",
+              href: "/industries/automotive",
+              icon: Car,
+            },
+            {
+              name: "Plastics & Rubber",
+              href: "/industries/plastics-rubber",
+              icon: Layers,
+            },
             {
               name: "Information Technology (IT)",
               href: "/industries/technology",
@@ -170,11 +180,7 @@ const Header = () => {
               href: "/industries/healthcare",
               icon: HeartPulse,
             },
-            {
-              name: "Retail & Hospitality",
-              href: "/industries/retail",
-              icon: ShoppingBag,
-            },
+
           ],
         },
       ],
@@ -267,7 +273,7 @@ const Header = () => {
                       initial={{ opacity: 0, scale: 0.95, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                      className="absolute top-[110px] left-1/2 -translate-x-1/2 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.15)] p-8 xl:p-12 min-w-[480px] xl:min-w-[640px] border-t-8 border-maxera-red"
+                      className="absolute top-[110px] left-1/2 -translate-x-1/2 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.15)] p-8 xl:p-12 min-w-[500px] xl:min-w-[700px] border-t-8 border-maxera-red"
                       style={{ zIndex: 99999 }}
                     >
                       <div className="grid grid-cols-2 gap-8 xl:gap-12">

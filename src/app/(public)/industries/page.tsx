@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2 as LaptopCode, Building2, Factory, HardHat, HeartPulse, ShoppingBag, Truck, ArrowRight } from "lucide-react";
+import { Code2 as LaptopCode, Building2, Factory, HardHat, HeartPulse, ShoppingBag, Truck, ArrowRight, Car, Layers } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface IndustryCardProps {
   icon: React.ElementType;
@@ -21,10 +22,12 @@ const IndustryCard = ({ icon: Icon, title, description, skills, href, image }: I
       className="bg-white shadow-soft hover:shadow-hover transition-all duration-500 flex flex-col h-full border-b-8 border-transparent group-hover:border-maxera-red h-full overflow-hidden"
     >
       <div className="relative h-64 w-full overflow-hidden">
-        <img 
+        <Image 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-maxera-dark/40 group-hover:bg-maxera-red/40 transition-colors duration-500" />
         <div className="absolute top-6 left-6 w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl flex items-center justify-center transition-all duration-500 shadow-xl group-hover:bg-white group-hover:text-maxera-red">
@@ -67,7 +70,7 @@ export default function Industries() {
             Industries We Support
           </motion.h1>
           <p className="text-gray-400 text-xl max-w-3xl font-medium leading-relaxed italic border-l-4 border-maxera-red pl-6">
-            "Delivering talent across high-demand sectors with speed and precision"
+            &quot;Delivering talent across high-demand sectors with speed and precision&quot;
           </p>
         </div>
       </section>
@@ -124,6 +127,7 @@ export default function Industries() {
               href: "/industries/retail",
               image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800"
             },
+
             {
               icon: Truck,
               title: "Transportation & Drivers",
@@ -131,6 +135,22 @@ export default function Industries() {
               skills: ["Commercial Drivers", "Mobility", "Last-mile", "Support"],
               href: "/industries/transportation",
               image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+              icon: Car,
+              title: "Automotive Manufacturing",
+              description: "Sourcing skilled trade and technical professionals for assembly lines, quality control, and CNC operations in the automotive sector.",
+              skills: ["Assembly Line", "Quality Control", "CNC Operators", "Production"],
+              href: "/industries/automotive",
+              image: "/images/automotive.png"
+            },
+            {
+              icon: Layers,
+              title: "Plastics & Rubber Manufacturing",
+              description: "Focused recruitment for extrusion operators, mold technicians, and process engineers within tight tolerances and compliance standards.",
+              skills: ["Extrusion", "Mold Tech", "Process Eng", "Quality Control"],
+              href: "/industries/plastics-rubber",
+              image: "/images/plastics.png"
             }
           ].map((sector, idx) => (
             <IndustryCard key={idx} {...sector} />
