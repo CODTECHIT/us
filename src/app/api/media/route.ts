@@ -21,8 +21,9 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create unique filename
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+    // Create unique filename - use basename to prevent path traversal
+    const safeOriginalName = basename(file.name);
+    const filename = `${Date.now()}-${safeOriginalName.replace(/\s+/g, '-')}`;
     const path = join(process.cwd(), 'public/uploads', filename);
 
     await writeFile(path, buffer);
@@ -59,7 +60,7 @@ export async function GET() {
       .reverse(); // Newest first
 
     return NextResponse.json(images);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch media' }, { status: 500 });
   }
 }

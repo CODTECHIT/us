@@ -8,7 +8,6 @@ import {
   UserCheck,
   Calendar,
   Award,
-  Quote,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -153,7 +152,7 @@ const CASE_STUDIES = [
 export default function HomeClient({
   cmsData,
   stats: liveStats,
-  testimonials,
+  testimonials: _testimonials,
 }: {
   cmsData: {
     heroTitle: string;

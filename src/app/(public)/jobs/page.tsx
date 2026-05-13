@@ -36,7 +36,7 @@ export default async function Jobs() {
               </p>
             </div>
           ) : (
-            jobs.map((job, idx) => (
+            jobs.map((job: any, idx: number) => (
               <AnimatedJobCard
                 key={job.id}
                 idx={idx}
