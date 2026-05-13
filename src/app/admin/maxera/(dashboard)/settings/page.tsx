@@ -14,12 +14,24 @@ import {
   Loader2
 } from 'lucide-react';
 
+interface SettingsState {
+  primaryColor: string;
+  accentColor: string;
+  baseFont: string;
+  gaId: string;
+  liPixel: string;
+  waPhone: string;
+  siteTitleTemplate: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
 export default function AdminSettings() {
   const [activeTab, setActiveTab] = useState('branding');
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [settings, setSettings] = useState<any>({
+  const [settings, setSettings] = useState<SettingsState>({
     primaryColor: '#2563EB',
     accentColor: '#10B981',
     baseFont: 'Inter (Default)',
@@ -36,7 +48,7 @@ export default function AdminSettings() {
         const res = await fetch('/api/admin/settings');
         if (res.ok) {
           const data = await res.json();
-          setSettings((prev: any) => ({ ...prev, ...data }));
+          setSettings((prev) => ({ ...prev, ...data }));
         }
       } catch (error) {
         console.error('Failed to fetch settings:', error);
@@ -68,7 +80,7 @@ export default function AdminSettings() {
   };
 
   const handleInputChange = (key: string, value: string) => {
-    setSettings((prev: any) => ({ ...prev, [key]: value }));
+    setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
   const tabs = [
@@ -277,7 +289,7 @@ export default function AdminSettings() {
                 </div>
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-2xl flex gap-3 text-xs text-blue-700 dark:text-blue-400 font-medium">
                   <AlertCircle className="w-5 h-5 flex-shrink-0 text-blue-600" />
-                  <p>These settings will be used as defaults for pages that don't have their own SEO configurations. Proper SEO increases your visibility on search engines like Google.</p>
+                  <p>These settings will be used as defaults for pages that don&apos;t have their own SEO configurations. Proper SEO increases your visibility on search engines like Google.</p>
                 </div>
               </div>
             </div>
@@ -296,6 +308,6 @@ export default function AdminSettings() {
   );
 }
 
-function cn(...inputs: any[]) {
+function cn(...inputs: (string | boolean | undefined | null)[]) {
   return inputs.filter(Boolean).join(' ');
 }

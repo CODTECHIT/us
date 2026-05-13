@@ -15,7 +15,7 @@ export async function GET() {
       SELECT * FROM Enquiry ORDER BY createdAt DESC
     `;
     return NextResponse.json(enquiries);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch enquiries' }, { status: 500 });
   }
 }
@@ -38,7 +38,7 @@ export async function PATCH(req: Request) {
     `;
 
     return NextResponse.json({ id, status });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to update enquiry' }, { status: 500 });
   }
 }
@@ -58,7 +58,7 @@ export async function DELETE(req: Request) {
     `;
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to delete enquiry' }, { status: 500 });
   }
 }

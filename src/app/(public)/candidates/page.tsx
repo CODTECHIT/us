@@ -3,7 +3,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import { Search, Briefcase, Rocket, Upload, Award, FileUser, CheckCircle2, ChevronRight, ArrowRight } from "lucide-react";
+import { Search, Rocket, Upload, Award, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 type CandidateForm = {
@@ -11,7 +11,7 @@ type CandidateForm = {
   email: string;
   phone: string;
   sector: string;
-  resume: any;
+  resume: FileList;
 };
 
 export default function Candidates() {

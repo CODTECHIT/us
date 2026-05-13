@@ -4,23 +4,30 @@ import React, { useState, useEffect } from 'react';
 import { 
   Plus, 
   Search, 
-  Filter, 
-  MoreVertical, 
   Edit2, 
   MapPin, 
   Clock,
-  Loader2,
-  ExternalLink,
+  Briefcase,
   Copy,
   Check,
   Eye,
-  ChevronDown
+  MoreVertical
 } from 'lucide-react';
 import Link from 'next/link';
 import DeleteJobButton from '@/components/admin/DeleteJobButton';
 
 export default function JobManager() {
-  const [jobs, setJobs] = useState<any[]>([]);
+  const [jobs, setJobs] = useState<Array<{
+    id: string;
+    title: string;
+    slug: string;
+    location: string;
+    createdAt: string;
+    status: string;
+    _count: {
+      applications: number;
+    };
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -215,22 +222,3 @@ export default function JobManager() {
   );
 }
 
-function Briefcase(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-    </svg>
-  );
-}

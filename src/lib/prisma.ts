@@ -8,7 +8,7 @@ const prismaClientSingleton = () => {
   
   if (!databaseUrl) {
     return new PrismaClient({ 
-      // @ts-ignore
+      // @ts-expect-error - adapter is required in some Prisma versions but can be null for default
       adapter: null 
     })
   }
@@ -24,10 +24,10 @@ const prismaClientSingleton = () => {
     })
 
     return new PrismaClient({ adapter })
-  } catch (error) {
+  } catch {
     console.warn("Failed to parse DATABASE_URL, using default constructor placeholder")
     return new PrismaClient({ 
-      // @ts-ignore
+      // @ts-expect-error - adapter is required in some Prisma versions but can be null for default
       adapter: null 
     })
   }

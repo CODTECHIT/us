@@ -17,22 +17,17 @@ const Footer = () => {
           <div className="sm:col-span-2 lg:col-span-4">
             <Link
               href="/"
-              className="flex items-center mb-6 sm:mb-8 md:mb-12 group"
+              className="block mb-8 md:mb-12 group"
             >
               <Image
                 src="/maxera-logo.png"
                 alt="MaxEra Logo"
                 width={200}
                 height={133}
-                className="w-auto h-12 sm:h-14 md:h-20 object-contain mr-3 sm:mr-4 md:mr-6"
+                className="w-auto h-12 sm:h-14 md:h-20 object-contain"
               />
-              <div className="flex flex-col justify-center">
-                <span className="text-[9px] sm:text-[10px] font-sans font-extrabold tracking-[0.4em] uppercase mt-1.5 sm:mt-2 text-maxera-red">
-                  Talent Partner
-                </span>
-              </div>
             </Link>
-            <p className="text-sm sm:text-[15px] md:text-[16px] leading-relaxed mb-8 md:mb-12 max-w-sm text-gray-500 font-medium">
+            <p className="text-sm sm:text-[15px] md:text-[16px] leading-relaxed mb-8 md:mb-12 max-w-sm text-gray-500 font-bold uppercase tracking-tight">
               Revolutionizing professional recruitment through precision search
               and strategic talent acquisition.
             </p>
@@ -242,14 +237,7 @@ const Footer = () => {
         {/* Legal Bar */}
         <div className="border-t border-white/5 pt-8 md:pt-12 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 text-[10px] sm:text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-gray-500">
           <p className="text-center sm:text-left">
-            &copy; {new Date().getFullYear()} MAXERA TALENT — DESIGNED BY{" "}
-            <Link
-              href="https://codtechitsolutions.com/"
-              target="_blank"
-              className="text-maxera-red hover:text-white transition-colors underline underline-offset-4"
-            >
-              CODTECH IT SOLUTIONS
-            </Link>
+            &copy; {new Date().getFullYear()} MAXERA TALENT. ALL RIGHTS RESERVED.
           </p>
           <div className="flex items-center flex-wrap justify-center gap-4 sm:gap-6 md:gap-12">
             <Link

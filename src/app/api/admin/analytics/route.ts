@@ -24,7 +24,7 @@ export async function GET() {
     // Since we are using raw SQL for enquiry creation, we might want to stay consistent
     // but Prisma count/findMany usually works for simple reads if not cached.
     // However, let's use queryRaw for enquiries to be safe.
-    const recentEnquiries: any = await prisma.$queryRaw`
+    const recentEnquiries = await prisma.$queryRaw<Array<{ date: Date; count: bigint }>>`
       SELECT DATE(createdAt) as date, COUNT(*) as count 
       FROM Enquiry 
       WHERE createdAt >= ${sevenDaysAgo}
@@ -34,7 +34,7 @@ export async function GET() {
 
     // Convert BigInt to Number for JSON serialization
     const formattedTrends = Array.isArray(recentEnquiries) 
-      ? recentEnquiries.map((item: any) => ({
+      ? recentEnquiries.map((item) => ({
           date: item.date,
           count: Number(item.count)
         }))

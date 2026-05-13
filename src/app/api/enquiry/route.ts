@@ -40,8 +40,8 @@ export async function POST(req: Request) {
     };
 
     return NextResponse.json(enquiry, { status: 201 });
-  } catch (error) {
-    console.error('Enquiry Error:', error);
+  } catch (_error) {
+    console.error('Enquiry Error:', _error);
     return NextResponse.json(
       { message: 'Internal Server Error' }, 
       { status: 500 }

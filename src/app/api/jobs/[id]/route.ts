@@ -14,7 +14,7 @@ export async function GET(
       include: { tags: true }
     });
     return NextResponse.json(job);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch job' }, { status: 500 });
   }
 }
@@ -76,11 +76,12 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('Delete Error:', error);
     return NextResponse.json({ 
       error: 'Failed to delete job', 
-      details: error.message 
+      details: errorMessage 
     }, { status: 500 });
   }
 }

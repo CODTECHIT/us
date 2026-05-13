@@ -5,8 +5,7 @@ import {
   Eye, 
   Settings, 
   Clock,
-  Layout,
-  ArrowRight
+  Layout
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -21,7 +20,7 @@ export default async function PagesManager() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Content Manager</h1>
-          <p className="text-zinc-500 mt-1">Update and manage your website's static page content.</p>
+          <p className="text-zinc-500 mt-1">Update and manage your website&apos;s static page content.</p>
         </div>
       </div>
 

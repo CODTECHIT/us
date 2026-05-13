@@ -14,7 +14,18 @@ import {
 } from 'lucide-react';
 
 export default function AnalyticsPage() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<{
+    stats: {
+      enquiries: number;
+      applications: number;
+      jobs: number;
+      blogs: number;
+    };
+    traffic: Array<{
+      day: string;
+      views: number;
+    }>;
+  } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -136,7 +147,7 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="h-[300px] flex items-end justify-between gap-4 px-4 pt-10">
-            {data?.traffic?.map((item: any, idx: number) => (
+            {data?.traffic?.map((item, idx: number) => (
               <div key={idx} className="flex-1 flex flex-col items-center group relative">
                 {/* Tooltip */}
                 <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] font-black py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">

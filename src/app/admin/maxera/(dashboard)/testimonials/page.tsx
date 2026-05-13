@@ -11,9 +11,17 @@ import {
   Loader2
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function TestimonialsManager() {
-  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [testimonials, setTestimonials] = useState<Array<{
+    id: string;
+    content: string;
+    name: string;
+    avatar?: string;
+    position: string;
+    company: string;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchTestimonials = async () => {
@@ -99,13 +107,13 @@ export default function TestimonialsManager() {
                 
                 <div className="space-y-4">
                   <p className="text-zinc-600 dark:text-zinc-400 italic text-sm leading-relaxed line-clamp-4">
-                    "{t.content}"
+                    &quot;{t.content}&quot;
                   </p>
 
                   <div className="flex items-center gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
                     <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center overflow-hidden">
                       {t.avatar ? (
-                        <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                        <Image src={t.avatar} alt={t.name} width={40} height={40} className="w-full h-full object-cover" />
                       ) : (
                         <User className="w-5 h-5 text-zinc-400" />
                       )}

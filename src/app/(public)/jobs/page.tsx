@@ -1,7 +1,4 @@
 import React from "react";
-// @ts-ignore
-import { motion } from "framer-motion";
-import { MapPin, Briefcase, Tag, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { AnimatedJobCard } from "@/components/AnimatedJobCard";
 import { getPublishedJobs } from "@/lib/public-data";
@@ -57,7 +54,7 @@ export default async function Jobs() {
         <div className="mt-32 p-16 bg-white shadow-soft text-center group relative overflow-hidden">
           <div className="absolute top-0 left-0 w-2 h-full bg-maxera-red"></div>
           <h4 className="text-3xl font-heading font-black text-maxera-dark mb-6 uppercase tracking-tight">
-            CAN'T FIND A MATCH?
+            CAN&apos;T FIND A MATCH?
           </h4>
           <p className="text-gray-500 font-medium mb-12 max-w-xl mx-auto leading-relaxed">
             Our most critical and confidential roles are not listed publicly.

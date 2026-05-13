@@ -12,12 +12,12 @@ export async function GET() {
 
     const settings = await prisma.setting.findMany();
     // Convert to a key-value object
-    const settingsMap = settings.reduce((acc: any, curr) => {
+    const settingsMap = settings.reduce((acc: Record<string, string>, curr) => {
       acc[curr.key] = curr.value;
       return acc;
     }, {});
     return NextResponse.json(settingsMap);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 }

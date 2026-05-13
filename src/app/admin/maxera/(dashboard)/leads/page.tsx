@@ -3,21 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Mail, 
-  Phone, 
-  MoreHorizontal, 
-  CheckCircle, 
   Clock, 
   MessageSquare,
   Download,
   Trash2,
-  Loader2,
-  Filter
+  Loader2
 } from 'lucide-react';
 
 const STATUS_OPTIONS = ['NEW', 'IN_PROGRESS', 'RESOLVED'];
 
 export default function LeadsManager() {
-  const [leads, setLeads] = useState<any[]>([]);
+  const [leads, setLeads] = useState<Array<{
+    id: string;
+    name: string;
+    email: string;
+    type: string;
+    status: string;
+    message: string;
+    createdAt: string;
+    resumeUrl?: string;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -203,7 +208,7 @@ export default function LeadsManager() {
                     <div className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl border border-zinc-100 dark:border-zinc-700/50 relative">
                       <MessageSquare className="absolute top-2 right-2 w-6 h-6 text-zinc-200/50 dark:text-zinc-700/30" />
                       <p className="text-zinc-600 dark:text-zinc-400 text-xs font-medium italic leading-relaxed relative z-10 pr-6">
-                        "{lead.message}"
+                        &quot;{lead.message}&quot;
                       </p>
                     </div>
 

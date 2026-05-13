@@ -8,15 +8,16 @@ import {
   Check, 
   Trash2, 
   Search, 
-  Grid, 
-  List,
   Loader2,
-  FileText,
-  File as FileIcon
+  FileText
 } from 'lucide-react';
+import Image from 'next/image';
 
 export default function MediaLibrary() {
-  const [images, setImages] = useState<any[]>([]);
+  const [images, setImages] = useState<Array<{
+    name: string;
+    url: string;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -152,10 +153,11 @@ export default function MediaLibrary() {
               <div key={img.name} className="group relative">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative flex items-center justify-center">
                   {isImage(img.name) ? (
-                    <img 
+                    <Image 
                       src={img.url} 
                       alt={img.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   ) : (
                     <div className="flex flex-col items-center gap-2">

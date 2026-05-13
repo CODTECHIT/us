@@ -3,9 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Plus, 
-  Search, 
-  Filter, 
-  MoreVertical, 
   Edit2, 
   Trash2, 
   Calendar,
@@ -16,7 +13,14 @@ import {
 import Link from 'next/link';
 
 export default function BlogManager() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Array<{
+    id: string;
+    title: string;
+    excerpt: string;
+    author?: string;
+    createdAt: string;
+    status: string;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchPosts = async () => {

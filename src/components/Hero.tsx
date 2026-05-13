@@ -7,7 +7,14 @@ import { ArrowDown } from "lucide-react";
 import SplitText from "@/components/animations/SplitText";
 import BlurText from "@/components/animations/BlurText";
 
-const Hero = ({ cmsData }: { cmsData: any }) => {
+const Hero = ({ cmsData }: { 
+  cmsData: {
+    heroTitle: string;
+    heroSubtitle: string;
+    ctaText: string;
+    ctaLink: string;
+  } 
+}) => {
   const { heroTitle, heroSubtitle, ctaText, ctaLink } = cmsData;
 
   return (
@@ -56,7 +63,7 @@ const Hero = ({ cmsData }: { cmsData: any }) => {
         </div>
 
         {/* Subtext */}
-        <div className="mb-8 md:mb-14 max-w-xs sm:max-w-md md:max-w-xl mx-auto px-2">
+        <div className="mb-8 md:mb-14 max-w-sm sm:max-w-xl md:max-w-3xl mx-auto px-2">
           <BlurText
             text={heroSubtitle}
             delay={60}

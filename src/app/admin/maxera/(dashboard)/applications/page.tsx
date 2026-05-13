@@ -9,8 +9,7 @@ import {
   ExternalLink, 
   Clock,
   Briefcase,
-  Loader2,
-  CheckCircle2
+  Loader2
 } from 'lucide-react';
 
 const STATUS_OPTIONS = [
@@ -33,7 +32,18 @@ const getStatusColor = (status: string) => {
 };
 
 export default function ApplicationsPage() {
-  const [applications, setApplications] = useState<any[]>([]);
+  const [applications, setApplications] = useState<Array<{
+    id: string;
+    candidateName: string;
+    email: string;
+    phone: string;
+    status: string;
+    createdAt: string;
+    resumeUrl?: string;
+    job: {
+      title: string;
+    };
+  }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 

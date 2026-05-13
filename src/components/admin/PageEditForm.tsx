@@ -4,7 +4,14 @@ import React, { useState } from 'react';
 import { Save, Loader2, CheckCircle2, Type, Layout, Globe } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function PageEditForm({ page }: { page: any }) {
+export default function PageEditForm({ page }: { 
+  page: {
+    id: string;
+    title: string;
+    content: string;
+    status: string;
+  } 
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
@@ -34,7 +41,7 @@ export default function PageEditForm({ page }: { page: any }) {
       } else {
         alert('Failed to update page');
       }
-    } catch (error) {
+    } catch {
       alert('An error occurred');
     } finally {
       setIsSubmitting(false);

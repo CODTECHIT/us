@@ -8,21 +8,35 @@ import {
   User,
   Share2,
   ArrowLeft,
-  Target,
   Calendar,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface Article {
+  id: string;
+  title: string;
+  category: string;
+  readTime: string;
+  sector: string;
+  image?: string;
+  summary: string;
+  content: React.ReactNode;
+  createdAt: string;
+  coverImage?: string;
+  excerpt?: string;
+  author?: string;
+}
+
 export default function TalentInsightsClient({
   initialArticles,
 }: {
-  initialArticles: any[];
+  initialArticles: Article[];
 }) {
-  const [selectedArticle, setSelectedArticle] = useState<any | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   // STATIC ARTICLES (100% FULL DATA AS PROVIDED BY USER)
-  const staticArticles = [
+  const staticArticles: Article[] = [
     {
       id: "blue-collar-hiring-static",
       title:
@@ -897,7 +911,7 @@ export default function TalentInsightsClient({
                         <div className="md:col-span-2 relative aspect-[4/3] overflow-hidden shadow-xl bg-zinc-100">
                           {article.image || article.coverImage ? (
                             <Image
-                              src={article.image || article.coverImage}
+                              src={(article.image || article.coverImage) as string}
                               alt={article.title}
                               fill
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 30vw"
@@ -967,7 +981,7 @@ export default function TalentInsightsClient({
                 {(selectedArticle.image || selectedArticle.coverImage) && (
                   <div className="relative aspect-[21/9] mb-12 overflow-hidden shadow-2xl">
                     <Image
-                      src={selectedArticle.image || selectedArticle.coverImage}
+                      src={(selectedArticle.image || selectedArticle.coverImage) as string}
                       alt={selectedArticle.title}
                       fill
                       sizes="100vw"
