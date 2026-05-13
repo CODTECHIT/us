@@ -169,9 +169,9 @@ export default function HomeClient({
     id: string;
     content: string;
     name: string;
-    avatar?: string;
-    position: string;
-    company: string;
+    avatar?: string | null;
+    position?: string | null;
+    company?: string | null;
   }>;
 }) {
   const stats = [
