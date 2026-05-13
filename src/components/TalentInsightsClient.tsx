@@ -16,16 +16,16 @@ import Link from "next/link";
 interface Article {
   id: string;
   title: string;
-  category: string;
-  readTime: string;
-  sector: string;
+  category?: string;
+  readTime?: string;
+  sector?: string;
   image?: string;
-  summary: string;
+  summary?: string;
   content: React.ReactNode;
-  createdAt: string;
-  coverImage?: string;
-  excerpt?: string;
-  author?: string;
+  createdAt: string | Date;
+  coverImage?: string | null;
+  excerpt?: string | null;
+  author?: string | null;
 }
 
 export default function TalentInsightsClient({
