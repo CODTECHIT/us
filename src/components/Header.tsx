@@ -222,11 +222,11 @@ const Header = () => {
     >
       <TopBar />
 
-      <nav className="h-[80px] sm:h-[90px] lg:h-[110px] bg-white max-w-[1920px] mx-auto flex items-center relative">
+      <nav className="w-full h-[80px] sm:h-[90px] lg:h-[110px] bg-white max-w-[1920px] mx-auto flex items-center relative">
         {/* Logo */}
         <Link
           href="/"
-          className="h-full bg-white flex items-center px-4 sm:px-6 lg:px-12 z-[110] relative flex-shrink-0"
+          className="h-full bg-white flex items-center px-4 sm:px-6 lg:px-12 z-[110] relative flex-shrink-0 max-w-[220px] sm:max-w-none"
           style={{ clipPath: "polygon(0 0, 100% 0, 92% 100%, 0 100%)" }}
         >
           <div className="flex items-center">
@@ -235,14 +235,14 @@ const Header = () => {
               alt="MaxEra Logo"
               width={320}
               height={180}
-              className="w-auto h-16 sm:h-24 lg:h-32 object-contain"
+              className="w-auto h-11 sm:h-24 lg:h-32 object-contain max-w-full"
               priority
             />
           </div>
         </Link>
 
         {/* Navigation Block */}
-        <div className="h-full flex-grow flex items-center justify-between pl-6 sm:pl-10 lg:pl-16 xl:pl-24 pr-4 sm:pr-6 lg:pr-12 z-20 relative">
+        <div className="h-full flex-grow flex items-center justify-end lg:justify-between pl-3 sm:pl-10 lg:pl-16 xl:pl-24 pr-4 sm:pr-6 lg:pr-12 z-20 relative">
           <div
             className="absolute inset-0 bg-maxera-red z-[-1]"
             style={{ clipPath: "polygon(8% 0, 100% 0, 100% 100%, 0 100%)" }}
