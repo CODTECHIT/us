@@ -23,8 +23,14 @@ const prismaClientSingleton = () => {
 
   try {
     const { host, port, user, password, database } = parseDatabaseUrl(databaseUrl)
+
+    // On Hostinger shared hosting, MySQL listens on a Unix socket.
+    // The mariadb package uses socket when host='localhost', TCP when host='127.0.0.1'.
+    // Force 'localhost' so the socket is used, avoiding TCP timeout errors.
+    const resolvedHost = host === '127.0.0.1' ? 'localhost' : host;
+
     const adapter = new PrismaMariaDb({
-      host,
+      host: resolvedHost,
       port,
       user,
       password,
