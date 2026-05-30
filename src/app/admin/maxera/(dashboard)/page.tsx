@@ -16,7 +16,10 @@ export default async function AdminDashboard() {
   // Fetch real counts from the database — wrapped in try/catch so the
   // admin dashboard still renders if the DB is temporarily unavailable.
   let jobCount = 0, applicationCount = 0, enquiryCount = 0;
-  let recentApps: Awaited<ReturnType<typeof prisma.application.findMany>> = [];
+  let recentApps: Array<{
+    id: string; candidateName: string; createdAt: Date;
+    status: string; job: { title: string };
+  }> = [];
 
   try {
     [jobCount, applicationCount, enquiryCount, recentApps] = await Promise.all([
