@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { validateFileExtension, validateFileSize } from '@/lib/security';
 
@@ -47,6 +47,7 @@ export async function POST(req: Request) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const filename = `${uniqueSuffix}-${resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
       const uploadDir = path.join(process.cwd(), 'public/uploads/resumes');
+      await mkdir(uploadDir, { recursive: true });
       const filepath = path.join(uploadDir, filename);
 
       await writeFile(filepath, buffer);

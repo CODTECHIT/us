@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { writeFile, readdir, unlink } from 'fs/promises';
+import { writeFile, readdir, unlink, mkdir } from 'fs/promises';
 import { join, basename } from 'path';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -35,7 +35,9 @@ export async function POST(req: Request) {
     // Create unique filename - use basename to prevent path traversal
     const safeOriginalName = basename(file.name);
     const filename = `${Date.now()}-${safeOriginalName.replace(/\s+/g, '-')}`;
-    const path = join(process.cwd(), 'public/uploads', filename);
+    const uploadsDir = join(process.cwd(), 'public/uploads');
+    await mkdir(uploadsDir, { recursive: true });
+    const path = join(uploadsDir, filename);
 
     await writeFile(path, buffer);
     console.log(`Uploaded file saved to ${path}`);
@@ -58,6 +60,7 @@ export async function GET() {
     }
 
     const uploadsDir = join(process.cwd(), 'public/uploads');
+    await mkdir(uploadsDir, { recursive: true });
     const files = await readdir(uploadsDir);
     
     // Filter for common image extensions
