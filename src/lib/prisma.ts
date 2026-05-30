@@ -21,6 +21,7 @@ const prismaClientSingleton = () => {
       user: decodeURIComponent(url.username),
       password: decodeURIComponent(url.password),
       database: url.pathname.substring(1),
+      connectionLimit: 3, // Limit connections to prevent exceeding Hostinger hourly limits
     })
 
     return new PrismaClient({ adapter })
