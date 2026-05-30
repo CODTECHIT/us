@@ -7,10 +7,17 @@ const prismaClientSingleton = () => {
   const databaseUrl = process.env.DATABASE_URL;
   
   if (!databaseUrl) {
-    return new PrismaClient({ 
-      // @ts-expect-error - adapter is required in some Prisma versions but can be null for default
-      adapter: null 
+    // During build time (e.g. on Hostinger), DATABASE_URL is not available.
+    // Return a Prisma Client with a dummy adapter so the build compiles successfully.
+    const dummyAdapter = new PrismaMariaDb({
+      host: '127.0.0.1',
+      port: 3306,
+      user: 'dummy_user',
+      password: 'dummy_password',
+      database: 'dummy_db',
+      connectionLimit: 1
     })
+    return new PrismaClient({ adapter: dummyAdapter })
   }
 
   try {
@@ -25,12 +32,17 @@ const prismaClientSingleton = () => {
     })
 
     return new PrismaClient({ adapter })
-  } catch {
-    console.warn("Failed to parse DATABASE_URL, using default constructor placeholder")
-    return new PrismaClient({ 
-      // @ts-expect-error - adapter is required in some Prisma versions but can be null for default
-      adapter: null 
+  } catch (error) {
+    console.warn("Failed to parse DATABASE_URL, using dummy adapter for fallback:", error)
+    const dummyAdapter = new PrismaMariaDb({
+      host: '127.0.0.1',
+      port: 3306,
+      user: 'dummy_user',
+      password: 'dummy_password',
+      database: 'dummy_db',
+      connectionLimit: 1
     })
+    return new PrismaClient({ adapter: dummyAdapter })
   }
 }
 
