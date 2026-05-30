@@ -22,11 +22,21 @@ export function parseDatabaseUrl(urlStr: string) {
     protocol = 'mysql2://';
   } else if (cleaned.startsWith('mariadb://')) {
     protocol = 'mariadb://';
+  } else if (cleaned.includes('@') && cleaned.includes('/')) {
+    // URL is missing the protocol prefix (e.g. set as "user:pass@host/db" on server).
+    // Auto-fix by prepending mysql:// so the connection still works.
+    console.warn(
+      '[db-parser] DATABASE_URL is missing a protocol prefix. ' +
+      'Auto-prepending "mysql://". ' +
+      'Please fix the DATABASE_URL on the server to include "mysql://" at the start.'
+    );
+    cleaned = 'mysql://' + cleaned;
+    protocol = 'mysql://';
   } else {
     // Obfuscate the string for safety in error reporting
     const safeStr = cleaned.includes('@') 
       ? '***@' + cleaned.split('@').slice(1).join('@') 
-      : cleaned.substring(0, 20) + '...';
+      : '(invalid url, length=' + cleaned.length + ')';
     throw new Error(`Database URL must start with "mysql://" or "mysql2://" or "mariadb://" protocol. Got: "${safeStr}"`);
   }
 
