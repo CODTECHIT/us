@@ -12,15 +12,26 @@ export function parseDatabaseUrl(urlStr: string) {
 
   // 1. Clean the string: trim spaces and remove surrounding quotes (single or double)
   let cleaned = urlStr.trim();
-  cleaned = cleaned.replace(/^["']|["']$/g, '');
+  cleaned = cleaned.replace(/^["']|["']$/g, '').trim();
 
   // 2. Validate/parse protocol
-  if (!cleaned.startsWith('mysql://')) {
-    throw new Error('Database URL must start with "mysql://" protocol');
+  let protocol = '';
+  if (cleaned.startsWith('mysql://')) {
+    protocol = 'mysql://';
+  } else if (cleaned.startsWith('mysql2://')) {
+    protocol = 'mysql2://';
+  } else if (cleaned.startsWith('mariadb://')) {
+    protocol = 'mariadb://';
+  } else {
+    // Obfuscate the string for safety in error reporting
+    const safeStr = cleaned.includes('@') 
+      ? '***@' + cleaned.split('@').slice(1).join('@') 
+      : cleaned.substring(0, 20) + '...';
+    throw new Error(`Database URL must start with "mysql://" or "mysql2://" or "mariadb://" protocol. Got: "${safeStr}"`);
   }
 
   // Remove the protocol prefix
-  const remaining = cleaned.substring('mysql://'.length);
+  const remaining = cleaned.substring(protocol.length);
 
   // 3. Find username and password
   // Split by the last '@' to isolate credentials from host/database parts.
