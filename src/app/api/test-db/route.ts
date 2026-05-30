@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import dns from "dns";
 import { promisify } from "util";
+import { parseDatabaseUrl } from "../../../lib/db-parser";
 
 const lookup = promisify(dns.lookup);
 
@@ -15,18 +16,22 @@ export async function GET() {
     return NextResponse.json({ success: false, logs: debugLogs, error: "DATABASE_URL environment variable is missing" });
   }
 
-  let parsedUrl: URL;
+  let host = "";
+  let port = 3306;
+  let user = "";
+  let password = "";
+  let database = "";
+
   try {
-    parsedUrl = new URL(databaseUrl);
+    const parsed = parseDatabaseUrl(databaseUrl);
+    host = parsed.host;
+    port = parsed.port;
+    user = parsed.user;
+    password = parsed.password;
+    database = parsed.database;
   } catch (err: any) {
     return NextResponse.json({ success: false, logs: debugLogs, error: `Failed to parse DATABASE_URL: ${err.message}` });
   }
-
-  const host = parsedUrl.hostname;
-  const port = parseInt(parsedUrl.port) || 3306;
-  const user = decodeURIComponent(parsedUrl.username);
-  const password = decodeURIComponent(parsedUrl.password);
-  const database = parsedUrl.pathname.substring(1);
 
   debugLogs.push(`Parsed Details - Host: ${host}, Port: ${port}, User: ${user}, DB: ${database}`);
 

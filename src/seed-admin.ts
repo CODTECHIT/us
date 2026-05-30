@@ -2,6 +2,7 @@ import { PrismaClient } from '../prisma/generated/client/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
+import { parseDatabaseUrl } from './lib/db-parser'
 
 dotenv.config()
 
@@ -9,13 +10,13 @@ const createAdmin = async () => {
   const databaseUrl = process.env.DATABASE_URL
   if (!databaseUrl) throw new Error('DATABASE_URL not found')
 
-  const url = new URL(databaseUrl)
+  const { host, port, user, password, database } = parseDatabaseUrl(databaseUrl)
   const adapter = new PrismaMariaDb({
-    host: url.hostname,
-    port: parseInt(url.port) || 3306,
-    user: decodeURIComponent(url.username),
-    password: decodeURIComponent(url.password),
-    database: url.pathname.substring(1),
+    host,
+    port,
+    user,
+    password,
+    database,
   })
 
   const prisma = new PrismaClient({ adapter })

@@ -1,5 +1,6 @@
 import { PrismaClient } from '../../prisma/generated/client/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
+import { parseDatabaseUrl } from './db-parser'
 
 // Bumping to force module reload - 2026-05-02
 
@@ -21,13 +22,13 @@ const prismaClientSingleton = () => {
   }
 
   try {
-    const url = new URL(databaseUrl)
+    const { host, port, user, password, database } = parseDatabaseUrl(databaseUrl)
     const adapter = new PrismaMariaDb({
-      host: url.hostname,
-      port: parseInt(url.port) || 3306,
-      user: decodeURIComponent(url.username),
-      password: decodeURIComponent(url.password),
-      database: url.pathname.substring(1),
+      host,
+      port,
+      user,
+      password,
+      database,
       connectionLimit: 3, // Limit connections to prevent exceeding Hostinger hourly limits
     })
 
