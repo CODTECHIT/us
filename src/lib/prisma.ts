@@ -29,7 +29,7 @@ const prismaClientSingleton = () => {
       user,
       password,
       database,
-      connectionLimit: 3, // Limit connections to prevent exceeding Hostinger hourly limits
+      connectionLimit: 1, // Hostinger shared hosting has very limited MySQL connections
     })
 
     return new PrismaClient({ adapter })
@@ -55,4 +55,6 @@ const prisma = globalThis.prisma ?? prismaClientSingleton()
 
 export default prisma
 
-if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma
+// Always reuse the singleton — in production this prevents a new client (and new DB connections)
+// from being created on every request, which was causing the process/connection pool explosion.
+globalThis.prisma = prisma
