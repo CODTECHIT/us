@@ -13,17 +13,25 @@ import prisma from '@/lib/prisma';
 import Link from 'next/link';
 
 export default async function AdminDashboard() {
-  // Fetch real counts from the database
-  const [jobCount, applicationCount, enquiryCount, recentApps] = await Promise.all([
-    prisma.job.count(),
-    prisma.application.count(),
-    prisma.enquiry.count(),
-    prisma.application.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      include: { job: { select: { title: true } } }
-    })
-  ]);
+  // Fetch real counts from the database — wrapped in try/catch so the
+  // admin dashboard still renders if the DB is temporarily unavailable.
+  let jobCount = 0, applicationCount = 0, enquiryCount = 0;
+  let recentApps: Awaited<ReturnType<typeof prisma.application.findMany>> = [];
+
+  try {
+    [jobCount, applicationCount, enquiryCount, recentApps] = await Promise.all([
+      prisma.job.count(),
+      prisma.application.count(),
+      prisma.enquiry.count(),
+      prisma.application.findMany({
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        include: { job: { select: { title: true } } }
+      })
+    ]);
+  } catch (error) {
+    console.error('[AdminDashboard] DB query failed, showing zeroes:', error);
+  }
 
   const stats = [
     { name: 'Active Job Posts', value: jobCount.toString(), icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-50' },
