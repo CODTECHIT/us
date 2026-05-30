@@ -10,12 +10,12 @@ const createAdmin = async () => {
   const databaseUrl = process.env.DATABASE_URL
   if (!databaseUrl) throw new Error('DATABASE_URL not found')
 
-  const { host, port, user, password, database } = parseDatabaseUrl(databaseUrl)
+  const { host, port, user, password: dbPassword, database } = parseDatabaseUrl(databaseUrl)
   const adapter = new PrismaMariaDb({
     host,
     port,
     user,
-    password,
+    password: dbPassword,
     database,
   })
 
