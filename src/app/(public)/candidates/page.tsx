@@ -19,39 +19,28 @@ export default function Candidates() {
 
   const onSubmit = async (data: CandidateForm) => {
     try {
-      let resumeUrl = '';
+      const formData = new FormData();
+      formData.append('fullName', data.fullName);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+      formData.append('sector', data.sector);
+      formData.append('type', 'CANDIDATE');
+      formData.append('message', `General candidate enquiry from ${data.sector} sector.`);
       
-      // Upload resume if present
       if (data.resume && data.resume[0]) {
-        const formData = new FormData();
-        formData.append('file', data.resume[0]);
-        
-        const uploadRes = await fetch('/api/media', {
-          method: 'POST',
-          body: formData,
-        });
-        
-        if (uploadRes.ok) {
-          const uploadData = await uploadRes.json();
-          resumeUrl = uploadData.url;
-        }
+        formData.append('resume', data.resume[0]);
       }
 
       const res = await fetch('/api/enquiry', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          ...data, 
-          resume: undefined, // Don't send FileList object
-          resumeUrl,
-          message: `General candidate enquiry from ${data.sector} sector.`, 
-          type: 'CANDIDATE' 
-        })
+        body: formData,
       });
+
       if (res.ok) {
         alert("Profile sync successful! Our specialists will reach out if there's a match.");
       } else {
-        alert("Failed to sync profile. Please try again.");
+        const err = await res.json();
+        alert(`Failed to sync profile: ${err.message || 'Please try again.'}`);
       }
     } catch (error) {
       console.error(error);

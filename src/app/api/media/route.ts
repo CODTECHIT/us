@@ -3,6 +3,12 @@ import { writeFile, readdir, unlink } from 'fs/promises';
 import { join, basename } from 'path';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { validateFileExtension } from '@/lib/security';
+
+const ALLOWED_MEDIA_EXTENSIONS = [
+  '.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', 
+  '.pdf', '.doc', '.docx', '.txt', '.xlsx'
+];
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +22,11 @@ export async function POST(req: Request) {
 
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
+    }
+
+    // Validate file extension
+    if (!validateFileExtension(file.name, ALLOWED_MEDIA_EXTENSIONS)) {
+      return NextResponse.json({ error: 'Invalid file type.' }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();

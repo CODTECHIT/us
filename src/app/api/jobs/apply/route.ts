@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { writeFile } from 'fs/promises';
 import path from 'path';
+import { validateFileExtension, validateFileSize } from '@/lib/security';
 
 export async function POST(req: Request) {
   try {
@@ -21,8 +22,25 @@ export async function POST(req: Request) {
     let resumeUrl = null;
 
     // Handle File Upload
-    if (resumeFile) {
+    if (resumeFile && resumeFile.size > 0) {
+      // 1. Validate extension
+      if (!validateFileExtension(resumeFile.name)) {
+        return NextResponse.json(
+          { message: 'Invalid file type. Only PDF, DOC, DOCX, and TXT files are allowed.' }, 
+          { status: 400 }
+        );
+      }
+
       const bytes = await resumeFile.arrayBuffer();
+      
+      // 2. Validate size (max 5MB)
+      if (!validateFileSize(bytes.byteLength)) {
+        return NextResponse.json(
+          { message: 'File is too large. Maximum size allowed is 5MB.' }, 
+          { status: 400 }
+        );
+      }
+
       const buffer = Buffer.from(bytes);
 
       // Create a unique filename
