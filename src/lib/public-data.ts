@@ -1,4 +1,6 @@
 import { unstable_cache } from "next/cache";
+
+// revalidate-trigger: touched at 2026-05-31T12:30:00Z to force dev refresh
 import prisma from "@/lib/prisma";
 
 const PUBLIC_QUERY_TIMEOUT_MS = 20000;
