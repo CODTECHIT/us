@@ -4,6 +4,14 @@ import { parseDatabaseUrl } from './db-parser'
 
 // Bumping to force module reload - 2026-05-02
 
+function getPoolLimit() {
+  const rawLimit = Number(process.env.DATABASE_POOL_LIMIT ?? '2');
+  if (!Number.isFinite(rawLimit) || rawLimit < 1) {
+    return 2;
+  }
+  return Math.min(Math.floor(rawLimit), 5);
+}
+
 const prismaClientSingleton = () => {
   const databaseUrl = process.env.DATABASE_URL;
   
@@ -16,7 +24,7 @@ const prismaClientSingleton = () => {
       user: 'dummy_user',
       password: 'dummy_password',
       database: 'dummy_db',
-      connectionLimit: 1
+      connectionLimit: getPoolLimit()
     })
     return new PrismaClient({ adapter: dummyAdapter })
   }
@@ -35,7 +43,7 @@ const prismaClientSingleton = () => {
       user,
       password,
       database,
-      connectionLimit: 1, // Hostinger shared hosting has very limited MySQL connections
+      connectionLimit: getPoolLimit(), // Keep the pool small, but not so small that one request starves the next.
     })
 
     return new PrismaClient({ adapter })
@@ -47,7 +55,7 @@ const prismaClientSingleton = () => {
       user: 'dummy_user',
       password: 'dummy_password',
       database: 'dummy_db',
-      connectionLimit: 1
+      connectionLimit: getPoolLimit()
     })
     return new PrismaClient({ adapter: dummyAdapter })
   }
