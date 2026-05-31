@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -47,6 +47,7 @@ export async function PATCH(
     });
     try {
       // Revalidate blog listing, homepage and the post page
+      revalidateTag("published-articles", "max");
       revalidatePath("/read");
       revalidatePath("/");
       if (post.slug) revalidatePath(`/read/${post.slug}`);
@@ -78,6 +79,7 @@ export async function DELETE(
     });
     try {
       // Revalidate blog listing and homepage
+      revalidateTag("published-articles", "max");
       revalidatePath("/read");
       revalidatePath("/");
     } catch (err) {
@@ -91,3 +93,4 @@ export async function DELETE(
     );
   }
 }
+

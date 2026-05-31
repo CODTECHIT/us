@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function GET(
   req: Request,
@@ -45,6 +46,17 @@ export async function PATCH(
       }
     });
 
+    try {
+      revalidateTag("published-jobs", "max");
+      revalidateTag("homepage-public-data", "max");
+      revalidateTag("published-job-by-slug", "max");
+      revalidatePath("/jobs");
+      revalidatePath("/");
+      revalidatePath(`/jobs/${job.slug}`);
+    } catch (cacheError) {
+      console.warn("Failed to revalidate cache after updating job:", cacheError);
+    }
+
     return NextResponse.json(job);
   } catch (error) {
     console.error('Update Error:', error);
@@ -64,6 +76,12 @@ export async function DELETE(
 
     const { id } = await params;
     
+    // Fetch job slug before deleting so we can invalidate its page path
+    const job = await prisma.job.findUnique({
+      where: { id: id },
+      select: { slug: true }
+    });
+
     // 1. First, delete all applications associated with this job
     // This prevents foreign key constraint errors
     await prisma.application.deleteMany({
@@ -75,6 +93,19 @@ export async function DELETE(
       where: { id: id }
     });
 
+    if (job) {
+      try {
+        revalidateTag("published-jobs", "max");
+        revalidateTag("homepage-public-data", "max");
+        revalidateTag("published-job-by-slug", "max");
+        revalidatePath("/jobs");
+        revalidatePath("/");
+        revalidatePath(`/jobs/${job.slug}`);
+      } catch (cacheError) {
+        console.warn("Failed to revalidate cache after deleting job:", cacheError);
+      }
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -85,3 +116,4 @@ export async function DELETE(
     }, { status: 500 });
   }
 }
+

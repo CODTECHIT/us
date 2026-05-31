@@ -121,7 +121,7 @@ export const getHomepageData = unstable_cache(
     }
   },
   ["homepage-public-data"],
-  { revalidate: 300 },
+  { revalidate: 300, tags: ["homepage-public-data"] },
 );
 
 export const getPublishedJobs = unstable_cache(
@@ -151,7 +151,7 @@ export const getPublishedJobs = unstable_cache(
     }
   },
   ["published-jobs"],
-  { revalidate: 300 },
+  { revalidate: 300, tags: ["published-jobs"] },
 );
 
 export const getPublishedArticles = unstable_cache(
@@ -182,7 +182,7 @@ export const getPublishedArticles = unstable_cache(
     }
   },
   ["published-articles"],
-  { revalidate: 300 },
+  { revalidate: 300, tags: ["published-articles"] },
 );
 
 export const getPublishedJobBySlug = unstable_cache(
@@ -201,5 +201,7 @@ export const getPublishedJobBySlug = unstable_cache(
     }
   },
   ["published-job-by-slug"],
-  { revalidate: 300 },
+  { revalidate: 300, tags: ["published-job-by-slug"] },
 );
+
+

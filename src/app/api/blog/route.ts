@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function POST(req: Request) {
   try {
@@ -27,12 +27,14 @@ export async function POST(req: Request) {
 
     // Revalidate public pages that depend on blog data
     try {
+      revalidateTag("published-articles", "max");
       revalidatePath("/read");
       revalidatePath("/");
       if (post.slug) revalidatePath(`/read/${post.slug}`);
     } catch (err) {
       console.warn("Failed to revalidate paths after creating blog post", err);
     }
+
 
     return NextResponse.json(post);
   } catch (error) {

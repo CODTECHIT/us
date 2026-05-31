@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function GET(req: Request) {
   try {
@@ -71,6 +72,15 @@ export async function POST(req: Request) {
       },
     });
 
+    try {
+      revalidateTag("published-jobs", "max");
+      revalidateTag("homepage-public-data", "max");
+      revalidatePath("/jobs");
+      revalidatePath("/");
+    } catch (cacheError) {
+      console.warn("Failed to revalidate cache after creating job:", cacheError);
+    }
+
     return NextResponse.json(job);
   } catch (error) {
     console.error("Create Error:", error);
@@ -80,3 +90,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
