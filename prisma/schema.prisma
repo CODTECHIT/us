@@ -63,7 +63,6 @@ model Application {
   createdAt   DateTime          @default(now())
 
   @@index([createdAt])
-  @@index([jobId])
 }
 
 // CMS - Content Management
