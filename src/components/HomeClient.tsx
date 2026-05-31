@@ -17,6 +17,7 @@ import Aurora from "@/components/animations/Aurora";
 import AnimatedContent from "@/components/animations/AnimatedContent";
 import CountUp from "@/components/animations/CountUp";
 import SplitText from "@/components/animations/SplitText";
+import ServicesGrid from "@/components/ServicesGrid";
 const CASE_STUDIES = [
   {
     company: "Team Fishel",
@@ -142,71 +143,7 @@ export default function HomeClient({
   // normalize prop name from server component
   const testimonials = _testimonials || [];
 
-  const services = [
-    {
-      title: "Bulk / Volume Hiring",
-      description:
-        "Rapid workforce deployment for large-scale hiring needs across logistics, operations, and industrial roles.",
-      image:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
-      href: "/services/bulk-hiring",
-    },
-    {
-      title: "IT Staffing",
-      description:
-        "Specialized hiring for technology professionals using targeted sourcing and technical screening.",
-      image:
-        "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
-      href: "/services/it-staffing",
-    },
-    {
-      title: "Contract Staffing",
-      description:
-        "Flexible solutions for short-term projects and immediate workforce requirements.",
-      image:
-        "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
-      href: "/services/contract-staffing",
-    },
-    {
-      title: "Permanent Staffing",
-      description:
-        "End-to-end hiring support for full-time roles, ensuring long-term fit and skill alignment.",
-      image:
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800",
-      href: "/services/permanent-hiring",
-    },
-    {
-      title: "Industrial Staffing",
-      description:
-        "Reliable workforce solutions for manufacturing and logistics sectors.",
-      image:
-        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-      href: "/services/industrial-staffing",
-    },
-    {
-      title: "RPO Services",
-      description:
-        "Dedicated recruitment support acting as an extension of your team.",
-      image:
-        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800",
-      href: "/services/rpo",
-    },
-    {
-      title: "Passive Talent Sourcing",
-      description:
-        "Proactive engagement of top-tier candidates who are not actively job-seeking.",
-      image: "/images/passive_sourcing.png",
-      href: "/services/passive-sourcing",
-    },
-    {
-      title: "Offshore Solutions",
-      description:
-        "Access skilled global talent pools to build remote or offshore teams efficiently.",
-      image:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
-      href: "/services/offshore-solutions",
-    },
-  ];
+  // Services are rendered by the reusable ServicesGrid component
 
   const steps = [
     { icon: Search, title: "Understand", desc: "client requirements" },
@@ -273,10 +210,8 @@ export default function HomeClient({
             </AnimatedContent>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-            {services.map((service, idx) => (
-              <ServiceCard key={idx} {...service} idx={idx} />
-            ))}
+          <div className="w-full">
+            <ServicesGrid />
           </div>
         </div>
       </section>
