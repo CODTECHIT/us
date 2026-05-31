@@ -477,53 +477,73 @@ export default function HomeClient({
                 ? [item.position, item.company].filter(Boolean).join(" — ")
                 : item.tagline;
 
+              // Render CMS testimonials using the case-study visual style when possible
+              const parseSections = (text: string) => {
+                const sections: any = { challenge: "", approach: "", outcome: "" };
+                if (!text) return sections;
+                const cMatch = text.match(/Challenge\s*[:\-]?\s*([^\n]+(?:[\s\S]*?))(?:Approach|$)/i);
+                const aMatch = text.match(/Approach\s*[:\-]?\s*([^\n]+(?:[\s\S]*?))(?:Outcome|$)/i);
+                const oMatch = text.match(/Outcome\s*[:\-]?\s*([\s\S]*)/i);
+                sections.challenge = cMatch ? cMatch[1].trim() : "";
+                sections.approach = aMatch ? aMatch[1].trim() : "";
+                sections.outcome = oMatch ? oMatch[1].trim() : "";
+                if (!sections.challenge && !sections.approach && !sections.outcome) sections.outcome = text;
+                return sections;
+              };
+
+              const metricsMap: Record<string, { metrics: Array<{ label: string; value: string }>; contact?: string; tagline?: string }> = {
+                "Team Fishel": { metrics: [{ label: "placements", value: "7" }, { label: "avg. time-to-fill", value: "19 days" }, { label: "Zero mis-hires", value: "90 days" }], contact: "TIMOTHY RIOUX", tagline: "Filling Critical Field Roles" },
+                INTELITY: { metrics: [{ label: "placements", value: "4" }, { label: "faster hiring cycle", value: "38%" }, { label: "6-month retention", value: "85%" }], contact: "BEZA WORKU", tagline: "Scaling Tech Team" },
+                "Ness Digital Engineering": { metrics: [{ label: "contractors onboarded", value: "6" }, { label: "shortlist in", value: "8 days" }, { label: "delays", value: "Zero" }], contact: "SHEJU SADASIVAN", tagline: "Rapid Scaling" },
+                "World Wide Technology": { metrics: [{ label: "placements", value: "8" }, { label: "interview-to-offer", value: "36%" }, { label: "pipeline maintained", value: "5-month" }], contact: "SHRIJEET NAIR", tagline: "Enterprise Hiring" },
+                "Nous Infosystems": { metrics: [{ label: "profiles submitted", value: "22" }, { label: "placements", value: "9" }, { label: "avg. cycle", value: "11 days" }], contact: "VISHWAK SHANAN", tagline: "Bench Strength" },
+                "McCormick’s Heating & Air Conditioning": { metrics: [{ label: "placements", value: "4" }, { label: "avg. fill time", value: "16 days" }, { label: "retention", value: "100%" }], contact: "GARRETT JOHNSON", tagline: "Technician Hiring" },
+              };
+
+              const sections = parseSections(content || "");
+              const mapping = metricsMap[(isCms ? item.company : item.company) || (isCms ? item.name : item.company) || ""] || null;
+
               return (
-                <AnimatedContent
-                  key={key}
-                  delay={idx * 0.08}
-                  direction="up"
-                  distance={20}
-                >
+                <AnimatedContent key={key} delay={idx * 0.08} direction="up" distance={20}>
                   <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
                     <div className="mb-6">
-                      <div className="flex items-center gap-4">
-                        {isCms && item.avatar ? (
-                          <div className="w-14 h-14 rounded-full overflow-hidden bg-zinc-50 border border-zinc-200">
-                            <Image
-                              src={item.avatar}
-                              alt={name || "avatar"}
-                              width={56}
-                              height={56}
-                              className="object-cover"
-                            />
-                          </div>
-                        ) : (
-                          <div className="w-14 h-14 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-black text-zinc-400">
-                            {(name || "")[0] || "?"}
-                          </div>
-                        )}
+                      <h3 className="text-2xl font-black text-maxera-dark tracking-tighter uppercase leading-none group-hover:text-maxera-red transition-colors">{isCms ? (item.company || item.name) : item.company}</h3>
+                      {mapping?.tagline ? <p className="text-maxera-red text-[11px] font-black uppercase tracking-[0.2em] mt-2">{mapping.tagline}</p> : null}
+                    </div>
+
+                    <div className="space-y-6 mb-10 flex-grow">
+                      {sections.challenge ? (
                         <div>
-                          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark tracking-tighter leading-tight">
-                            {name}
-                          </h3>
-                          {meta && (
-                            <p className="text-[11px] text-zinc-500 font-bold mt-1">
-                              {meta}
-                            </p>
-                          )}
+                          <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Challenge</span>
+                          <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{sections.challenge}</p>
                         </div>
+                      ) : null}
+                      {sections.approach ? (
+                        <div>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Approach</span>
+                          <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{sections.approach}</p>
+                        </div>
+                      ) : null}
+                      {sections.outcome ? (
+                        <div>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Outcome</span>
+                          <p className="text-maxera-dark text-base font-black leading-relaxed italic border-l-4 border-maxera-red pl-4 py-1">{sections.outcome}</p>
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
+                      <div className="grid grid-cols-3 gap-4">
+                        {(mapping?.metrics || []).map((metric, i) => (
+                          <div key={i} className="text-center">
+                            <div className="text-xl font-black text-maxera-dark tracking-tight">{metric.value}</div>
+                            <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 leading-tight mt-1">{metric.label}</div>
+                          </div>
+                        ))}
+                        {!mapping && <div className="col-span-3 text-sm text-zinc-500">No metrics available</div>}
                       </div>
-                    </div>
-
-                    <div className="mb-6 flex-grow">
-                      <p className="text-zinc-700 text-sm leading-relaxed italic">
-                        {content}
-                      </p>
-                    </div>
-
-                    <div className="pt-6 border-t border-gray-100 mt-auto">
-                      <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">
-                        {isCms ? "Client Testimonial" : "Case Study"}
+                      <div className="mt-8 pt-6 border-t border-zinc-200/50 flex items-center justify-between">
+                        <div className="text-[10px] font-black text-maxera-dark/60 uppercase tracking-widest">Executive Contact: <span className="text-maxera-dark">{mapping?.contact || (isCms ? item.name : '')}</span></div>
                       </div>
                     </div>
                   </div>
