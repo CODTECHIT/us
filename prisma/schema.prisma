@@ -40,6 +40,8 @@ model Job {
   status          PostStatus    @default(DRAFT)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+
+  @@index([createdAt])
 }
 
 model Tag {
@@ -59,6 +61,9 @@ model Application {
   formData    Json?             // To store answers to custom fields
   status      ApplicationStatus @default(PENDING)
   createdAt   DateTime          @default(now())
+
+  @@index([createdAt])
+  @@index([jobId])
 }
 
 // CMS - Content Management
@@ -88,6 +93,8 @@ model Blog {
   status      PostStatus @default(DRAFT)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+
+  @@index([createdAt])
 }
 
 model Testimonial {
@@ -111,6 +118,9 @@ model Enquiry {
   resumeUrl   String?
   status      LeadStatus  @default(NEW)
   createdAt   DateTime    @default(now())
+
+  @@index([createdAt])
+  @@index([type])
 }
 
 // Global Settings

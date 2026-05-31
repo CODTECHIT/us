@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { getUploadContentType, readUploadFile } from "@/lib/upload-storage";
+import { getUploadContentType, readUploadFileStream } from "@/lib/upload-storage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { Readable } from "stream";
 
 export async function GET(
   _req: Request,
@@ -15,15 +16,19 @@ export async function GET(
   const relativePath = path.join("/");
 
   try {
-    const file = await readUploadFile(relativePath);
+    const fileData = await readUploadFileStream(relativePath);
 
-    if (!file) {
+    if (!fileData) {
       return NextResponse.json({ error: "File not found" }, { status: 404 });
     }
 
-    return new NextResponse(file, {
+    // Convert Node.js stream to Web standard ReadableStream
+    const webStream = Readable.toWeb(fileData.stream);
+
+    return new NextResponse(webStream as any, {
       headers: {
         "Content-Type": getUploadContentType(relativePath),
+        "Content-Length": String(fileData.size),
         // Authenticated content should not be cached publicly
         "Cache-Control": "private, max-age=0, must-revalidate",
       },

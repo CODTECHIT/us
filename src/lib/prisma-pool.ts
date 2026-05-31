@@ -2,8 +2,8 @@ import type { PoolConfig } from "mariadb";
 
 import { parseDatabaseUrl } from "./db-parser";
 
-const DEFAULT_DATABASE_POOL_LIMIT = 3;
-const MAX_DATABASE_POOL_LIMIT = 5;
+const DEFAULT_DATABASE_POOL_LIMIT = 10;
+const MAX_DATABASE_POOL_LIMIT = 20;
 const DEFAULT_POOL_CONNECT_TIMEOUT_MS = 20000;
 
 type SharedMariaDbPoolConfig = Pick<

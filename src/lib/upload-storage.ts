@@ -202,6 +202,42 @@ export async function readUploadFile(relativePath: string) {
   return null;
 }
 
+export async function readUploadFileStream(relativePath: string) {
+  const safeRelativePath = normalizeRelativePath(relativePath);
+
+  for (const root of getUploadRoots()) {
+    const targetPath = join(root, safeRelativePath);
+    const resolved = resolve(root, safeRelativePath);
+    const rootResolved = resolve(root);
+    if (
+      !(resolved === rootResolved || resolved.startsWith(rootResolved + sep))
+    ) {
+      console.warn(
+        `[upload-storage] Refusing to read outside upload root: ${resolved}`,
+      );
+      continue;
+    }
+
+    try {
+      const st = await stat(targetPath);
+      if (st.isDirectory()) {
+        console.warn(
+          `[upload-storage] Refusing to read directory ${targetPath}`,
+        );
+        continue;
+      }
+      return {
+        stream: fs.createReadStream(targetPath),
+        size: st.size,
+      };
+    } catch (error) {
+      console.warn(`[upload-storage] Failed to check or stream ${targetPath}:`, error);
+    }
+  }
+
+  return null;
+}
+
 export function getUploadContentType(filename: string) {
   switch (extname(filename).toLowerCase()) {
     case ".jpg":
