@@ -139,6 +139,29 @@ import {
               ))
             )}
           </div>
+const CASE_STUDIES = [
+  {
+    company: "Team Fishel",
+    tagline: "Filling Critical Field Roles",
+    contact: "Timothy Rioux",
+    challenge:
+      "Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.",
+    approach:
+      "Focused sourcing on trade-certified candidates with verified field experience.",
+    outcome: "7 placements completed within deadline.",
+    metrics: [
+      { label: "placements", value: "7" },
+      { label: "avg. time-to-fill", value: "19 days" },
+      { label: "Zero mis-hires", value: "90 days" },
+    ],
+  },
+  {
+    company: "INTELITY",
+    tagline: "Scaling Tech Team",
+    contact: "Beza Worku",
+    challenge:
+      "Needed engineers who fit both technical stack and fast-paced culture.",
+    approach:
       "Targeted SaaS-experienced candidates with strong communication and async collaboration skills.",
     outcome: "4 roles filled with strong retention.",
     metrics: [
