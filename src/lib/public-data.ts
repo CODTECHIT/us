@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import prisma from "@/lib/prisma";
 
-const PUBLIC_QUERY_TIMEOUT_MS = 5000;
+const PUBLIC_QUERY_TIMEOUT_MS = 2500;
 
 async function withTimeout<T>(operation: Promise<T>, label: string) {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -31,6 +31,11 @@ const DEFAULT_HOMEPAGE_CONTENT = {
   ctaLink: "/employers",
 };
 
+const DEFAULT_HOMEPAGE_STATS = {
+  jobs: 0,
+  applications: 0,
+};
+
 export const getHomepageData = unstable_cache(
   async () => {
     try {
@@ -42,17 +47,6 @@ export const getHomepageData = unstable_cache(
         prisma.job.count({ where: { status: "PUBLISHED" } }),
         "Homepage job count",
       );
-      const appCount = await withTimeout(
-        prisma.application.count(),
-        "Homepage application count",
-      );
-      const testimonials = await withTimeout(
-        prisma.testimonial.findMany({
-          orderBy: { createdAt: "desc" },
-          take: 6,
-        }),
-        "Homepage testimonials",
-      );
 
       const content = homepageData?.content
         ? JSON.parse(homepageData.content as string)
@@ -60,10 +54,10 @@ export const getHomepageData = unstable_cache(
 
       return {
         content,
-        testimonials,
+        testimonials: [],
         stats: {
           jobs: jobCount,
-          applications: appCount,
+          applications: 0,
         },
       };
     } catch (error) {
@@ -71,10 +65,7 @@ export const getHomepageData = unstable_cache(
       return {
         content: DEFAULT_HOMEPAGE_CONTENT,
         testimonials: [],
-        stats: {
-          jobs: 0,
-          applications: 0,
-        },
+        stats: DEFAULT_HOMEPAGE_STATS,
       };
     }
   },
@@ -89,6 +80,16 @@ export const getPublishedJobs = unstable_cache(
         prisma.job.findMany({
           where: { status: "PUBLISHED" },
           orderBy: { createdAt: "desc" },
+          take: 20,
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            location: true,
+            type: true,
+            industry: true,
+            description: true,
+          },
         }),
         "Published jobs",
       );
@@ -108,6 +109,17 @@ export const getPublishedArticles = unstable_cache(
         prisma.blog.findMany({
           where: { status: "PUBLISHED" },
           orderBy: { createdAt: "desc" },
+          take: 20,
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            content: true,
+            excerpt: true,
+            coverImage: true,
+            author: true,
+            createdAt: true,
+          },
         }),
         "Published articles",
       );
