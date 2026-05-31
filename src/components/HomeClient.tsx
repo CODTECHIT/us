@@ -17,7 +17,6 @@ import Aurora from "@/components/animations/Aurora";
 import AnimatedContent from "@/components/animations/AnimatedContent";
 import CountUp from "@/components/animations/CountUp";
 import SplitText from "@/components/animations/SplitText";
-import ServicesGrid from "@/components/ServicesGrid";
 const CASE_STUDIES = [
   {
     company: "Team Fishel",
@@ -40,6 +39,7 @@ const CASE_STUDIES = [
     contact: "Beza Worku",
     challenge:
       "Needed engineers who fit both technical stack and fast-paced culture.",
+    // Local ServiceCard (restore original homepage card layout)
     approach:
       "Targeted SaaS-experienced candidates with strong communication and async collaboration skills.",
     outcome: "4 roles filled with strong retention.",
