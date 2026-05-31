@@ -454,55 +454,45 @@ export default function HomeClient({
             </AnimatedContent>
           </div>
 
-          {/* Success Stories Grid */}
+          {/* Testimonials Grid (CMS-driven; fall back to CASE_STUDIES when empty) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-            {CASE_STUDIES.map((study, idx) => (
-              <AnimatedContent key={study.company} delay={idx * 0.1} direction="up" distance={30}>
-                <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-maxera-red transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                  
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-black text-maxera-dark tracking-tighter uppercase leading-none group-hover:text-maxera-red transition-colors">
-                      {study.company}
-                    </h3>
-                    <p className="text-maxera-red text-[11px] font-black uppercase tracking-[0.2em] mt-2">
-                      {study.tagline}
-                    </p>
-                  </div>
+            {( (testimonials && testimonials.length > 0) ? testimonials : CASE_STUDIES ).map((item: any, idx: number) => {
+              const isCms = !!(item && item.id);
+              const key = isCms ? item.id : item.company || idx;
+              const content = isCms ? item.content : item.outcome;
+              const name = isCms ? item.name : item.company;
+              const meta = isCms ? [item.position, item.company].filter(Boolean).join(' — ') : item.tagline;
 
-                  <div className="space-y-6 mb-10 flex-grow">
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Challenge</span>
-                      <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.challenge}</p>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Approach</span>
-                      <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.approach}</p>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Outcome</span>
-                      <p className="text-maxera-dark text-base font-black leading-relaxed italic border-l-4 border-maxera-red pl-4 py-1">{study.outcome}</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
-                    <div className="grid grid-cols-3 gap-4">
-                      {study.metrics.map((metric, i) => (
-                        <div key={i} className="text-center">
-                          <div className="text-xl font-black text-maxera-dark tracking-tight">{metric.value}</div>
-                          <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 leading-tight mt-1">{metric.label}</div>
+              return (
+                <AnimatedContent key={key} delay={idx * 0.08} direction="up" distance={20}>
+                  <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
+                    <div className="mb-6">
+                      <div className="flex items-center gap-4">
+                        {isCms && item.avatar ? (
+                          <div className="w-14 h-14 rounded-full overflow-hidden bg-zinc-50 border border-zinc-200">
+                            <Image src={item.avatar} alt={name || 'avatar'} width={56} height={56} className="object-cover" />
+                          </div>
+                        ) : (
+                          <div className="w-14 h-14 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-black text-zinc-400">{(name||'')[0]||'?'}</div>
+                        )}
+                        <div>
+                          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark tracking-tighter leading-tight">{name}</h3>
+                          {meta && <p className="text-[11px] text-zinc-500 font-bold mt-1">{meta}</p>}
                         </div>
-                      ))}
-                    </div>
-                    <div className="mt-8 pt-6 border-t border-zinc-200/50 flex items-center justify-between">
-                      <div className="text-[10px] font-black text-maxera-dark/60 uppercase tracking-widest">
-                        Executive Contact: <span className="text-maxera-dark">{study.contact}</span>
                       </div>
                     </div>
+
+                    <div className="mb-6 flex-grow">
+                      <p className="text-zinc-700 text-sm leading-relaxed italic">{content}</p>
+                    </div>
+
+                    <div className="pt-6 border-t border-gray-100 mt-auto">
+                      <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{isCms ? 'Client Testimonial' : 'Case Study'}</div>
+                    </div>
                   </div>
-                </div>
-              </AnimatedContent>
-            ))}
+                </AnimatedContent>
+              );
+            })}
           </div>
 
         </div>
