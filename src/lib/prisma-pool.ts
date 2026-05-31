@@ -29,8 +29,6 @@ export function createMariaDbPoolConfig(
   return {
     ...baseConfig,
     connectionLimit: getDatabasePoolLimit(),
-    waitForConnections: true,
-    queueLimit: 0,
     connectTimeout: DEFAULT_POOL_CONNECT_TIMEOUT_MS,
   };
 }
