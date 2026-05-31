@@ -5,9 +5,9 @@ import { parseDatabaseUrl } from "./db-parser";
 // Bumping to force module reload - 2026-05-02
 
 function getPoolLimit() {
-  const rawLimit = Number(process.env.DATABASE_POOL_LIMIT ?? "2");
+  const rawLimit = Number(process.env.DATABASE_POOL_LIMIT ?? "4");
   if (!Number.isFinite(rawLimit) || rawLimit < 1) {
-    return 2;
+    return 4;
   }
   return Math.min(Math.floor(rawLimit), 5);
 }
