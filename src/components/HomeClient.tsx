@@ -23,6 +23,8 @@ const CASE_STUDIES = [
     company: "Team Fishel",
     tagline: "Filling Critical Field Roles",
     contact: "Timothy Rioux",
+    content:
+      "Challenge: Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.\nApproach: Focused sourcing on trade-certified candidates with verified field experience.\nOutcome: 7 placements completed within deadline.",
     challenge:
       "Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.",
     approach:
@@ -38,6 +40,8 @@ const CASE_STUDIES = [
     company: "INTELITY",
     tagline: "Scaling Tech Team",
     contact: "Beza Worku",
+    content:
+      "Challenge: Needed engineers who fit both technical stack and fast-paced culture.\nApproach: Targeted SaaS-experienced candidates with strong communication and async collaboration skills.\nOutcome: 4 roles filled with strong retention.",
     challenge:
       "Needed engineers who fit both technical stack and fast-paced culture.",
     approach:
@@ -53,6 +57,8 @@ const CASE_STUDIES = [
     company: "Ness Digital Engineering",
     tagline: "Rapid Scaling",
     contact: "Sheju Sadasivan",
+    content:
+      "Challenge: Urgent need for cloud and digital transformation engineers.\nApproach: Activated pre-vetted talent network and handled screening + coordination.\nOutcome: 6 contractors deployed within 3 weeks.",
     challenge: "Urgent need for cloud and digital transformation engineers.",
     approach:
       "Activated pre-vetted talent network and handled screening + coordination.",
@@ -67,6 +73,8 @@ const CASE_STUDIES = [
     company: "World Wide Technology",
     tagline: "Enterprise Hiring",
     contact: "Shrijeet Nair",
+    content:
+      "Challenge: Needed high-caliber engineers meeting strict enterprise standards.\nApproach: Aligned sourcing with internal competency framework.\nOutcome: 8 roles filled successfully.",
     challenge:
       "Needed high-caliber engineers meeting strict enterprise standards.",
     approach: "Aligned sourcing with internal competency framework.",
@@ -81,6 +89,8 @@ const CASE_STUDIES = [
     company: "Nous Infosystems",
     tagline: "Bench Strength",
     contact: "Vishwak Shanan",
+    content:
+      "Challenge: Managing bench utilization and project-based hiring pressure.\nApproach: Provided pre-screened profiles aligned to upcoming needs.\nOutcome: Improved readiness and reduced reactive hiring.",
     challenge: "Managing bench utilization and project-based hiring pressure.",
     approach: "Provided pre-screened profiles aligned to upcoming needs.",
     outcome: "Improved readiness and reduced reactive hiring.",
@@ -94,6 +104,8 @@ const CASE_STUDIES = [
     company: "McCormick’s Heating & Air Conditioning",
     tagline: "Technician Hiring",
     contact: "Garrett Johnson",
+    content:
+      "Challenge: Difficulty sourcing certified HVAC technicians quickly.\nApproach: Focused on local sourcing and job-ready candidates.\nOutcome: 4 technicians placed restoring service capacity.",
     challenge: "Difficulty sourcing certified HVAC technicians quickly.",
     approach: "Focused on local sourcing and job-ready candidates.",
     outcome: "4 technicians placed restoring service capacity.",
@@ -113,19 +125,38 @@ interface ServiceCardProps {
   idx: number;
 }
 
-const ServiceCard = ({ title, description, href, image, idx }: ServiceCardProps) => (
+const ServiceCard = ({
+  title,
+  description,
+  href,
+  image,
+  idx,
+}: ServiceCardProps) => (
   <AnimatedContent delay={idx * 0.1} direction="up" distance={30}>
     <Link href={href} className="block group h-full">
       <SpotlightCard className="bg-white border border-gray-100 flex flex-col items-start text-left group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full">
         <div className="w-full h-40 sm:h-48 bg-gray-100 overflow-hidden relative">
           <div className="absolute inset-0 bg-maxera-red opacity-0 group-hover:opacity-10 transition-opacity z-10" />
-          <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+          />
         </div>
         <div className="p-5 sm:p-6 flex flex-col flex-grow w-full">
-          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark mb-3 sm:mb-4 uppercase tracking-tighter leading-tight group-hover:text-maxera-red transition-colors">{title}</h3>
-          <p className="text-gray-400 text-xs font-medium leading-relaxed mb-6 sm:mb-10 flex-grow">{description}</p>
+          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark mb-3 sm:mb-4 uppercase tracking-tighter leading-tight group-hover:text-maxera-red transition-colors">
+            {title}
+          </h3>
+          <p className="text-gray-400 text-xs font-medium leading-relaxed mb-6 sm:mb-10 flex-grow">
+            {description}
+          </p>
           <div className="mt-auto">
-            <div className="inline-flex items-center px-5 sm:px-6 py-2 border border-maxera-red text-maxera-red group-hover:bg-maxera-red group-hover:text-white transition-all text-[10px] sm:text-[11px] font-black uppercase tracking-widest" style={{ clipPath: "polygon(8% 0, 100% 0, 92% 100%, 0 100%)" }}>
+            <div
+              className="inline-flex items-center px-5 sm:px-6 py-2 border border-maxera-red text-maxera-red group-hover:bg-maxera-red group-hover:text-white transition-all text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+              style={{ clipPath: "polygon(8% 0, 100% 0, 92% 100%, 0 100%)" }}
+            >
               Learn More <ArrowRight className="ml-2 w-3 h-3" />
             </div>
           </div>
@@ -172,6 +203,8 @@ export default function HomeClient({
 
   // normalize prop name from server component
   const testimonials = _testimonials || [];
+  // Always show the six static case studies first, then append any CMS/admin testimonials
+  const displayTestimonials = [...CASE_STUDIES, ...testimonials];
   const services = [
     {
       title: "Bulk / Volume Hiring",
@@ -443,13 +476,12 @@ export default function HomeClient({
 
           {/* Testimonials Grid (CMS-driven; fall back to CASE_STUDIES when empty) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-            {(testimonials && testimonials.length > 0
-              ? testimonials
-              : CASE_STUDIES
-            ).map((item: any, idx: number) => {
+            {displayTestimonials.map((item: any, idx: number) => {
               const isCms = !!(item && item.id);
               const key = isCms ? item.id : item.company || idx;
-              const content = isCms ? item.content : item.outcome;
+              const content = isCms
+                ? item.content
+                : item.content || item.outcome;
               const name = isCms ? item.name : item.company;
               const meta = isCms
                 ? [item.position, item.company].filter(Boolean).join(" — ")
@@ -469,7 +501,9 @@ export default function HomeClient({
                 const aMatch = text.match(
                   /Approach\s*[:\-]?\s*([^\n]+(?:[\s\S]*?))(?:Outcome|$)/i,
                 );
-                const oMatch = text.match(/Outcome\s*[:\-]?\s*([\s\S]*)/i);
+                const oMatch = text.match(
+                  /Outcome\s*[:\-]?\s*([\s\S]*?)(?:\n\s*Metrics|Metrics|$)/i,
+                );
                 sections.challenge = cMatch ? cMatch[1].trim() : "";
                 sections.approach = aMatch ? aMatch[1].trim() : "";
                 sections.outcome = oMatch ? oMatch[1].trim() : "";
@@ -479,6 +513,26 @@ export default function HomeClient({
                   !sections.outcome
                 )
                   sections.outcome = text;
+                // also parse optional Metrics block
+                const mMatch = text.match(/Metrics\s*[:\-]?\s*([\s\S]*)/i);
+                if (mMatch) {
+                  const lines = mMatch[1]
+                    .split(/\r?\n/)
+                    .map((l) => l.trim())
+                    .filter(Boolean);
+                  const parsedMetrics: Array<{ label: string; value: string }> =
+                    [];
+                  for (const line of lines) {
+                    const [k, ...rest] = line.split(":");
+                    if (!k) continue;
+                    const label = k.trim();
+                    const value = rest.join(":").trim();
+                    if (label && value) parsedMetrics.push({ label, value });
+                  }
+                  sections.metrics = parsedMetrics;
+                } else {
+                  sections.metrics = [];
+                }
                 return sections;
               };
 
@@ -553,6 +607,10 @@ export default function HomeClient({
                     (isCms ? item.name : item.company) ||
                     ""
                 ] || null;
+              const metricsToShow =
+                mapping?.metrics && mapping.metrics.length > 0
+                  ? mapping.metrics
+                  : sections.metrics || [];
 
               return (
                 <AnimatedContent
@@ -608,7 +666,7 @@ export default function HomeClient({
 
                     <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
                       <div className="grid grid-cols-3 gap-4">
-                        {(mapping?.metrics || []).map((metric, i) => (
+                        {metricsToShow.map((metric: any, i: number) => (
                           <div key={i} className="text-center">
                             <div className="text-xl font-black text-maxera-dark tracking-tight">
                               {metric.value}
@@ -618,7 +676,7 @@ export default function HomeClient({
                             </div>
                           </div>
                         ))}
-                        {!mapping && (
+                        {metricsToShow.length === 0 && (
                           <div className="col-span-3 text-sm text-zinc-500">
                             No metrics available
                           </div>

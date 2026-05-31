@@ -83,7 +83,7 @@ export default async function AdminDashboard() {
     dbPingMs = Date.now() - start;
     dbHealthy = true;
   } catch (err) {
-    console.error('DB health check failed:', err);
+    console.error("DB health check failed:", err);
     dbHealthy = false;
   }
 
@@ -227,14 +227,20 @@ export default async function AdminDashboard() {
             </div>
           </div>
 
-          <div className={`p-6 rounded-2xl ${dbHealthy ? 'bg-emerald-600 text-white' : 'bg-rose-50 text-rose-700'} `}>
+          <div
+            className={`p-6 rounded-2xl ${dbHealthy ? "bg-emerald-600 text-white" : "bg-rose-50 text-rose-700"} `}
+          >
             <h3 className="font-bold text-lg mb-2">Database Connection</h3>
             <p className="text-sm mb-4">
-              {dbHealthy ? 'Successfully connected to the database.' : 'Unable to reach the database.'}
+              {dbHealthy
+                ? "Successfully connected to the database."
+                : "Unable to reach the database."}
             </p>
             <div className="flex items-center gap-2 text-sm font-bold">
-              <div className={`w-2 h-2 rounded-full ${dbHealthy ? 'bg-emerald-200' : 'bg-rose-400'} ${dbHealthy ? 'animate-pulse' : ''}`} />
-              {dbHealthy ? `Ping: ${dbPingMs}ms` : 'Offline'}
+              <div
+                className={`w-2 h-2 rounded-full ${dbHealthy ? "bg-emerald-200" : "bg-rose-400"} ${dbHealthy ? "animate-pulse" : ""}`}
+              />
+              {dbHealthy ? `Ping: ${dbPingMs}ms` : "Offline"}
             </div>
           </div>
         </div>

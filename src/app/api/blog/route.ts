@@ -44,13 +44,31 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const url = new URL(req.url);
+    const pageParam = Number(url.searchParams.get("page") ?? 1);
+    const limitParam = Number(url.searchParams.get("limit") ?? 20);
+
+    const page =
+      Number.isFinite(pageParam) && pageParam > 0 ? Math.floor(pageParam) : 1;
+    const limit =
+      Number.isFinite(limitParam) && limitParam > 0
+        ? Math.min(Math.floor(limitParam), 50)
+        : 20;
+
+    const total = await prisma.blog.count();
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+
     const posts = await prisma.blog.findMany({
       orderBy: { createdAt: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
     });
-    return NextResponse.json(posts);
+
+    return NextResponse.json({ data: posts, total, page, totalPages });
   } catch (error) {
+    console.error("API Error:", error);
     return NextResponse.json(
       { error: "Failed to fetch articles" },
       { status: 500 },

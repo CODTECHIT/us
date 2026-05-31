@@ -44,24 +44,24 @@ export default function AdminSettings() {
   const uploadAndSave = async (file: File, key: string) => {
     try {
       const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/media', { method: 'POST', body: fd });
-      if (!res.ok) throw new Error('Upload failed');
+      fd.append("file", file);
+      const res = await fetch("/api/media", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Upload failed");
       const json = await res.json();
       const url = json.url;
       // Save to settings
-      const saveRes = await fetch('/api/admin/settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ [key]: url })
+      const saveRes = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [key]: url }),
       });
-      if (!saveRes.ok) throw new Error('Failed to save setting');
-      setSettings(prev => ({ ...prev, [key]: url } as SettingsState));
+      if (!saveRes.ok) throw new Error("Failed to save setting");
+      setSettings((prev) => ({ ...prev, [key]: url }) as SettingsState);
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } catch (err) {
-      console.error('Upload+Save error:', err);
-      alert('Upload failed');
+      console.error("Upload+Save error:", err);
+      alert("Upload failed");
     }
   };
 
@@ -199,7 +199,11 @@ export default function AdminSettings() {
                       </p>
                       <div>
                         {settings.logo ? (
-                          <img src={settings.logo} alt="logo" className="h-10 mx-auto mb-2" />
+                          <img
+                            src={settings.logo}
+                            alt="logo"
+                            className="h-10 mx-auto mb-2"
+                          />
                         ) : null}
                         <button
                           onClick={() => logoInputRef.current?.click()}
@@ -207,9 +211,16 @@ export default function AdminSettings() {
                         >
                           Change Logo
                         </button>
-                        <input ref={logoInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => {
-                          const f = e.target.files?.[0]; if (f) uploadAndSave(f, 'logo');
-                        }} />
+                        <input
+                          ref={logoInputRef}
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            if (f) uploadAndSave(f, "logo");
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -225,7 +236,11 @@ export default function AdminSettings() {
                       </div>
                       <div>
                         {settings.favicon ? (
-                          <img src={settings.favicon} alt="favicon" className="w-8 h-8 mx-auto mb-2" />
+                          <img
+                            src={settings.favicon}
+                            alt="favicon"
+                            className="w-8 h-8 mx-auto mb-2"
+                          />
                         ) : null}
                         <button
                           onClick={() => faviconInputRef.current?.click()}
@@ -233,9 +248,16 @@ export default function AdminSettings() {
                         >
                           Upload Icon
                         </button>
-                        <input ref={faviconInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => {
-                          const f = e.target.files?.[0]; if (f) uploadAndSave(f, 'favicon');
-                        }} />
+                        <input
+                          ref={faviconInputRef}
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            if (f) uploadAndSave(f, "favicon");
+                          }}
+                        />
                       </div>
                     </div>
                   </div>

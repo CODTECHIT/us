@@ -1,32 +1,35 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { revalidatePath } from 'next/cache';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export async function GET(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
     const testimonial = await prisma.testimonial.findUnique({
-      where: { id: id }
+      where: { id: id },
     });
     return NextResponse.json(testimonial);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch testimonial' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch testimonial" },
+      { status: 500 },
+    );
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
@@ -39,40 +42,52 @@ export async function PATCH(
         company: data.company,
         content: data.content,
         avatar: data.avatar,
-      }
+      },
     });
     try {
-      revalidatePath('/');
+      revalidatePath("/");
     } catch (err) {
-      console.warn('Failed to revalidate homepage after updating testimonial', err);
+      console.warn(
+        "Failed to revalidate homepage after updating testimonial",
+        err,
+      );
     }
     return NextResponse.json(testimonial);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to update testimonial' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to update testimonial" },
+      { status: 500 },
+    );
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
     await prisma.testimonial.delete({
-      where: { id: id }
+      where: { id: id },
     });
     try {
-      revalidatePath('/');
+      revalidatePath("/");
     } catch (err) {
-      console.warn('Failed to revalidate homepage after deleting testimonial', err);
+      console.warn(
+        "Failed to revalidate homepage after deleting testimonial",
+        err,
+      );
     }
     return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete testimonial' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to delete testimonial" },
+      { status: 500 },
+    );
   }
 }

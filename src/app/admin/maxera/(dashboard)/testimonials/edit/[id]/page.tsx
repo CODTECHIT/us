@@ -2,15 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import {
-  ArrowLeft,
-  Save,
-  Loader2,
-  User,
-  Building2,
-  Quote,
-  Image as ImageIcon,
-} from "lucide-react";
+import { ArrowLeft, Save, Loader2, User, Building2, Quote } from "lucide-react";
 import Link from "next/link";
 
 export default function EditTestimonialPage() {
@@ -23,12 +15,14 @@ export default function EditTestimonialPage() {
     position: "",
     company: "",
     content: "",
-    avatar: "",
   });
   const [challenge, setChallenge] = useState("");
   const [approach, setApproach] = useState("");
   const [outcome, setOutcome] = useState("");
   const [executiveContact, setExecutiveContact] = useState("");
+  const [placements, setPlacements] = useState("");
+  const [interviewToOffer, setInterviewToOffer] = useState("");
+  const [pipelineMaintained, setPipelineMaintained] = useState("");
 
   useEffect(() => {
     const fetchTestimonial = async () => {
@@ -55,11 +49,42 @@ export default function EditTestimonialPage() {
             return sections;
           };
 
+          const parseMetrics = (text: string) => {
+            const metrics: any = {
+              placements: "",
+              interviewToOffer: "",
+              pipelineMaintained: "",
+            };
+            if (!text) return metrics;
+            const mMatch = text.match(/Metrics\s*[:\-]?\s*([\s\S]*)/i);
+            if (!mMatch) return metrics;
+            const lines = mMatch[1]
+              .split(/\r?\n/)
+              .map((l) => l.trim())
+              .filter(Boolean);
+            for (const line of lines) {
+              const [k, ...rest] = line.split(":");
+              if (!k) continue;
+              const key = k.trim().toLowerCase();
+              const val = rest.join(":").trim();
+              if (key.includes("placement")) metrics.placements = val;
+              else if (key.includes("interview"))
+                metrics.interviewToOffer = val;
+              else if (key.includes("pipeline"))
+                metrics.pipelineMaintained = val;
+            }
+            return metrics;
+          };
+
           setFormData(data);
           const s = parseSections(data.content || "");
           setChallenge(s.challenge);
           setApproach(s.approach);
           setOutcome(s.outcome);
+          const m = parseMetrics(data.content || "");
+          setPlacements(m.placements);
+          setInterviewToOffer(m.interviewToOffer);
+          setPipelineMaintained(m.pipelineMaintained);
           // executive contact may be stored elsewhere; leave blank unless provided
         }
       } catch (error) {
@@ -76,7 +101,15 @@ export default function EditTestimonialPage() {
     setIsSaving(true);
 
     try {
-      const composed = `Challenge\n${challenge}\n\nApproach\n${approach}\n\nOutcome\n${outcome}`;
+      let composed = `Challenge\n${challenge}\n\nApproach\n${approach}\n\nOutcome\n${outcome}`;
+      if (placements || interviewToOffer || pipelineMaintained) {
+        composed += `\n\nMetrics\n`;
+        if (placements) composed += `placements: ${placements}\n`;
+        if (interviewToOffer)
+          composed += `interview-to-offer: ${interviewToOffer}\n`;
+        if (pipelineMaintained)
+          composed += `pipeline maintained: ${pipelineMaintained}\n`;
+      }
       const payload = { ...formData, content: composed, executiveContact };
 
       const res = await fetch(`/api/testimonials/${params.id}`, {
@@ -144,19 +177,7 @@ export default function EditTestimonialPage() {
                 }
               />
             </div>
-            <div>
-              <label className="flex items-center gap-2 text-sm font-black text-zinc-900 dark:text-white uppercase tracking-widest mb-4">
-                <ImageIcon className="w-4 h-4 text-purple-600" /> Avatar URL
-              </label>
-              <input
-                type="text"
-                className="w-full bg-zinc-50 dark:bg-zinc-800/50 border-none rounded-2xl p-4 font-medium focus:ring-2 focus:ring-purple-600 transition-all"
-                value={formData.avatar}
-                onChange={(e) =>
-                  setFormData({ ...formData, avatar: e.target.value })
-                }
-              />
-            </div>
+            {/* Avatar URL removed per request */}
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">

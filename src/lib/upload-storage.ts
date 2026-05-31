@@ -1,6 +1,6 @@
 import { mkdir, readFile, readdir, unlink, writeFile, stat } from "fs/promises";
 import fs from "fs";
-import { extname, join, normalize, dirname } from "path";
+import { extname, join, normalize, dirname, resolve, sep } from "path";
 import os from "os";
 
 const PRIMARY_UPLOAD_ROOT = join(process.cwd(), "public/uploads");
@@ -34,19 +34,38 @@ async function ensureParentDirectory(filePath: string) {
 export async function saveUploadFile(relativePath: string, buffer: Buffer) {
   const safeRelativePath = normalizeRelativePath(relativePath);
 
+  // Reject any path containing parent-traversal segments immediately
+  if (safeRelativePath.split("/").includes("..")) {
+    throw new Error("Invalid upload path");
+  }
+
   for (const root of getUploadRoots()) {
     const targetPath = join(root, safeRelativePath);
+    const resolved = resolve(root, safeRelativePath);
+    const rootResolved = resolve(root);
+
+    // Ensure the resolved target is inside the configured root directory
+    if (
+      !(resolved === rootResolved || resolved.startsWith(rootResolved + sep))
+    ) {
+      console.warn(
+        `[upload-storage] Refusing to write outside upload root: ${resolved}`,
+      );
+      continue;
+    }
 
     try {
-      // Ensure parent directory exists. Use synchronous mkdir as a safe fallback
-      // for environments where async calls may race (Hostinger, tmp mounts).
+      // Ensure parent directory exists synchronously to avoid EISDIR/ENOENT races
       const parentDir = dirname(targetPath);
       try {
         fs.mkdirSync(parentDir, { recursive: true });
       } catch (e) {
-        // ignore sync mkdir errors and fallback to async
+        // ignore
       }
-      await ensureParentDirectory(targetPath);
+
+      // Also ensure async mkdir for environments relying on promises
+      await mkdir(parentDir, { recursive: true });
+
       await writeFile(targetPath, buffer);
       return { path: targetPath, publicUrl: `/uploads/${safeRelativePath}` };
     } catch (error) {
@@ -64,8 +83,24 @@ export async function listUploadFiles(relativeDir = "") {
 
   for (const root of getUploadRoots()) {
     const targetDir = join(root, safeRelativeDir);
+    const resolved = resolve(root, safeRelativeDir);
+    const rootResolved = resolve(root);
+    if (
+      !(resolved === rootResolved || resolved.startsWith(rootResolved + sep))
+    ) {
+      console.warn(
+        `[upload-storage] Refusing to list outside upload root: ${resolved}`,
+      );
+      continue;
+    }
 
     try {
+      // Ensure the root/target directory exists synchronously to avoid ENOENT races
+      try {
+        fs.mkdirSync(resolve(root), { recursive: true });
+      } catch (e) {
+        // ignore
+      }
       await mkdir(targetDir, { recursive: true });
       const entries = await readdir(targetDir);
 
@@ -91,6 +126,16 @@ export async function deleteUploadFile(relativePath: string) {
 
   for (const root of getUploadRoots()) {
     const targetPath = join(root, safeRelativePath);
+    const resolved = resolve(root, safeRelativePath);
+    const rootResolved = resolve(root);
+    if (
+      !(resolved === rootResolved || resolved.startsWith(rootResolved + sep))
+    ) {
+      console.warn(
+        `[upload-storage] Refusing to delete outside upload root: ${resolved}`,
+      );
+      continue;
+    }
 
     try {
       // Check if targetPath exists and is a file (not a directory)
@@ -123,6 +168,16 @@ export async function readUploadFile(relativePath: string) {
 
   for (const root of getUploadRoots()) {
     const targetPath = join(root, safeRelativePath);
+    const resolved = resolve(root, safeRelativePath);
+    const rootResolved = resolve(root);
+    if (
+      !(resolved === rootResolved || resolved.startsWith(rootResolved + sep))
+    ) {
+      console.warn(
+        `[upload-storage] Refusing to read outside upload root: ${resolved}`,
+      );
+      continue;
+    }
 
     try {
       // Ensure target is a file, not a directory
