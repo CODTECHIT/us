@@ -5,6 +5,8 @@ import {
   createMariaDbPoolConfigFromDatabaseUrl,
 } from "./prisma-pool";
 
+let _prisma: ReturnType<typeof prismaClientSingleton> | undefined;
+
 function prismaClientSingleton() {
   const databaseUrl = process.env.DATABASE_URL;
 
@@ -52,9 +54,22 @@ declare global {
   var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
 }
 
-const prisma = globalThis.prisma ?? prismaClientSingleton();
+function getPrisma() {
+  if (!_prisma) {
+    _prisma = globalThis.prisma ?? prismaClientSingleton();
+    globalThis.prisma = _prisma;
+  }
+
+  return _prisma;
+}
+
+const prisma = new Proxy({} as ReturnType<typeof prismaClientSingleton>, {
+  get(_target, property, receiver) {
+    return Reflect.get(getPrisma(), property, receiver);
+  },
+  set(_target, property, value, receiver) {
+    return Reflect.set(getPrisma(), property, value, receiver);
+  },
+});
 
 export default prisma;
-
-// Always reuse the singleton so the adapter pool survives warm request cycles.
-globalThis.prisma = prisma;
