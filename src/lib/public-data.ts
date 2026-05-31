@@ -73,13 +73,37 @@ export const getHomepageData = unstable_cache(
         ),
       ]);
 
+      // Fetch a small set of recent testimonials to show on the homepage
+      let testimonials: Array<any> = [];
+      try {
+        testimonials = await withTimeout(
+          () =>
+            prisma.testimonial.findMany({
+              orderBy: { createdAt: "desc" },
+              take: 6,
+              select: {
+                id: true,
+                content: true,
+                name: true,
+                avatar: true,
+                position: true,
+                company: true,
+              },
+            }),
+          "Homepage testimonials",
+        );
+      } catch (err) {
+        console.warn("Failed to load testimonials for homepage:", err);
+        testimonials = [];
+      }
+
       const content = homepageData?.content
         ? JSON.parse(homepageData.content as string)
         : DEFAULT_HOMEPAGE_CONTENT;
 
       return {
         content,
-        testimonials: [],
+        testimonials,
         stats: {
           jobs: jobCount,
           applications: 0,

@@ -1,9 +1,10 @@
-import { mkdir, readFile, readdir, unlink, writeFile } from "fs/promises";
-import { extname, join, normalize } from "path";
+import { mkdir, readFile, readdir, unlink, writeFile, stat } from "fs/promises";
+import fs from "fs";
+import { extname, join, normalize, dirname } from "path";
 import os from "os";
 
 const PRIMARY_UPLOAD_ROOT = join(process.cwd(), "public/uploads");
-const FALLBACK_UPLOAD_ROOT = join(os.tmpdir(), "maxera-talent/uploads");
+const FALLBACK_UPLOAD_ROOT = join(os.tmpdir(), "maxera-talent", "uploads");
 
 function getUploadRoots() {
   const configuredRoot = process.env.UPLOAD_DIR?.trim();
@@ -37,6 +38,14 @@ export async function saveUploadFile(relativePath: string, buffer: Buffer) {
     const targetPath = join(root, safeRelativePath);
 
     try {
+      // Ensure parent directory exists. Use synchronous mkdir as a safe fallback
+      // for environments where async calls may race (Hostinger, tmp mounts).
+      const parentDir = dirname(targetPath);
+      try {
+        fs.mkdirSync(parentDir, { recursive: true });
+      } catch (e) {
+        // ignore sync mkdir errors and fallback to async
+      }
       await ensureParentDirectory(targetPath);
       await writeFile(targetPath, buffer);
       return { path: targetPath, publicUrl: `/uploads/${safeRelativePath}` };
@@ -84,6 +93,19 @@ export async function deleteUploadFile(relativePath: string) {
     const targetPath = join(root, safeRelativePath);
 
     try {
+      // Check if targetPath exists and is a file (not a directory)
+      try {
+        const st = await stat(targetPath);
+        if (st.isDirectory()) {
+          console.warn(
+            `[upload-storage] Skipping unlink for directory ${targetPath}`,
+          );
+          continue;
+        }
+      } catch (e) {
+        // stat failed (file may not exist) — proceed to unlink and let it fail
+      }
+
       await unlink(targetPath);
       return true;
     } catch (error) {
@@ -103,6 +125,19 @@ export async function readUploadFile(relativePath: string) {
     const targetPath = join(root, safeRelativePath);
 
     try {
+      // Ensure target is a file, not a directory
+      try {
+        const st = await stat(targetPath);
+        if (st.isDirectory()) {
+          console.warn(
+            `[upload-storage] Refusing to read directory ${targetPath}`,
+          );
+          continue;
+        }
+      } catch (e) {
+        // stat failed — file may not exist; fall through to readFile which will throw
+      }
+
       return await readFile(targetPath);
     } catch (error) {
       console.warn(`[upload-storage] Failed to read ${targetPath}:`, error);
