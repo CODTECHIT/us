@@ -4,7 +4,7 @@ import { parseDatabaseUrl } from "./db-parser";
 
 const DEFAULT_DATABASE_POOL_LIMIT = 3;
 const MAX_DATABASE_POOL_LIMIT = 5;
-const DEFAULT_POOL_CONNECT_TIMEOUT_MS = 10000;
+const DEFAULT_POOL_CONNECT_TIMEOUT_MS = 20000;
 
 type SharedMariaDbPoolConfig = Pick<
   PoolConfig,

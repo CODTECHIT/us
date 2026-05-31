@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import prisma from "@/lib/prisma";
 
-const PUBLIC_QUERY_TIMEOUT_MS = 8000;
+const PUBLIC_QUERY_TIMEOUT_MS = 20000;
 const PUBLIC_QUERY_COOLDOWN_MS = 30000;
 
 let publicQueryCircuitOpenUntil = 0;
