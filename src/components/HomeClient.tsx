@@ -7,134 +7,53 @@ import {
   Users2,
   UserCheck,
   Calendar,
-  Award,
-} from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import Hero from "@/components/Hero";
-import SpotlightCard from "@/components/animations/SpotlightCard";
-import Aurora from "@/components/animations/Aurora";
-import AnimatedContent from "@/components/animations/AnimatedContent";
-import CountUp from "@/components/animations/CountUp";
-import SplitText from "@/components/animations/SplitText";
-const CASE_STUDIES = [
-  {
-    company: "Team Fishel",
-    tagline: "Filling Critical Field Roles",
-    contact: "Timothy Rioux",
-    challenge:
-      "Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.",
-    approach:
-      "Focused sourcing on trade-certified candidates with verified field experience.",
-    outcome: "7 placements completed within deadline.",
-    metrics: [
-      { label: "placements", value: "7" },
-      { label: "avg. time-to-fill", value: "19 days" },
-      { label: "Zero mis-hires", value: "90 days" },
-    ],
-  },
-  {
-    company: "INTELITY",
-    tagline: "Scaling Tech Team",
-    contact: "Beza Worku",
-    challenge:
-      "Needed engineers who fit both technical stack and fast-paced culture.",
-    // Local ServiceCard (restore original homepage card layout)
-    approach:
-      "Targeted SaaS-experienced candidates with strong communication and async collaboration skills.",
-    outcome: "4 roles filled with strong retention.",
-    metrics: [
-      { label: "placements", value: "4" },
-      { label: "faster hiring cycle", value: "38%" },
-      { label: "6-month retention", value: "85%" },
-    ],
-  },
-  {
-    company: "Ness Digital Engineering",
-    tagline: "Rapid Scaling",
-    contact: "Sheju Sadasivan",
-    challenge: "Urgent need for cloud and digital transformation engineers.",
-    approach:
-      "Activated pre-vetted talent network and handled screening + coordination.",
-    outcome: "6 contractors deployed within 3 weeks.",
-    metrics: [
-      { label: "contractors onboarded", value: "6" },
-      { label: "Shortlist in", value: "8 days" },
-      { label: "delays", value: "Zero" },
-    ],
-  },
-  {
-    company: "World Wide Technology",
-    tagline: "Enterprise Hiring",
-    contact: "Shrijeet Nair",
-    challenge:
-      "Needed high-caliber engineers meeting strict enterprise standards.",
-    approach: "Aligned sourcing with internal competency framework.",
-    outcome: "8 roles filled successfully.",
-    metrics: [
-      { label: "placements", value: "8" },
-      { label: "interview-to-offer", value: "36%" },
-      { label: "pipeline maintained", value: "5-month" },
-    ],
-  },
-  {
-    company: "Nous Infosystems",
-    tagline: "Bench Strength",
-    contact: "Vishwak Shanan",
-    challenge: "Managing bench utilization and project-based hiring pressure.",
-    approach: "Provided pre-screened profiles aligned to upcoming needs.",
-    outcome: "Improved readiness and reduced reactive hiring.",
-    metrics: [
-      { label: "profiles submitted", value: "22" },
-      { label: "placements", value: "9" },
-      { label: "avg. cycle", value: "11 days" },
-    ],
-  },
-  {
-    company: "McCormick’s Heating & Air Conditioning",
-    tagline: "Technician Hiring",
-    contact: "Garrett Johnson",
-    challenge: "Difficulty sourcing certified HVAC technicians quickly.",
-    approach: "Focused on local sourcing and job-ready candidates.",
-    outcome: "4 technicians placed restoring service capacity.",
-    metrics: [
-      { label: "placements", value: "4" },
-      { label: "avg. fill time", value: "16 days" },
-      { label: "retention", value: "100%" },
-    ],
-  },
-];
+            {CASE_STUDIES.map((study, idx) => (
+                <AnimatedContent key={study.company} delay={idx * 0.1} direction="up" distance={30}>
+                  <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-maxera-red transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
 
-// Local ServiceCard component (used by homepage)
-const ServiceCard = ({
-  title,
-  description,
-  href,
-  image,
-  idx,
-}: {
-  title: string;
-  description: string;
-  href: string;
-  image: string;
-  idx: number;
-}) => (
-  <AnimatedContent delay={idx * 0.1} direction="up" distance={30}>
-    <Link href={href} className="block group h-full">
-      <SpotlightCard className="bg-white border border-gray-100 flex flex-col items-start text-left group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full">
-        <div className="w-full h-40 sm:h-48 bg-gray-100 overflow-hidden relative">
-          <div className="absolute inset-0 bg-maxera-red opacity-0 group-hover:opacity-10 transition-opacity z-10" />
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-        </div>
-        <div className="p-5 sm:p-6 flex flex-col flex-grow w-full">
-          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark mb-3 sm:mb-4 uppercase tracking-tighter leading-tight group-hover:text-maxera-red transition-colors">
-            {title}
+                    <div className="mb-6">
+                      <h3 className="text-2xl font-black text-maxera-dark tracking-tighter uppercase leading-none group-hover:text-maxera-red transition-colors">
+                        {study.company}
+                      </h3>
+                      <p className="text-maxera-red text-[11px] font-black uppercase tracking-[0.2em] mt-2">
+                        {study.tagline}
+                      </p>
+                    </div>
+
+                    <div className="space-y-6 mb-10 flex-grow">
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Challenge</span>
+                        <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.challenge}</p>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Approach</span>
+                        <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.approach}</p>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Outcome</span>
+                        <p className="text-maxera-dark text-base font-black leading-relaxed italic border-l-4 border-maxera-red pl-4 py-1">{study.outcome}</p>
+                      </div>
+                    </div>
+
+                    <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
+                      <div className="grid grid-cols-3 gap-4">
+                        {study.metrics.map((metric, i) => (
+                          <div key={i} className="text-center">
+                            <div className="text-xl font-black text-maxera-dark tracking-tight">{metric.value}</div>
+                            <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 leading-tight mt-1">{metric.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-8 pt-6 border-t border-zinc-200/50 flex items-center justify-between">
+                        <div className="text-[10px] font-black text-maxera-dark/60 uppercase tracking-widest">
+                          Executive Contact: <span className="text-maxera-dark">{study.contact}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </AnimatedContent>
+              ))}
           </h3>
           <p className="text-gray-400 text-xs font-medium leading-relaxed mb-6 sm:mb-10 flex-grow">
             {description}
