@@ -2,7 +2,6 @@ import React from "react";
 import {
   Users,
   Briefcase,
-  Eye,
   Clock,
   TrendingUp,
   PlusCircle,
@@ -11,6 +10,26 @@ import {
 } from "lucide-react";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+
+const ADMIN_QUERY_TIMEOUT_MS = 6000;
+
+async function withTimeout<T>(operation: Promise<T>, label: string) {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(`${label} timed out after ${ADMIN_QUERY_TIMEOUT_MS}ms`));
+    }, ADMIN_QUERY_TIMEOUT_MS);
+  });
+
+  try {
+    return await Promise.race([operation, timeoutPromise]);
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  }
+}
 
 export default async function AdminDashboard() {
   // Fetch real counts from the database — wrapped in try/catch so the
@@ -27,14 +46,30 @@ export default async function AdminDashboard() {
   }> = [];
 
   try {
-    jobCount = await prisma.job.count();
-    applicationCount = await prisma.application.count();
-    enquiryCount = await prisma.enquiry.count();
-    recentApps = await prisma.application.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
-      include: { job: { select: { title: true } } },
-    });
+    const [jobs, applications, enquiries, recent] = await Promise.all([
+      withTimeout(prisma.job.count(), "Admin job count"),
+      withTimeout(prisma.application.count(), "Admin application count"),
+      withTimeout(prisma.enquiry.count(), "Admin enquiry count"),
+      withTimeout(
+        prisma.application.findMany({
+          take: 5,
+          orderBy: { createdAt: "desc" },
+          select: {
+            id: true,
+            candidateName: true,
+            createdAt: true,
+            status: true,
+            job: { select: { title: true } },
+          },
+        }),
+        "Admin recent applications",
+      ),
+    ]);
+
+    jobCount = jobs;
+    applicationCount = applications;
+    enquiryCount = enquiries;
+    recentApps = recent;
   } catch (error) {
     console.error("[AdminDashboard] DB query failed, showing zeroes:", error);
   }
@@ -77,7 +112,7 @@ export default async function AdminDashboard() {
           Dashboard Overview
         </h1>
         <p className="text-zinc-500 mt-1">
-          Welcome back, here's what's happening today.
+          Welcome back, here&apos;s what&apos;s happening today.
         </p>
       </div>
 
