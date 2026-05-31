@@ -106,19 +106,44 @@ const CASE_STUDIES = [
 ];
 
 // Local ServiceCard component (used by homepage)
-const ServiceCard = ({ title, description, href, image, idx }: { title: string; description: string; href: string; image: string; idx: number; }) => (
+const ServiceCard = ({
+  title,
+  description,
+  href,
+  image,
+  idx,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  idx: number;
+}) => (
   <AnimatedContent delay={idx * 0.1} direction="up" distance={30}>
     <Link href={href} className="block group h-full">
       <SpotlightCard className="bg-white border border-gray-100 flex flex-col items-start text-left group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full">
         <div className="w-full h-40 sm:h-48 bg-gray-100 overflow-hidden relative">
           <div className="absolute inset-0 bg-maxera-red opacity-0 group-hover:opacity-10 transition-opacity z-10" />
-          <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+          />
         </div>
         <div className="p-5 sm:p-6 flex flex-col flex-grow w-full">
-          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark mb-3 sm:mb-4 uppercase tracking-tighter leading-tight group-hover:text-maxera-red transition-colors">{title}</h3>
-          <p className="text-gray-400 text-xs font-medium leading-relaxed mb-6 sm:mb-10 flex-grow">{description}</p>
+          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark mb-3 sm:mb-4 uppercase tracking-tighter leading-tight group-hover:text-maxera-red transition-colors">
+            {title}
+          </h3>
+          <p className="text-gray-400 text-xs font-medium leading-relaxed mb-6 sm:mb-10 flex-grow">
+            {description}
+          </p>
           <div className="mt-auto">
-            <div className="inline-flex items-center px-5 sm:px-6 py-2 border border-maxera-red text-maxera-red group-hover:bg-maxera-red group-hover:text-white transition-all text-[10px] sm:text-[11px] font-black uppercase tracking-widest" style={{ clipPath: "polygon(8% 0, 100% 0, 92% 100%, 0 100%)" }}>
+            <div
+              className="inline-flex items-center px-5 sm:px-6 py-2 border border-maxera-red text-maxera-red group-hover:bg-maxera-red group-hover:text-white transition-all text-[10px] sm:text-[11px] font-black uppercase tracking-widest"
+              style={{ clipPath: "polygon(8% 0, 100% 0, 92% 100%, 0 100%)" }}
+            >
               Learn More <ArrowRight className="ml-2 w-3 h-3" />
             </div>
           </div>
@@ -197,6 +222,37 @@ export default function HomeClient({
       image:
         "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800",
       href: "/services/permanent-hiring",
+    },
+    {
+      title: "Industrial Staffing",
+      description:
+        "Reliable workforce solutions for manufacturing and logistics sectors.",
+      image:
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+      href: "/services/industrial-staffing",
+    },
+    {
+      title: "RPO Services",
+      description:
+        "Dedicated recruitment support acting as an extension of your team.",
+      image:
+        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800",
+      href: "/services/rpo",
+    },
+    {
+      title: "Passive Talent Sourcing",
+      description:
+        "Proactive engagement of high-quality candidates who are not actively job-seeking.",
+      image: "/images/passive_sourcing.png",
+      href: "/services/passive-sourcing",
+    },
+    {
+      title: "Offshore Solutions",
+      description:
+        "Access skilled global talent pools to build remote or offshore teams efficiently.",
+      image:
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
+      href: "/services/offshore-solutions",
     },
   ];
   const steps = [
