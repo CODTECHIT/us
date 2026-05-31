@@ -3,10 +3,17 @@ import mysql from "mysql2/promise";
 import dns from "dns";
 import { promisify } from "util";
 import { parseDatabaseUrl } from "../../../lib/db-parser";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const lookup = promisify(dns.lookup);
 
 export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   const debugLogs: string[] = [];
   const databaseUrl = process.env.DATABASE_URL || "";
 
