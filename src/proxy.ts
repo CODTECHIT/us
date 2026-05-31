@@ -12,14 +12,16 @@ export default withAuth(
     pages: {
       signIn: "/admin/maxera/login",
     },
-  }
+  },
 );
 
 export const config = {
   // Protecting both the base path and all sub-paths
   matcher: [
     "/admin/maxera",
-    "/admin/maxera/:path*",
+    // Exclude the sign-in page from protection to avoid redirect loops
+    // (matches sub-paths except "/admin/maxera/login")
+    "/admin/maxera/:path((?!login).*)",
     "/api/admin/:path*",
     "/api/applications/:path*",
     "/api/enquiries/:path*",
