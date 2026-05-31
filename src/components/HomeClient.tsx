@@ -9,136 +9,14 @@ import {
   Calendar,
   Award,
 } from "lucide-react";
-          {/* Testimonials Grid: show CMS testimonials when present; otherwise fall back to CASE_STUDIES */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-            {testimonials && testimonials.length > 0 ? (
-              testimonials.map((t: any, idx: number) => {
-                // attempt to render testimonial as case-study style
-                const parseSections = (text: string) => {
-                  const sections: any = { challenge: "", approach: "", outcome: "" };
-                  if (!text) return sections;
-                  const cMatch = text.match(/Challenge\s*[:\-]?\s*([^\n]+(?:[\s\S]*?))(?:Approach|$)/i);
-                  const aMatch = text.match(/Approach\s*[:\-]?\s*([^\n]+(?:[\s\S]*?))(?:Outcome|$)/i);
-                  const oMatch = text.match(/Outcome\s*[:\-]?\s*([\s\S]*)/i);
-                  sections.challenge = cMatch ? cMatch[1].trim() : "";
-                  sections.approach = aMatch ? aMatch[1].trim() : "";
-                  sections.outcome = oMatch ? oMatch[1].trim() : "";
-                  if (!sections.challenge && !sections.approach && !sections.outcome) sections.outcome = text;
-                  return sections;
-                };
-
-                const metricsMap: Record<string, { metrics: Array<{ label: string; value: string }>; contact?: string; tagline?: string }> = {
-                  "Team Fishel": { metrics: [{ label: "placements", value: "7" }, { label: "avg. time-to-fill", value: "19 days" }, { label: "Zero mis-hires", value: "90 days" }], contact: "TIMOTHY RIOUX", tagline: "Filling Critical Field Roles" },
-                  INTELITY: { metrics: [{ label: "placements", value: "4" }, { label: "faster hiring cycle", value: "38%" }, { label: "6-month retention", value: "85%" }], contact: "BEZA WORKU", tagline: "Scaling Tech Team" },
-                  "Ness Digital Engineering": { metrics: [{ label: "contractors onboarded", value: "6" }, { label: "shortlist in", value: "8 days" }, { label: "delays", value: "Zero" }], contact: "SHEJU SADASIVAN", tagline: "Rapid Scaling" },
-                  "World Wide Technology": { metrics: [{ label: "placements", value: "8" }, { label: "interview-to-offer", value: "36%" }, { label: "pipeline maintained", value: "5-month" }], contact: "SHRIJEET NAIR", tagline: "Enterprise Hiring" },
-                  "Nous Infosystems": { metrics: [{ label: "profiles submitted", value: "22" }, { label: "placements", value: "9" }, { label: "avg. cycle", value: "11 days" }], contact: "VISHWAK SHANAN", tagline: "Bench Strength" },
-                  "McCormick’s Heating & Air Conditioning": { metrics: [{ label: "placements", value: "4" }, { label: "avg. fill time", value: "16 days" }, { label: "retention", value: "100%" }], contact: "GARRETT JOHNSON", tagline: "Technician Hiring" },
-                };
-
-                const sections = parseSections(t.content || "");
-                const companyKey = t.company || t.name || '';
-                const mapping = metricsMap[companyKey] || null;
-
-                return (
-                  <AnimatedContent key={t.id || idx} delay={idx * 0.08} direction="up" distance={20}>
-                    <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-                      <div className="mb-6">
-                        <h3 className="text-2xl font-black text-maxera-dark tracking-tighter uppercase leading-none group-hover:text-maxera-red transition-colors">{companyKey}</h3>
-                        {mapping?.tagline ? (
-                          <p className="text-maxera-red text-[11px] font-black uppercase tracking-[0.2em] mt-2">{mapping.tagline}</p>
-                        ) : null}
-                      </div>
-
-                      <div className="space-y-6 mb-10 flex-grow">
-                        {sections.challenge ? (
-                          <div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Challenge</span>
-                            <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{sections.challenge}</p>
-                          </div>
-                        ) : null}
-                        {sections.approach ? (
-                          <div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Approach</span>
-                            <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{sections.approach}</p>
-                          </div>
-                        ) : null}
-                        {sections.outcome ? (
-                          <div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Outcome</span>
-                            <p className="text-maxera-dark text-base font-black leading-relaxed italic border-l-4 border-maxera-red pl-4 py-1">{sections.outcome}</p>
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
-                        <div className="grid grid-cols-3 gap-4">
-                          {(mapping?.metrics || []).map((metric, i) => (
-                            <div key={i} className="text-center">
-                              <div className="text-xl font-black text-maxera-dark tracking-tight">{metric.value}</div>
-                              <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 leading-tight mt-1">{metric.label}</div>
-                            </div>
-                          ))}
-                          {!mapping && <div className="col-span-3 text-sm text-zinc-500">No metrics available</div>}
-                        </div>
-                        <div className="mt-8 pt-6 border-t border-zinc-200/50 flex items-center justify-between">
-                          <div className="text-[10px] font-black text-maxera-dark/60 uppercase tracking-widest">Executive Contact: <span className="text-maxera-dark">{mapping?.contact || (t.name || '')}</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </AnimatedContent>
-                );
-              })
-            ) : (
-              CASE_STUDIES.map((study, idx) => (
-                <AnimatedContent key={study.company} delay={idx * 0.1} direction="up" distance={30}>
-                  <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1.5 h-full bg-maxera-red transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-black text-maxera-dark tracking-tighter uppercase leading-none group-hover:text-maxera-red transition-colors">
-                        {study.company}
-                      </h3>
-                      <p className="text-maxera-red text-[11px] font-black uppercase tracking-[0.2em] mt-2">
-                        {study.tagline}
-                      </p>
-                    </div>
-
-                    <div className="space-y-6 mb-10 flex-grow">
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Challenge</span>
-                        <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.challenge}</p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Approach</span>
-                        <p className="text-zinc-700 text-sm font-semibold leading-relaxed">{study.approach}</p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-maxera-dark/40 block mb-1.5">Outcome</span>
-                        <p className="text-maxera-dark text-base font-black leading-relaxed italic border-l-4 border-maxera-red pl-4 py-1">{study.outcome}</p>
-                      </div>
-                    </div>
-
-                    <div className="pt-8 border-t border-gray-100 bg-zinc-50/80 -mx-10 -mb-10 p-10 mt-auto">
-                      <div className="grid grid-cols-3 gap-4">
-                        {study.metrics.map((metric, i) => (
-                          <div key={i} className="text-center">
-                            <div className="text-xl font-black text-maxera-dark tracking-tight">{metric.value}</div>
-                            <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 leading-tight mt-1">{metric.label}</div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-8 pt-6 border-t border-zinc-200/50 flex items-center justify-between">
-                        <div className="text-[10px] font-black text-maxera-dark/60 uppercase tracking-widest">
-                          Executive Contact: <span className="text-maxera-dark">{study.contact}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </AnimatedContent>
-              ))
-            )}
-          </div>
+import Link from "next/link";
+import Image from "next/image";
+import Hero from "@/components/Hero";
+import SpotlightCard from "@/components/animations/SpotlightCard";
+import Aurora from "@/components/animations/Aurora";
+import AnimatedContent from "@/components/animations/AnimatedContent";
+import CountUp from "@/components/animations/CountUp";
+import SplitText from "@/components/animations/SplitText";
 const CASE_STUDIES = [
   {
     company: "Team Fishel",
