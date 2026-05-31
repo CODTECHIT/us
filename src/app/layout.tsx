@@ -11,8 +11,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Maxera Talent | Professional Recruitment Agency",
-  description: "Connecting top companies with exceptional professionals. Your trusted strategic partner for recruitment, talent management, and digital solutions.",
-  keywords: "recruitment, talent, staffing, executive search, contract staffing",
+  description:
+    "Connecting top companies with exceptional professionals. Your trusted strategic partner for recruitment, talent management, and digital solutions.",
+  keywords:
+    "recruitment, talent, staffing, executive search, contract staffing",
 };
 
 export default function RootLayout({
@@ -21,17 +23,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="scroll-smooth"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
       </head>
-      <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased text-maxera-text`}>
-        <Providers>
-          {children}
-        </Providers>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} font-sans antialiased text-maxera-text`}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

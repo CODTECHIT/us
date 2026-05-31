@@ -180,7 +180,6 @@ const Header = () => {
               href: "/industries/healthcare",
               icon: HeartPulse,
             },
-
           ],
         },
       ],
@@ -190,13 +189,10 @@ const Header = () => {
     { name: "Contact", href: "/contact" },
   ];
 
-  const [prevPathname, setPrevPathname] = useState(pathname);
-
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
+  useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
-  }
+  }, [pathname]);
 
   // Prevent body scroll when mobile menu open
   useEffect(() => {

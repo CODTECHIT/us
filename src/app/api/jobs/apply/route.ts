@@ -1,22 +1,25 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
-import { validateFileExtension, validateFileSize } from '@/lib/security';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import path from "path";
+import { validateFileExtension, validateFileSize } from "@/lib/security";
+import { saveUploadFile } from "@/lib/upload-storage";
 
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    
-    const jobId = formData.get('jobId') as string;
-    const candidateName = formData.get('candidateName') as string;
-    const email = formData.get('email') as string;
-    const phone = formData.get('phone') as string;
-    const message = formData.get('message') as string;
-    const resumeFile = formData.get('resume') as File | null;
+
+    const jobId = formData.get("jobId") as string;
+    const candidateName = formData.get("candidateName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const message = formData.get("message") as string;
+    const resumeFile = formData.get("resume") as File | null;
 
     if (!jobId || !candidateName || !email || !phone) {
-      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 },
+      );
     }
 
     let resumeUrl = null;
@@ -26,32 +29,34 @@ export async function POST(req: Request) {
       // 1. Validate extension
       if (!validateFileExtension(resumeFile.name)) {
         return NextResponse.json(
-          { message: 'Invalid file type. Only PDF, DOC, DOCX, and TXT files are allowed.' }, 
-          { status: 400 }
+          {
+            message:
+              "Invalid file type. Only PDF, DOC, DOCX, and TXT files are allowed.",
+          },
+          { status: 400 },
         );
       }
 
       const bytes = await resumeFile.arrayBuffer();
-      
+
       // 2. Validate size (max 5MB)
       if (!validateFileSize(bytes.byteLength)) {
         return NextResponse.json(
-          { message: 'File is too large. Maximum size allowed is 5MB.' }, 
-          { status: 400 }
+          { message: "File is too large. Maximum size allowed is 5MB." },
+          { status: 400 },
         );
       }
 
       const buffer = Buffer.from(bytes);
 
       // Create a unique filename
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      const filename = `${uniqueSuffix}-${resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const uploadDir = path.join(process.cwd(), 'public/uploads/resumes');
-      await mkdir(uploadDir, { recursive: true });
-      const filepath = path.join(uploadDir, filename);
-
-      await writeFile(filepath, buffer);
-      resumeUrl = `/uploads/resumes/${filename}`;
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      const filename = `${uniqueSuffix}-${resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
+      const saved = await saveUploadFile(
+        path.posix.join("resumes", filename),
+        buffer,
+      );
+      resumeUrl = saved.publicUrl;
     }
 
     // Save the application to the database
@@ -68,10 +73,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json(application, { status: 201 });
   } catch (error) {
-    console.error('Application Error:', error);
+    console.error("Application Error:", error);
     return NextResponse.json(
-      { message: 'Internal Server Error', error: String(error) }, 
-      { status: 500 }
+      { message: "Internal Server Error", error: String(error) },
+      { status: 500 },
     );
   }
 }
