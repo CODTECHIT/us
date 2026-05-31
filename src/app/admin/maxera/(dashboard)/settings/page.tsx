@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Save,
   Palette,
@@ -38,6 +38,32 @@ export default function AdminSettings() {
     siteTitleTemplate: "Maxera Talent | %page%",
     metaDescription: "",
   });
+  const logoInputRef = useRef<HTMLInputElement | null>(null);
+  const faviconInputRef = useRef<HTMLInputElement | null>(null);
+
+  const uploadAndSave = async (file: File, key: string) => {
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/media', { method: 'POST', body: fd });
+      if (!res.ok) throw new Error('Upload failed');
+      const json = await res.json();
+      const url = json.url;
+      // Save to settings
+      const saveRes = await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ [key]: url })
+      });
+      if (!saveRes.ok) throw new Error('Failed to save setting');
+      setSettings(prev => ({ ...prev, [key]: url } as SettingsState));
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    } catch (err) {
+      console.error('Upload+Save error:', err);
+      alert('Upload failed');
+    }
+  };
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -171,9 +197,20 @@ export default function AdminSettings() {
                       <p className="text-xs text-zinc-400 font-medium">
                         PNG, SVG or WEBP (Max 2MB)
                       </p>
-                      <button className="text-blue-600 text-xs font-black uppercase tracking-widest mt-2 hover:underline">
-                        Change Logo
-                      </button>
+                      <div>
+                        {settings.logo ? (
+                          <img src={settings.logo} alt="logo" className="h-10 mx-auto mb-2" />
+                        ) : null}
+                        <button
+                          onClick={() => logoInputRef.current?.click()}
+                          className="text-blue-600 text-xs font-black uppercase tracking-widest mt-2 hover:underline"
+                        >
+                          Change Logo
+                        </button>
+                        <input ref={logoInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => {
+                          const f = e.target.files?.[0]; if (f) uploadAndSave(f, 'logo');
+                        }} />
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-4">
@@ -186,9 +223,20 @@ export default function AdminSettings() {
                           1:1
                         </span>
                       </div>
-                      <button className="text-blue-600 text-xs font-black uppercase tracking-widest mt-2 hover:underline">
-                        Upload Icon
-                      </button>
+                      <div>
+                        {settings.favicon ? (
+                          <img src={settings.favicon} alt="favicon" className="w-8 h-8 mx-auto mb-2" />
+                        ) : null}
+                        <button
+                          onClick={() => faviconInputRef.current?.click()}
+                          className="text-blue-600 text-xs font-black uppercase tracking-widest mt-2 hover:underline"
+                        >
+                          Upload Icon
+                        </button>
+                        <input ref={faviconInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => {
+                          const f = e.target.files?.[0]; if (f) uploadAndSave(f, 'favicon');
+                        }} />
+                      </div>
                     </div>
                   </div>
                 </div>

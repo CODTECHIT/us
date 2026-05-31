@@ -186,29 +186,23 @@ export default function AnalyticsPage() {
 
           <div className="bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-zinc-100 dark:border-zinc-800">
             <h3 className="text-sm font-black text-zinc-900 dark:text-white uppercase tracking-widest mb-6 border-b border-zinc-100 dark:border-zinc-800 pb-4">Top Channels</h3>
-            <div className="space-y-6">
-              {[
-                { name: 'Organic Search', value: '45%', color: 'blue' },
-                { name: 'Direct Traffic', value: '30%', color: 'purple' },
-                { name: 'LinkedIn Leads', value: '15%', color: 'sky' },
-                { name: 'Referral Net', value: '10%', color: 'emerald' }
-              ].map((channel, idx) => (
-                <div key={idx} className="flex items-center justify-between group cursor-default">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${
-                      channel.color === 'blue' ? 'bg-blue-500' :
-                      channel.color === 'purple' ? 'bg-purple-500' :
-                      channel.color === 'sky' ? 'bg-sky-500' :
-                      'bg-emerald-500'
-                    }`} />
-                    <span className="text-[11px] font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-tighter group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
-                      {channel.name}
-                    </span>
-                  </div>
-                  <span className="text-xs font-black text-zinc-900 dark:text-white">{channel.value}</span>
-                </div>
-              ))}
-            </div>
+              <div className="space-y-6">
+                {data?.topChannels && data.topChannels.length > 0 ? (
+                  data.topChannels.map((channel: any, idx: number) => (
+                    <div key={idx} className="flex items-center justify-between group cursor-default">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full bg-blue-500`} />
+                        <span className="text-[11px] font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-tighter group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
+                          {channel.name}
+                        </span>
+                      </div>
+                      <span className="text-xs font-black text-zinc-900 dark:text-white">{Math.round((channel.value / (data.stats?.enquiries || 1)) * 100)}%</span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-sm text-zinc-500">No channel breakdown available yet.</div>
+                )}
+              </div>
           </div>
         </div>
       </div>

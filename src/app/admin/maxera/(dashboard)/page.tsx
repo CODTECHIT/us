@@ -74,6 +74,19 @@ export default async function AdminDashboard() {
     console.error("[AdminDashboard] DB query failed, showing zeroes:", error);
   }
 
+  // Check DB health with a lightweight ping
+  let dbHealthy = false;
+  let dbPingMs: number | null = null;
+  try {
+    const start = Date.now();
+    await prisma.$queryRaw`SELECT 1`;
+    dbPingMs = Date.now() - start;
+    dbHealthy = true;
+  } catch (err) {
+    console.error('DB health check failed:', err);
+    dbHealthy = false;
+  }
+
   const stats = [
     {
       name: "Active Job Posts",
@@ -214,15 +227,14 @@ export default async function AdminDashboard() {
             </div>
           </div>
 
-          <div className="bg-zinc-900 dark:bg-blue-600 p-6 rounded-2xl text-white">
-            <h3 className="font-bold text-lg mb-2">Hostinger Database</h3>
-            <p className="text-zinc-400 dark:text-blue-100 text-sm mb-4">
-              Your dashboard is now live and connected to the Hostinger MySQL
-              instance.
+          <div className={`p-6 rounded-2xl ${dbHealthy ? 'bg-emerald-600 text-white' : 'bg-rose-50 text-rose-700'} `}>
+            <h3 className="font-bold text-lg mb-2">Database Connection</h3>
+            <p className="text-sm mb-4">
+              {dbHealthy ? 'Successfully connected to the database.' : 'Unable to reach the database.'}
             </p>
-            <div className="flex items-center gap-2 text-emerald-400 text-sm font-bold">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-              Live Connection
+            <div className="flex items-center gap-2 text-sm font-bold">
+              <div className={`w-2 h-2 rounded-full ${dbHealthy ? 'bg-emerald-200' : 'bg-rose-400'} ${dbHealthy ? 'animate-pulse' : ''}`} />
+              {dbHealthy ? `Ping: ${dbPingMs}ms` : 'Offline'}
             </div>
           </div>
         </div>

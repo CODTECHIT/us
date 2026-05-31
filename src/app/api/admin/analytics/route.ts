@@ -40,7 +40,7 @@ export async function GET() {
         }))
       : [];
 
-    // Mock data for traffic since we don't have tracking yet
+    // Build traffic from enquiries trend (fallback to mock if empty)
     const mockTraffic = [
       { day: 'Mon', views: 120 },
       { day: 'Tue', views: 150 },
@@ -51,6 +51,19 @@ export async function GET() {
       { day: 'Sun', views: 130 },
     ];
 
+    // Top channels: derive from enquiry types if available
+    const channelsRaw = await prisma.$queryRaw<Array<{ type: string; count: bigint }>>`
+      SELECT type, COUNT(*) as count
+      FROM Enquiry
+      GROUP BY type
+      ORDER BY count DESC
+      LIMIT 5
+    `;
+
+    const topChannels = Array.isArray(channelsRaw)
+      ? channelsRaw.map((c) => ({ name: String(c.type || 'Other'), value: Number(c.count) }))
+      : [];
+
     return NextResponse.json({
       stats: {
         enquiries: Number(enquiriesCount),
@@ -59,7 +72,8 @@ export async function GET() {
         blogs: Number(blogsCount)
       },
       enquiryTrends: formattedTrends,
-      traffic: mockTraffic
+      traffic: formattedTrends.length > 0 ? formattedTrends.map(t => ({ day: new Date(t.date).toLocaleDateString('en-US', { weekday: 'short' }), views: t.count })) : mockTraffic,
+      topChannels
     });
   } catch (error) {
     console.error('Analytics Error:', error);
