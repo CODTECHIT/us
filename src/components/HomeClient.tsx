@@ -73,53 +73,59 @@ const CASE_STUDIES = [
     company: "Team Fishel",
     tagline: "Filling Critical Field Roles",
     contact: "Timothy Rioux",
-    challenge: "Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.",
-    approach: "Focused sourcing on trade-certified candidates with verified field experience.",
+    challenge:
+      "Hiring pipeline stalled for skilled electricians and field technicians, risking project delays.",
+    approach:
+      "Focused sourcing on trade-certified candidates with verified field experience.",
     outcome: "7 placements completed within deadline.",
     metrics: [
       { label: "placements", value: "7" },
       { label: "avg. time-to-fill", value: "19 days" },
-      { label: "Zero mis-hires", value: "90 days" }
-    ]
+      { label: "Zero mis-hires", value: "90 days" },
+    ],
   },
   {
     company: "INTELITY",
     tagline: "Scaling Tech Team",
     contact: "Beza Worku",
-    challenge: "Needed engineers who fit both technical stack and fast-paced culture.",
-    approach: "Targeted SaaS-experienced candidates with strong communication and async collaboration skills.",
+    challenge:
+      "Needed engineers who fit both technical stack and fast-paced culture.",
+    approach:
+      "Targeted SaaS-experienced candidates with strong communication and async collaboration skills.",
     outcome: "4 roles filled with strong retention.",
     metrics: [
       { label: "placements", value: "4" },
       { label: "faster hiring cycle", value: "38%" },
-      { label: "6-month retention", value: "85%" }
-    ]
+      { label: "6-month retention", value: "85%" },
+    ],
   },
   {
     company: "Ness Digital Engineering",
     tagline: "Rapid Scaling",
     contact: "Sheju Sadasivan",
     challenge: "Urgent need for cloud and digital transformation engineers.",
-    approach: "Activated pre-vetted talent network and handled screening + coordination.",
+    approach:
+      "Activated pre-vetted talent network and handled screening + coordination.",
     outcome: "6 contractors deployed within 3 weeks.",
     metrics: [
       { label: "contractors onboarded", value: "6" },
       { label: "Shortlist in", value: "8 days" },
-      { label: "delays", value: "Zero" }
-    ]
+      { label: "delays", value: "Zero" },
+    ],
   },
   {
     company: "World Wide Technology",
     tagline: "Enterprise Hiring",
     contact: "Shrijeet Nair",
-    challenge: "Needed high-caliber engineers meeting strict enterprise standards.",
+    challenge:
+      "Needed high-caliber engineers meeting strict enterprise standards.",
     approach: "Aligned sourcing with internal competency framework.",
     outcome: "8 roles filled successfully.",
     metrics: [
       { label: "placements", value: "8" },
       { label: "interview-to-offer", value: "36%" },
-      { label: "pipeline maintained", value: "5-month" }
-    ]
+      { label: "pipeline maintained", value: "5-month" },
+    ],
   },
   {
     company: "Nous Infosystems",
@@ -131,8 +137,8 @@ const CASE_STUDIES = [
     metrics: [
       { label: "profiles submitted", value: "22" },
       { label: "placements", value: "9" },
-      { label: "avg. cycle", value: "11 days" }
-    ]
+      { label: "avg. cycle", value: "11 days" },
+    ],
   },
   {
     company: "McCormick’s Heating & Air Conditioning",
@@ -144,9 +150,9 @@ const CASE_STUDIES = [
     metrics: [
       { label: "placements", value: "4" },
       { label: "avg. fill time", value: "16 days" },
-      { label: "retention", value: "100%" }
-    ]
-  }
+      { label: "retention", value: "100%" },
+    ],
+  },
 ];
 
 export default function HomeClient({
@@ -183,6 +189,9 @@ export default function HomeClient({
       label: "Candidates Managed",
     },
   ];
+
+  // normalize prop name from server component
+  const testimonials = _testimonials || [];
 
   const services = [
     {
@@ -456,45 +465,72 @@ export default function HomeClient({
 
           {/* Testimonials Grid (CMS-driven; fall back to CASE_STUDIES when empty) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-            {( (testimonials && testimonials.length > 0) ? testimonials : CASE_STUDIES ).map((item: any, idx: number) => {
+            {(testimonials && testimonials.length > 0
+              ? testimonials
+              : CASE_STUDIES
+            ).map((item: any, idx: number) => {
               const isCms = !!(item && item.id);
               const key = isCms ? item.id : item.company || idx;
               const content = isCms ? item.content : item.outcome;
               const name = isCms ? item.name : item.company;
-              const meta = isCms ? [item.position, item.company].filter(Boolean).join(' — ') : item.tagline;
+              const meta = isCms
+                ? [item.position, item.company].filter(Boolean).join(" — ")
+                : item.tagline;
 
               return (
-                <AnimatedContent key={key} delay={idx * 0.08} direction="up" distance={20}>
+                <AnimatedContent
+                  key={key}
+                  delay={idx * 0.08}
+                  direction="up"
+                  distance={20}
+                >
                   <div className="bg-white p-8 sm:p-10 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
                     <div className="mb-6">
                       <div className="flex items-center gap-4">
                         {isCms && item.avatar ? (
                           <div className="w-14 h-14 rounded-full overflow-hidden bg-zinc-50 border border-zinc-200">
-                            <Image src={item.avatar} alt={name || 'avatar'} width={56} height={56} className="object-cover" />
+                            <Image
+                              src={item.avatar}
+                              alt={name || "avatar"}
+                              width={56}
+                              height={56}
+                              className="object-cover"
+                            />
                           </div>
                         ) : (
-                          <div className="w-14 h-14 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-black text-zinc-400">{(name||'')[0]||'?'}</div>
+                          <div className="w-14 h-14 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-black text-zinc-400">
+                            {(name || "")[0] || "?"}
+                          </div>
                         )}
                         <div>
-                          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark tracking-tighter leading-tight">{name}</h3>
-                          {meta && <p className="text-[11px] text-zinc-500 font-bold mt-1">{meta}</p>}
+                          <h3 className="text-lg sm:text-xl font-heading font-black text-maxera-dark tracking-tighter leading-tight">
+                            {name}
+                          </h3>
+                          {meta && (
+                            <p className="text-[11px] text-zinc-500 font-bold mt-1">
+                              {meta}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
 
                     <div className="mb-6 flex-grow">
-                      <p className="text-zinc-700 text-sm leading-relaxed italic">{content}</p>
+                      <p className="text-zinc-700 text-sm leading-relaxed italic">
+                        {content}
+                      </p>
                     </div>
 
                     <div className="pt-6 border-t border-gray-100 mt-auto">
-                      <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{isCms ? 'Client Testimonial' : 'Case Study'}</div>
+                      <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+                        {isCms ? "Client Testimonial" : "Case Study"}
+                      </div>
                     </div>
                   </div>
                 </AnimatedContent>
               );
             })}
           </div>
-
         </div>
       </section>
 
