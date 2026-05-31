@@ -38,7 +38,7 @@ export default function JobManager() {
       const res = await fetch('/api/jobs');
       if (res.ok) {
         const data = await res.json();
-        setJobs(data);
+        setJobs(Array.isArray(data) ? data : data.data || []);
       }
     } catch (error) {
       console.error('Failed to fetch jobs:', error);
