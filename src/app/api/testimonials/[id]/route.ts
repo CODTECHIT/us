@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(
   req: Request,
@@ -40,6 +41,11 @@ export async function PATCH(
         avatar: data.avatar,
       }
     });
+    try {
+      revalidatePath('/');
+    } catch (err) {
+      console.warn('Failed to revalidate homepage after updating testimonial', err);
+    }
     return NextResponse.json(testimonial);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update testimonial' }, { status: 500 });
@@ -60,6 +66,11 @@ export async function DELETE(
     await prisma.testimonial.delete({
       where: { id: id }
     });
+    try {
+      revalidatePath('/');
+    } catch (err) {
+      console.warn('Failed to revalidate homepage after deleting testimonial', err);
+    }
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete testimonial' }, { status: 500 });
