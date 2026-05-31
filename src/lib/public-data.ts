@@ -15,8 +15,6 @@ function openPublicQueryCircuit() {
     publicQueryCircuitOpenUntil,
     Date.now() + PUBLIC_QUERY_COOLDOWN_MS,
   );
-
-  void prisma.$disconnect().catch(() => undefined);
 }
 
 async function withTimeout<T>(
