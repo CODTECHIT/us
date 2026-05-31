@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import { notFound } from "next/navigation";
 import {
@@ -13,6 +14,39 @@ import JobApplicationForm from "@/components/JobApplicationForm";
 import { getPublishedJobBySlug } from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getPublishedJobBySlug(slug);
+
+  if (!job) {
+    return {
+      title: "Job Not Found",
+      description: "This position is no longer available.",
+    };
+  }
+
+  const title = job.title;
+  const description = `${job.title} — ${job.location} (${job.type.replace("_", " ")}). ${job.description?.substring(0, 140) ?? "Apply now through Maxera Talent."}...`;
+
+  return {
+    title,
+    description,
+    keywords: [job.title, job.industry, job.location, "job opening", "apply now", "Maxera Talent"],
+    openGraph: {
+      title: `${job.title} | Maxera Talent`,
+      description,
+      url: `https://maxeratalent.com/jobs/${slug}`,
+    },
+    alternates: {
+      canonical: `https://maxeratalent.com/jobs/${slug}`,
+    },
+  };
+}
 
 export default async function JobDetailPage({
   params,

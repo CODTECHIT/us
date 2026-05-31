@@ -1,9 +1,34 @@
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import { AnimatedJobCard } from "@/components/AnimatedJobCard";
 import { getPublishedJobs } from "@/lib/public-data";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Job Openings",
+  description:
+    "Browse active leadership searches and institutional placements at Maxera Talent. Explore open positions across IT, industrial, logistics, and executive sectors.",
+  keywords: [
+    "job openings",
+    "career opportunities",
+    "executive search jobs",
+    "IT jobs",
+    "industrial jobs",
+    "logistics jobs",
+    "recruitment placements",
+  ],
+  openGraph: {
+    title: "Job Openings | Maxera Talent",
+    description:
+      "Active institutional placements and leadership searches across IT, industrial, logistics, and executive sectors.",
+    url: "https://maxeratalent.com/jobs",
+  },
+  alternates: {
+    canonical: "https://maxeratalent.com/jobs",
+  },
+};
 
 export default async function Jobs() {
   const jobs = await getPublishedJobs();
