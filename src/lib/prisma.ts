@@ -5,56 +5,26 @@ import {
   createMariaDbPoolConfigFromDatabaseUrl,
 } from "./prisma-pool";
 
-let _prisma: ReturnType<typeof prismaClientSingleton> | undefined;
+let _prisma: PrismaClient | undefined;
 
 function prismaClientSingleton() {
   const databaseUrl = process.env.DATABASE_URL;
 
   if (!databaseUrl) {
-    const adapter = new PrismaMariaDb(
-      createMariaDbPoolConfig({
-        host: "127.0.0.1",
-        port: 3306,
-        user: "dummy_user",
-        password: "dummy_password",
-        database: "dummy_db",
-      }),
-    );
-
-    return new PrismaClient({ adapter });
+    throw new Error("DATABASE_URL is not set");
   }
 
-  try {
-    const adapter = new PrismaMariaDb(
-      createMariaDbPoolConfigFromDatabaseUrl(databaseUrl),
-    );
+  const poolConfig = createMariaDbPoolConfigFromDatabaseUrl(databaseUrl);
+  const adapter = new PrismaMariaDb(poolConfig);
 
-    return new PrismaClient({ adapter });
-  } catch (error) {
-    console.warn(
-      "Failed to initialize Prisma adapter, using dummy adapter fallback:",
-      error,
-    );
-
-    const adapter = new PrismaMariaDb(
-      createMariaDbPoolConfig({
-        host: "127.0.0.1",
-        port: 3306,
-        user: "dummy_user",
-        password: "dummy_password",
-        database: "dummy_db",
-      }),
-    );
-
-    return new PrismaClient({ adapter });
-  }
+  return new PrismaClient({ adapter });
 }
 
 declare global {
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
+  var prisma: PrismaClient | undefined;
 }
 
-function getPrisma() {
+function getPrisma(): PrismaClient {
   if (!_prisma) {
     _prisma = globalThis.prisma ?? prismaClientSingleton();
     globalThis.prisma = _prisma;
@@ -63,7 +33,7 @@ function getPrisma() {
   return _prisma;
 }
 
-const prisma = new Proxy({} as ReturnType<typeof prismaClientSingleton>, {
+const prisma = new Proxy({} as PrismaClient, {
   get(_target, property, receiver) {
     return Reflect.get(getPrisma(), property, receiver);
   },
